@@ -2,7 +2,7 @@
 
 services.factory('User', ['$resource',
 function ($resource) {
-    return $resource('api/AdminUsers/:id', { id: '@id' });
+    return $resource('api/Admin/Users/:id', { id: '@id' });
 }]);
 
 services.factory('MultiUserLoader', ['User', '$q',

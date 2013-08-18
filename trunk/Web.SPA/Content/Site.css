@@ -5,11 +5,11 @@ body {
 
 #wrap {
     min-height: 100%;
-    /*height: auto !important;*/
+    height: auto !important;
     height: 100%;
     /* Negative indent footer by it's height */
     margin: 0px auto -40px;
-    padding: 60px 15px 15px 15px;
+    padding: 60px 15px 40px 15px;
 }
 
 #footer {

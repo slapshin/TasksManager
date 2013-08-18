@@ -8,6 +8,7 @@ namespace Web.SPA.App_Start
     using Ninject.Web.Common;
     using System;
     using System.Web;
+    using System.Web.Http;
     using Web.Common.Auth;
     using Web.Common.Mapper;
     using Web.Common.Repository;
@@ -44,6 +45,8 @@ namespace Web.SPA.App_Start
             var kernel = new StandardKernel();
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+
+            GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
 
             RegisterServices(kernel);
             return kernel;

@@ -1,6 +1,6 @@
 ﻿using Model;
 using Web.Common.Mapper;
-using Web.SPA.Models;
+using AdminUserDto = Web.SPA.Areas.Admin.Models.UserDto;
 
 namespace Web.SPA.Common
 {
