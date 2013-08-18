@@ -1,0 +1,18 @@
+﻿@model ICollection<Project>
+
+@{
+    ProjectPriority priority = (ProjectPriority)ViewBag.Priority;
+
+    IList<Project> projects = (from p in Model
+                               where p.Priority == priority
+                               select p).ToList();
+    string @class = priority.ToString().ToLower() + "-priority";
+                               
+}
+
+@if (projects.Count > 0)
+{ 
+    <div class="clearfix @(@class) project-priority-group">
+        @Html.Partial("ProjectsList", projects)
+    </div>
+}

@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/themes/base/modern_ui")
+    @Styles.Render("~/Content/css")
+    @RenderSection("styles", required: false)
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body class="metrouicss">
+    <div class="ajax-indicator">
+        <img src="~/Content/images/ajax-loader.gif" />
+    </div>
+    <div class="page secondary fixed-header">
+        <div class="page-header">
+            <div class="nav-bar">
+                <div class="nav-bar-inner top-menu">
+                    <ul class="menu">
+                        <li class="hovered">
+                            @Html.ActionLink(" ", "Menu", "Home", new { area = "" }, new { @class = "icon-home", style = "font-size: 12pt", title = "Главное меню" })
+                        </li>
+                        <li class="divider"></li>
+                    </ul>
+                    <a class="element brand" href="/">JScrum</a>
+                    @Html.Action("UserLogin", "Home", new { area = "" })
+                </div>
+            </div>
+            <div class="page-header-content">
+                @{
+                    string content = ViewBag.Header ?? @ViewBag.Title;
+                }
+                <h2>@Html.Raw(content)</h2>
+            </div>
+        </div>
+        <div class="page-region">
+            <div class="page-region-content">
+                <div class="padding20" style="">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernui")
+    @Scripts.Render("~/bundles/common")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

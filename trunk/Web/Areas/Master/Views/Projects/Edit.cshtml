@@ -1,0 +1,54 @@
+﻿@using Translation = Model.Meta.Enums.Translation
+
+@model ProjectView
+
+@{
+    ViewBag.Title = "Редактирование проекта";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<div class="row">
+    @using (Html.BeginForm("Edit", "Projects"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+    
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="span4">
+            <h4>Название</h4>
+            <div class="input-control text">
+                @Html.EditorFor(model => model.Title)
+            </div>
+
+            <div class="input-control text">
+                @Html.DropDownListFor(model => model.Priority, Model.Priority.EnumToSelectList<ProjectPriority>(Translation.ProjectPriority.ResourceManager))
+            </div>
+
+            <h4>Комментарии</h4>
+            <div class="input-control text">
+                @Html.TextAreaFor(model => model.Comment)
+            </div>
+        </div>                                                                           
+        <p>
+            <input type="submit" value="Сохранить" />
+        </p>
+    }
+</div>
+
+<p>
+    @{Html.RenderAction("Executors", "Projects", new { id = Model.Id });}
+</p>
+
+<p>
+    @{Html.RenderAction("Observers", "Projects", new { id = Model.Id });}
+</p>
+
+<a href="@Url.Action("Details", "Projects", new { id = Model.Id })" class="button">
+    <i class="icon-arrow-left-3"></i>
+    Назад
+</a>

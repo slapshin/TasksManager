@@ -1,0 +1,68 @@
+﻿@using Translation = Model.Meta.Enums.Translation
+
+@model TaskView
+
+@{
+    ViewBag.Title = "Редактирование задания";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<div class="row">
+    @using (Html.BeginForm("Edit", "Tasks"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.Call_Id)
+
+        <div class="span4">
+            <h4>Название</h4>
+            <div class="input-control text">
+                @Html.EditorFor(model => model.Title)
+            </div>
+
+            <h4>Исполнитель</h4>
+            <div class="input-control text">
+                @Html.DropDownListFor(model => model.Executor_Id, ViewUtils.ExecutorsSelectList(ViewBag.Executors as ICollection<User>, Model.Executor_Id))
+            </div>
+
+            <h4>Deadline</h4>
+            <div class="input-control text custom-calendar">
+                @Html.DateEditor("Deadline", Model.Deadline)
+            </div>
+
+            <h4>Тип</h4>
+            <div class="input-control text">
+                @Html.DropDownListFor(model => model.Type, Model.Type.EnumToSelectList<TaskType>(Translation.TaskType.ResourceManager))
+            </div>
+
+            <h4>Приоритет</h4>
+            <div class="input-control text">
+                @Html.DropDownListFor(model => model.Priority, Model.Priority.EnumToSelectList<TaskPriority>(Translation.TaskPriority.ResourceManager))
+            </div>
+
+            <h4>Статус</h4>
+            <div class="input-control text">
+                @Html.DropDownListFor(model => model.Status, Model.Status.EnumToSelectList<TaskStatus>(Translation.TaskStatus.ResourceManager))
+            </div>
+
+            <h4>Комментарии</h4>
+            <div class="input-control text">
+                @Html.TextAreaFor(model => model.Comment)
+            </div>
+        </div>
+        <p>
+            <input type="submit" value="Сохранить" />
+        </p>
+    }
+</div>
+
+<a href="@Url.Action("Index", "Tasks", new { call = Model.Call_Id, showedTasks = ShowedTasksType.Active }, null)" class="button">
+    <i class="icon-arrow-left-3"></i>
+    Вернуться к списку
+</a>

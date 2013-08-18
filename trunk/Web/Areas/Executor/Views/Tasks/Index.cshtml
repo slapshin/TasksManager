@@ -1,0 +1,53 @@
+﻿@using Translation = Model.Meta.Enums.Translation
+
+@model PageableData<Task>
+
+@{
+    ViewBag.Title = "Мои задания";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/executor")
+}
+
+@Html.Hidden("SetStatusUrl", Url.Action("SetStatus", "Tasks"))
+
+<div class="toolbar">
+    <a href="@Url.Action("Kanban", "Tasks", new { call = ViewBag.CallId })" class="button" title="Kanban доска">
+        <i class="icon-grid"></i>
+    </a>
+</div>
+
+<table class="hovered">
+    <thead>
+        <tr>
+            <th>Заголовок</th>
+            <th>Проект</th>
+            <th>Мастер проекта</th>
+            <th>Дата создания</th>
+            <th>Deadline</th>
+            <th>Тип</th>
+            <th>Приоритет</th>
+            <th>Статус</th>
+            <th class="button-col"></th>
+        </tr>
+    </thead>
+    @foreach (Task task in Model.List)
+    {
+        <tr>
+            <td>@task.Title</td>
+            <td>@task.Call.Project.Title</td>
+            <td>@task.Call.Project.Master.Login</td>
+            <td>@Html.Date(task.Created)</td>
+            <td>@Html.Deadline(task.Deadline)</td>
+            <td>@Translation.TaskType.ResourceManager.GetString(task.Type.ToString())</td>
+            <td>@Html.Priority(task.Priority)</td>
+            <td>@Html.DropDownList("taskStatus", task.Status.EnumToSelectList<TaskStatus>(Translation.TaskStatus.ResourceManager), new { @class = "set-status", data_id = @task.Id })</td>
+            <td>@Html.Comment(task.Comment)</td>
+        </tr>        
+    }
+</table>
+<div class="pagination">
+    @Html.PageLinks(Model.PageNo, Model.PageCount, x => Url.Action("Index", "Tasks", new { page = x }))
+</div>

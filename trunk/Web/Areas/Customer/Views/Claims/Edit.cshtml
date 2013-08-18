@@ -1,0 +1,49 @@
+﻿@using Translation = Model.Meta.Enums.Translation
+
+@model ClaimView
+
+@{
+    ViewBag.Title = string.Format("{0} требования", Model.Id.HasValue ? "Редактирование" : "Создание");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<div class="row">
+    @using (Html.BeginForm("Edit", "Claims"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+
+        @Html.HiddenFor(model => model.Id)
+        
+        <div class="span4">
+            <h4>Заголовок</h4>
+            <div class="input-control text">
+                @Html.EditorFor(model => model.Title)
+            </div>
+            <h4>Тип</h4>
+            <div class="input-control text">
+                @Html.DropDownListFor(model => model.Type, Model.Type.EnumToSelectList<TaskType>(Translation.TaskType.ResourceManager))
+            </div>
+            <h4>Приоритет</h4>
+            <div class="input-control text">
+                @Html.DropDownListFor(model => model.Priority, Model.Priority.EnumToSelectList<TaskPriority>(Translation.TaskPriority.ResourceManager))
+            </div>            
+            <h4>Комментарий</h4>
+            <div class="input-control text">
+                @Html.TextAreaFor(model => model.Comment)
+            </div>
+        </div>  
+        <p>
+            <input type="submit" value="Сохранить" />
+        </p>
+    }
+</div>
+
+<a href="@Url.Action("Index", "Claims")" class="button">
+    <i class="icon-arrow-left-3"></i>
+    Вернуться к списку
+</a>

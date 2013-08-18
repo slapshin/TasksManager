@@ -1,0 +1,60 @@
+﻿@using Translation = Model.Meta.Enums.Translation
+
+@model PageableData<Task>
+
+@{
+    ViewBag.Title = string.Format("Задания заявки №{0}", ViewBag.CallId);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="toolbar">
+    @if ((ShowedTasksType)ViewBag.ShowedTasksType != ShowedTasksType.Completed)
+    {
+        <a href="@Url.Action("Create", "Tasks", new { call = ViewBag.CallId })" class="button" title="Добавить новое задание">
+            <i class="icon-plus-2"></i>
+        </a>
+    }
+    <a href="@Url.Action("Kanban", "Tasks", new { call = ViewBag.CallId })" class="button" title="Kanban доска">
+        <i class="icon-grid"></i>
+    </a>
+</div>
+
+<table class="hovered">
+    <thead>
+        <tr>
+            <th class="button-col"></th>
+            <th class="button-col"></th>
+            <th>Заголовок</th>
+            <th>Дата создания</th>
+            <th>Deadline</th>
+            <th>Тип</th>
+            <th>Приоритет</th>
+            <th>Статус</th>
+            <th>Исполнитель</th>
+            <th class="button-col"></th>
+        </tr>
+    </thead>
+    @foreach (Task task in Model.List)
+    {
+        <tr>
+            <td>@Html.EditButton("Tasks", task.Id)</td>
+            <td>@Html.DeleteButton("Tasks", task.Id)</td>
+            <td>@task.Title</td>
+            <td>@Html.Date(task.Created)</td>
+            <td>@Html.Deadline(task.Deadline)</td>
+            <td>@Translation.TaskType.ResourceManager.GetString(task.Type.ToString())</td>
+            <td>@Html.Priority(task.Priority)</td>
+            <td>@Html.Status(task.Status)</td>
+            <td>@task.ExecutorName()</td>
+            <td>@Html.Comment(task.Comment)</td>
+        </tr>
+    }
+</table>
+<div class="pagination">
+    @Html.PageLinks(Model.PageNo, Model.PageCount, x => Url.Action("Index", "Tasks", new { call = ViewBag.CallId, page = x }))
+</div>
+
+<a href="@Url.Action("Details", "Projects", new { id = (Guid)ViewBag.ProjectId, area = "Master" })" class="button">
+    <i class="icon-arrow-left-3"></i>
+    Вернуться к проекту
+</a>

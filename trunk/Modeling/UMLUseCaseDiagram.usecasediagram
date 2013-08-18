@@ -1,0 +1,520 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="b283f48f-27ce-42d6-a59c-bffa2c5a6c47" name="UMLUseCaseDiagram" linkedPackageId="d80c8a25-3698-463b-88d4-52c202bfaf13" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <ownedCommentsInternal>
+    <comment Id="0c3e36fa-6055-4b57-8d69-84e0a102fa25">
+      <elementDefinition Id="464abcdb-fc78-4f95-8aca-e87bf08beee8" />
+      <body>При установке системы в базе создается администратор по умолчанию</body>
+      <annotatedElements>
+        <actorMoniker Id="b770a1e3-27b6-43b0-b957-aa670c0406a2" LastKnownName="Администратор" />
+      </annotatedElements>
+    </comment>
+    <comment Id="fc94cc82-6106-44b6-b0d5-6f86d2abc263">
+      <elementDefinition Id="1e3a14ba-be2e-4044-b6f2-627234756f50" />
+      <body>В случание неправильного выполнения требования заданию ставится статус "Вернуть на доработку". Если требование выполнено полностью, то ставится статус "Проверено"</body>
+      <annotatedElements>
+        <useCaseMoniker Id="1d0093e8-f757-43b0-ad9b-44f5563b3ab7" LastKnownName="Проверка правильности выполнения требования" />
+      </annotatedElements>
+    </comment>
+  </ownedCommentsInternal>
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <actor Id="b770a1e3-27b6-43b0-b957-aa670c0406a2" name="Администратор" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="1fc7b140-c66e-4e7e-8218-0213671d07dd" />
+        <targetEnds>
+          <association Id="59d58dfb-1ed4-46d9-9e00-0e82b22efb19" isDerived="false" sourceEndRoleName="Администратор" targetEndRoleName="UseCase1" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="894c415f-f657-4674-ad5b-b03cd9c746da" LastKnownName="Управление пользователями" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="1da81969-7c0c-416c-aa56-8c46d6376ca9" name="Администратор" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="e9313659-8d19-48bd-b801-f0b2fcae728b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="6cdaae1d-2608-42da-975f-06834f2b71f8" name="UseCase1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="0cfa2033-e245-42d1-b388-2874365bb40d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="dc5daefd-89f3-408c-a0c4-114d420c6c7d" />
+          </association>
+          <association Id="cd78a4c3-e1bd-4d3b-9195-687c1a6e850f" isDerived="false" sourceEndRoleName="Администратор" targetEndRoleName="UseCase2" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="94757839-5e68-4e33-a3c3-5dd09f13bc99" LastKnownName="Управление проектами" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e0b99575-4ff3-497d-9ec7-985f92ebae44" name="Администратор" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="1f48d50d-c4fa-4e83-a579-c039cec79066" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="05b28e27-9cff-48d2-aba6-2524d027164f" name="UseCase2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="77847395-f73f-447e-b9fa-0ed0d95c861c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="5100ec7b-0d5b-4a91-ac16-21f597474302" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="e9321562-6f18-4ff8-9cd9-4f0e794635d3" name="Мастер" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="42b50acb-a722-49ff-aa45-8a81dd85e7cf" />
+        <targetEnds>
+          <association Id="429b3f8f-e495-47d6-bd6c-98bbd0f479cb" isDerived="false" sourceEndRoleName="Модератор" targetEndRoleName="Назначение задания конкретному исполнителю" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="d6e900f3-3db8-4f89-add5-6e5a1f131b0f" LastKnownName="Назначение задания конкретному исполнителю" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a2325fa7-aba2-45ba-b9ab-edcd1f24ff3c" name="Модератор" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="a3c4147a-3c99-4055-9664-14722bb2b40c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="4fcfd987-f206-43e6-8814-f5c611de7dbf" name="Назначение задания конкретному исполнителю" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="6fc745ef-1630-49e1-8cf4-2732392345ec" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="25c30d10-d104-4239-8841-7b7a2db22795" />
+          </association>
+          <association Id="a2a8247a-f43e-4124-868a-0e3093900fab" isDerived="false" sourceEndRoleName="Мастер" targetEndRoleName="Уточнение деталей требования из песочницы" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="09792b03-df38-4a67-b5e6-fe40fbeb4f49" LastKnownName="Уточнение деталей требования из песочницы" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="5b95c0c0-10be-4a83-a93c-bff4007523f6" name="Мастер" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="cac92ed6-3689-4af2-bf18-5fce837690c3" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f39828ae-d66c-4c41-84f8-b7dc16d6b5a3" name="Уточнение деталей требования из песочницы" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="83f0871e-613d-4023-be4b-22481660ace3" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="a151a868-9a12-45fe-ba30-18df1f1d0eda" />
+          </association>
+          <association Id="9d06b48b-d27a-447d-b4c0-e0c7db843973" isDerived="false" sourceEndRoleName="Мастер" targetEndRoleName="Формирование заявки на основе требования из песочницы" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="a3b01e67-d6e8-46db-820f-e5912abf065e" LastKnownName="Формирование заявки на основе требования из песочницы" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d1cd1c6a-81fb-4aa8-a55e-897b22fe94de" name="Мастер" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="9c5b5d09-799f-401a-b803-1a3a38ee4c4f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="17975444-7aaf-4a55-b5f2-eb9a39dc963d" name="Формирование заявки на основе требования из песочницы" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="09e70757-bdd9-44c2-8d2f-cd0e6ad1adce" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="3c6b9710-4e4f-4bf0-92d4-35348d9dfefe" />
+          </association>
+          <association Id="218608fe-810a-4c0e-b115-7c05fa8bcb73" isDerived="false" sourceEndRoleName="Мастер" targetEndRoleName="Формирование задач в рамках конкретной заявки" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="34b71245-22f3-456f-a3e2-a0f668159fb3" LastKnownName="Формирование задания в рамках конкретной заявки" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="1836f9fc-a177-45b7-88eb-38cd2482763b" name="Мастер" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="59c5e999-0901-495a-b0de-e4672c28c58e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="9c39fec2-5e44-4c3b-bb8c-31645e24f847" name="Формирование задач в рамках конкретной заявки" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="2883810c-06ef-4b5a-900b-cfde54c8c745" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="f9143a29-3b75-4486-8976-5879c9a0e92c" />
+          </association>
+          <association Id="095a5667-2d24-42b6-aeca-3fab98a84062" isDerived="false" sourceEndRoleName="Мастер" targetEndRoleName="UseCase2" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="b3b86e1e-e963-4d8e-a028-8b7f5f2b3a5b" LastKnownName="Первичная проверка соответсвия выполненных заданий установленным требованиям" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="c2814eea-9c40-489f-a5a4-d31b473e88b8" name="Мастер" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="a3414cc5-c080-4e7a-847c-dc3ef818fae3" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="25ec2838-fc92-4476-9b48-c6c4df229045" name="UseCase2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="fa7c04b9-6176-4763-bceb-6efe658599c4" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="8c559a2e-d45f-495b-b049-0a6806f8d6b4" />
+          </association>
+          <association Id="9b032d17-d45e-4d9f-9217-6266cfad3d17" isDerived="false" sourceEndRoleName="Мастер" targetEndRoleName="Публикация новых версий продукта" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="48f7a476-253e-46e6-83d4-342e5219cd3d" LastKnownName="Публикация новых версий продукта" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="8400cbe1-69bb-4072-be3b-98d1605f2c76" name="Мастер" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="9abdd32a-33e7-4711-a968-ea77d27d00d1" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="54fdd460-1d8d-41a1-9c80-5bf28b56b5b4" name="Публикация новых версий продукта" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="fb6c1381-58d9-46fd-a724-593a0d2b1dbf" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="7cc8225d-a31e-4c1d-87cb-3ae7b0efa1ff" />
+          </association>
+          <association Id="b5da9a60-8b1d-4d62-9a7a-26ed8367b821" isDerived="false" sourceEndRoleName="Мастер" targetEndRoleName="Организация тестирования для отдельных задач" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="4b8a5841-d5f6-40a2-96b8-98dfec5010c0" LastKnownName="Организация тестирования для отдельных заданий" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="817c291a-8441-44f0-98ba-7972cc376feb" name="Мастер" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="bef34b3b-da4c-4a76-802c-e6c11117c399" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a4cf8574-7645-4801-ad58-32510cb026d1" name="Организация тестирования для отдельных задач" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="81df2c56-adab-430c-8986-155fe9aee17a" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="d558d1c0-a5c0-4f6c-869f-e0ff46c00280" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="4c1fb2c3-1963-4703-bbbd-9b42715d898a" name="Исполнитель" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="0d1ca238-2b9c-4a9c-a9fd-b190b283b3c8" />
+        <targetEnds>
+          <association Id="7e49ed74-d158-4c61-954c-f7a84c425ff5" isDerived="false" sourceEndRoleName="Исполнитель" targetEndRoleName="Простановка прогресса задания" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="d148a1db-e6cc-46af-8141-70f5db6cd9e3" LastKnownName="Простановка прогресса задания" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d3c5b8b3-1cda-4cac-bce3-4eea3ebe0c16" name="Исполнитель" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="5bf5b9b1-c27a-43f6-9119-c3a2cb515b0e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="97116e4f-2041-4636-8bdc-452478f5e6e5" name="Простановка прогресса задания" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="51ecd85c-3048-4ebb-810b-6a318c92a736" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="0fb4974f-c11e-42b6-978f-331ca7e4b778" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="cf873646-3c7a-4cd5-9dba-a91c60608af5" name="Заказчик" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="4ac36cc1-7900-4528-8e50-6d381cd84831" />
+        <targetEnds>
+          <association Id="f88a2fb9-4142-4100-9be3-7867aeb8605b" isDerived="false" sourceEndRoleName="Заказчик" targetEndRoleName="Создание заданий" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="ecc8d99a-20ab-4826-808c-5a6095a8bc0c" LastKnownName="Добавление требований в песочницу" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e40e11e9-43bc-4e46-bc6e-95f1e25c2b6c" name="Заказчик" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="da7f7f49-b79b-4db8-a7e9-d12baa9b53e4" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="8d6d8bd0-6a67-4bb5-b352-422aec571025" name="Создание заданий" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="0b4fb2f8-3d25-440e-84fc-dbc8108d97ec" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="a2e61448-bb28-4394-bf4a-a64c11ad9df2" />
+          </association>
+          <association Id="904c1976-f801-4125-bc18-a154dfa84755" isDerived="false" sourceEndRoleName="Заказчик" targetEndRoleName="Добавление требований в песочницу1" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="1d0093e8-f757-43b0-ad9b-44f5563b3ab7" LastKnownName="Проверка правильности выполнения требования" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="3d588ed3-054b-4b4b-96e2-40da125a419a" name="Заказчик" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="5f5fa05b-6555-4217-999e-e7a903abaff3" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="c059ae24-759e-4342-9ed7-0490d598ae93" name="Добавление требований в песочницу1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="3f89d587-7398-4e3e-bc4a-ac02982ed21c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="24bfa359-9cf2-4a9e-98dc-965d8e03dc09" />
+          </association>
+          <association Id="fb5707ee-2567-4996-8c4c-d5e37d01fe1f" isDerived="false" sourceEndRoleName="Заказчик" targetEndRoleName="UseCase2" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="2279288c-3c8d-4af7-843b-0fa209f5efad" LastKnownName="Отслеживание процесса выполнения  требования" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f8cb1390-2b2c-4ef3-b490-6995ad9b833c" name="Заказчик" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="34a4e1a1-96e5-4d8a-a2fb-0de374643b8d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="12f9eea9-a182-4063-9ae7-fb9945564744" name="UseCase2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="601ab983-fa66-4e61-9dea-4c6af2bd6b31" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="5d444f00-a5c4-4fc4-8849-1cb6f214923e" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="894c415f-f657-4674-ad5b-b03cd9c746da" name="Управление пользователями" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="227c47c9-5e5a-4d3b-93a0-a514d3441aed" />
+        <additions>
+          <include Id="b61fb38d-f69f-44c9-8b2f-4a8bcd75dff2">
+            <useCaseMoniker Id="7b9b9eeb-d624-4df1-b710-6448cfb606ed" LastKnownName="Удаление пользователей" />
+            <elementDefinition Id="00b84812-e967-4af7-a436-1f2efe115120" />
+          </include>
+          <include Id="52cde224-e926-4f20-abb9-18b839a187f7">
+            <useCaseMoniker Id="704f5593-2f86-46aa-b6f5-963582bbcd06" LastKnownName="Редактирование пользователей" />
+            <elementDefinition Id="c37deebb-eddb-4540-b63a-b86f88d8db81" />
+          </include>
+          <include Id="66c4a408-5511-43ad-bbdd-22245a139410">
+            <useCaseMoniker Id="9a98f298-8d9f-4f00-aa00-487bfd9db355" LastKnownName="Создание пользователей" />
+            <elementDefinition Id="e64b6b4e-8141-4695-b81e-07fe37a0a92a" />
+          </include>
+        </additions>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="ecc8d99a-20ab-4826-808c-5a6095a8bc0c" name="Добавление требований в песочницу" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="36407a2b-3e3d-4d6a-b89a-cb7cd681181f" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="9a98f298-8d9f-4f00-aa00-487bfd9db355" name="Создание пользователей" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="3669ece8-2256-45fa-b7a7-c64652816deb" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="704f5593-2f86-46aa-b6f5-963582bbcd06" name="Редактирование пользователей" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="53bd762d-6681-4ca2-bdd0-d3bb0f789a8c" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="7b9b9eeb-d624-4df1-b710-6448cfb606ed" name="Удаление пользователей" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="4e6b5589-9946-4c0b-975e-82e3c1d4cec8" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="d6e900f3-3db8-4f89-add5-6e5a1f131b0f" name="Назначение задания конкретному исполнителю" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="2ca26b48-4dcf-4d28-be65-211c00774a64" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="d148a1db-e6cc-46af-8141-70f5db6cd9e3" name="Простановка прогресса задания" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="c9c58e1f-895e-4a1d-b9bf-4d83e9edbb10" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="1d0093e8-f757-43b0-ad9b-44f5563b3ab7" name="Проверка правильности выполнения требования" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="cf56c071-31ea-408f-8305-be10e3cd3c49" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="2279288c-3c8d-4af7-843b-0fa209f5efad" name="Отслеживание процесса выполнения  требования" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="ff48ed75-0833-4d28-acf6-f6f55c96d3f0" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="7d0f3813-10a2-48b0-95cf-42be7180b303" name="Диспетчер требований" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="3c08f436-7c60-4bb2-aa00-981bd711afb5" />
+        <targetEnds>
+          <association Id="05028cd0-2f3b-4edd-b628-354cfc82f928" isDerived="false" sourceEndRoleName="Диспетчер заданий" targetEndRoleName="UseCase2" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="36f9795d-e5de-47fd-b665-4012ebd882f2" LastKnownName="Распределение требований из песочницы по проектам" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="1bfabc9b-41c1-4a3a-9f4e-75818c9453ef" name="Диспетчер заданий" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="52e7885a-9da2-4725-ba09-2ba76fdf9eac" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="8c72ec7c-e934-43b0-a065-be278bf166b8" name="UseCase2" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="907ce5de-9700-43f1-a214-ad7122999801" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="2efc319e-bf20-4476-810c-ba3be4dfa6e9" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="36f9795d-e5de-47fd-b665-4012ebd882f2" name="Распределение требований из песочницы по проектам" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="8deb6650-b200-4736-beaf-de70619df2ad" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="94757839-5e68-4e33-a3c3-5dd09f13bc99" name="Управление проектами" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="e8bfdd69-a01b-4a3a-9f8c-c3d2e46b8fd8" />
+        <additions>
+          <include Id="27339c9c-a5b0-4919-bfd9-470aaae82e63">
+            <useCaseMoniker Id="bf88861f-5334-4417-bfbc-68ab1d8cf0a9" LastKnownName="Добавление проектов" />
+            <elementDefinition Id="65b534b9-42a5-41a2-8171-1f07a282d5d9" />
+          </include>
+          <include Id="a72ede9d-10da-495d-87ab-4c0895b3cb20">
+            <useCaseMoniker Id="44c7f2e6-ea90-4e88-ab69-e9d90b662617" LastKnownName="Редактирование проектов" />
+            <elementDefinition Id="67977939-affc-43e5-b09f-35f5958f5cbc" />
+          </include>
+          <include Id="22bab7b4-f619-4096-8d7d-281bd8a7bc3b">
+            <useCaseMoniker Id="82149830-926a-45a2-bde6-2651ed1692ea" LastKnownName="Удаление проектов" />
+            <elementDefinition Id="53b2de89-a7c9-4b2a-937a-9b470307ff77" />
+          </include>
+        </additions>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="bf88861f-5334-4417-bfbc-68ab1d8cf0a9" name="Добавление проектов" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="bfe1b323-c9a8-42c3-bf48-921a52dae8d4" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="82149830-926a-45a2-bde6-2651ed1692ea" name="Удаление проектов" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="bcc39d3e-664e-428a-8f20-4b8f586dd13b" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="44c7f2e6-ea90-4e88-ab69-e9d90b662617" name="Редактирование проектов" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="9683561a-8323-4268-ac86-213a59f07ca9" />
+        <additions>
+          <include Id="c66b26fc-69c5-4180-bf45-c94b4850a9ed">
+            <useCaseMoniker Id="02b5f87a-cf49-4b75-a8c1-e9f0b5e4279a" LastKnownName="Редактирование названия,.." />
+            <elementDefinition Id="e1f16c18-09b1-4f4a-81af-959b3fdc472d" />
+          </include>
+          <include Id="ec32b383-dc88-4f22-857f-24fcf38e7e46">
+            <useCaseMoniker Id="4cde908a-661e-4a2a-8bbb-537a4a37ddd4" LastKnownName="Смена мастера по проекту" />
+            <elementDefinition Id="f185630e-d1a7-44d4-a46f-225e148de905" />
+          </include>
+        </additions>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="02b5f87a-cf49-4b75-a8c1-e9f0b5e4279a" name="Редактирование названия,.." isAbstract="false" isLeaf="false">
+        <elementDefinition Id="1a8c6f25-503e-4413-ae08-05f33bda2ee1" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="4cde908a-661e-4a2a-8bbb-537a4a37ddd4" name="Смена мастера по проекту" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="67ad5ed4-bd3e-4ca0-9f28-3fcc2fc3c00f" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="09792b03-df38-4a67-b5e6-fe40fbeb4f49" name="Уточнение деталей требования из песочницы" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="f25684cb-715d-4e8f-a0b3-7f1c401395a2" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="a3b01e67-d6e8-46db-820f-e5912abf065e" name="Формирование заявки на основе требования из песочницы" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="17263139-a2ba-46be-8b7b-060ec2a006c7" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="34b71245-22f3-456f-a3e2-a0f668159fb3" name="Формирование задания в рамках конкретной заявки" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="ca7c8cd2-c833-44d0-98fc-9da6c2d15549" />
+        <additions>
+          <include Id="14ce2712-bfbe-4ab7-bcfd-666c8044292b">
+            <useCaseMoniker Id="ffd416a9-3e0f-41d4-a56d-47c6bb308938" LastKnownName="Формулирование" />
+            <elementDefinition Id="b54ca05b-5917-44d7-8854-d17f0ed896d5" />
+          </include>
+          <include Id="692e8678-8097-4921-a9f7-23fef99b2ebc">
+            <useCaseMoniker Id="33aaf71a-b17c-4cd3-8e5b-24f3661b9178" LastKnownName="Определение веса задачи в заявке" />
+            <elementDefinition Id="6f6d7283-8c25-4497-a16e-d23d92999218" />
+          </include>
+        </additions>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="ffd416a9-3e0f-41d4-a56d-47c6bb308938" name="Формулирование" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="69e831f7-7496-4ce1-9825-5bd5a5807077" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="33aaf71a-b17c-4cd3-8e5b-24f3661b9178" name="Определение веса задачи в заявке" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="f5db4056-2212-4b82-8fc6-63c4f1cbb1b7" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="b3b86e1e-e963-4d8e-a028-8b7f5f2b3a5b" name="Первичная проверка соответсвия выполненных заданий установленным требованиям" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="53792dcd-056a-4b42-a632-d0016b7f94c0" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="48f7a476-253e-46e6-83d4-342e5219cd3d" name="Публикация новых версий продукта" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="dc29b6a3-d967-4e07-ae74-20ad3e9eb9d1" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="4b8a5841-d5f6-40a2-96b8-98dfec5010c0" name="Организация тестирования для отдельных заданий" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="0539aa6c-97b6-434f-9f41-8d19008ef65f" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="f79994a7-68f6-4a34-80d7-7d3a73f003a7" name="Тестировщик" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="c202cf02-1f97-4b86-8fc3-c5d3850a2b01" />
+        <targetEnds>
+          <association Id="14cd6b4d-4402-4f1e-9e18-2494286aef2c" isDerived="false" sourceEndRoleName="Тестировщик" targetEndRoleName="Тестирование продукта" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="8e88191b-9e49-46d3-936f-5fae229101f9" LastKnownName="Тестирование продукта" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="08d1e1b6-1c15-4cd6-8bbb-1879ae4db5b2" name="Тестировщик" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="a4130bad-20d4-4d24-8fa7-436e19b28f68" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a78e72ca-20f5-43d3-b3a3-aaa5b70000d1" name="Тестирование продукта" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="26eba40b-3b8e-4f55-a1eb-98d90f340248" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="9b33aa4b-db2f-4024-862c-a6bcdb7dd087" />
+          </association>
+          <association Id="b901f3e8-befd-4d80-8c18-0758a8ac09c7" isDerived="false" sourceEndRoleName="Тестировщик" targetEndRoleName="Формирование отчета по тестированию" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="bf50c76a-c858-47dd-9e84-702953b1dfa0" LastKnownName="Формирование отчета по тестированию" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0bac7d1a-b818-481d-a495-bc574d2e2650" name="Тестировщик" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="a261671b-6d7e-4dac-a532-bf73f1e07fe8" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ee614f2e-1302-4687-aeda-5ef59cc65b2a" name="Формирование отчета по тестированию" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="5f7d880f-0d3d-4ba3-8770-e8b329ecda1d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="93086ed3-83dd-492c-b62e-a2e1622f7a0b" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="8e88191b-9e49-46d3-936f-5fae229101f9" name="Тестирование продукта" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="a89694ea-3a09-4125-a614-72b4489c3a7b" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="bf50c76a-c858-47dd-9e84-702953b1dfa0" name="Формирование отчета по тестированию" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="e610e506-5be7-4f82-bf59-a8dff4ae2457" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+  </packagedElements>
+  <package Id="d80c8a25-3698-463b-88d4-52c202bfaf13" name="Modeling">
+    <elementDefinition Id="56dcb54e-22db-4917-8f6b-fd49aa591101" />
+    <profileInstances>
+      <packageHasProfileInstances Id="bab77250-506b-44e8-af8b-00eda2989938">
+        <profileInstance Id="feeef685-8e17-4469-a2d4-097e88d9f9be" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="55ef9581-03d0-43dc-a055-0f394119d5df">
+        <profileInstance Id="76d17c31-b450-4130-a0c6-3a73083157fa" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="1a7c2641-bf14-4c8b-be9e-9fc38bd80cb9">
+        <profileInstance Id="0a53e0a0-b016-45a0-ae60-3fbb346337ee" name="TextTemplateBindings">
+          <elementDefinition Id="0a2b838e-2d6d-49fe-b519-e13ae32b47e2" />
+        </profileInstance>
+        <elementDefinition Id="2efdcf48-9b2e-4ac2-b93e-b2f828476200" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</useCaseModelRoot>

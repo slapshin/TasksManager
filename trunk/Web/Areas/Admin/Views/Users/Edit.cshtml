@@ -1,0 +1,81 @@
+﻿@model UserView
+
+@{
+    ViewBag.Title = string.Format("{0} пользователя", Model.Id.HasValue ? "Редактирование" : "Создание");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<div class="row">
+    @using (Html.BeginForm("Edit", "Users"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(false)
+    
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="span4">
+
+            <h4>Логин</h4>
+            <div class="input-control text">
+                @Html.EditorFor(model => model.Login)
+            </div>
+
+            <h4>Email</h4>
+            <div class="input-control text">
+                @Html.EditorFor(model => model.Email)
+            </div>
+
+            <h4>Имя</h4>
+            <div class="input-control text">
+                @Html.EditorFor(model => model.Name)
+            </div>
+
+            <h4>Фамилия</h4>
+            <div class="input-control text">
+                @Html.EditorFor(model => model.Surname)
+            </div>
+
+            <h4>Отчество</h4>
+            <div class="input-control text">
+                @Html.EditorFor(model => model.Patronymic)
+            </div>
+
+            <fieldset style="margin-bottom: 10px">
+                <legend>Роли пользователя</legend>
+                <ul class="unstyled">
+                    <li>
+                        @Html.UserRoleSwitch(UserRole.Admin, () => Html.EditorFor(model => model.IsAdmin))
+                    </li>
+                    <li>
+                        @Html.UserRoleSwitch(UserRole.Customer, () => Html.EditorFor(model => model.IsCustomer))
+                    </li>
+                    <li>
+                        @Html.UserRoleSwitch(UserRole.Executor, () => Html.EditorFor(model => model.IsExecutor))
+                    </li>
+                    <li>
+                        @Html.UserRoleSwitch(UserRole.Master, () => Html.EditorFor(model => model.IsMaster))
+                    </li>
+                    <li>
+                        @Html.UserRoleSwitch(UserRole.Router, () => Html.EditorFor(model => model.IsRouter))
+                    </li>
+                    <li>
+                        @Html.UserRoleSwitch(UserRole.Tester, () => Html.EditorFor(model => model.IsTester))
+                    </li>
+                </ul>
+            </fieldset>
+        </div>                                                                           
+        <p>
+            <input type="submit" value="Сохранить" />
+        </p>
+    }
+</div>
+
+<a href="@Url.Action("Index", "Users")" class="button">
+    <i class="icon-arrow-left-3"></i>
+    Вернуться к списку
+</a>

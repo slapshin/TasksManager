@@ -1,0 +1,34 @@
+﻿@using Translation = Model.Meta.Enums.Translation;
+
+@model  Claim
+
+@{
+    string text;
+    bool canCheck = false;
+    if (Model.Call != null)
+    {
+        text = string.Format("{0} ({1})", Model.Call.Presentation(), Translation.CallStatus.ResourceManager.GetString(Model.Call.Status.ToString()));
+        canCheck = Model.Call.Status == CallStatus.Checked || Model.Call.Status == CallStatus.Completed;
+    }
+    else
+    {
+        text = Model.Project == null ? "Принято" : "Обрабатывается";
+    }        
+}
+
+@text
+
+@if (canCheck)
+{
+    <span class="place-right">
+        @if ((Model.Call.Status == CallStatus.Checked) || (Model.Call.Status == CallStatus.Completed))
+        {
+            <a href="#" class="return-call icon-thumbs-down" title="Вернуть на доработку" data-id="@Model.Call.Id"></a>
+        }
+
+        @if (Model.Call.Status == CallStatus.Completed)
+        {
+            <a href="#" class="set-call-checked icon-thumbs-up" title="Проверено" data-id="@Model.Call.Id"></a>
+        }
+    </span>
+}

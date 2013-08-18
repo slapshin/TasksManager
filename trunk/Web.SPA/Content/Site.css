@@ -1,0 +1,62 @@
+﻿html,
+body {
+    height: 100%;
+}
+
+#wrap {
+    min-height: 100%;
+    /*height: auto !important;*/
+    height: 100%;
+    /* Negative indent footer by it's height */
+    margin: 0px auto -40px;
+    padding: 60px 15px 15px 15px;
+}
+
+#footer {
+    height: 40px;
+    padding-top: 10px;
+    text-align: center;
+    border-top: 1px solid #999;
+}
+
+#loginForm {
+    margin-top: 60px;
+}
+
+#logoutForm {
+    margin: 0px !important;
+}
+
+    #logoutForm a {
+        color: #999;
+    }
+
+        #logoutForm a:hover {
+            text-decoration: none !important;
+            color: white;
+        }
+
+.error {
+    float: none;
+    color: red;
+    vertical-align: top;
+}
+
+.validation-summary-errors {
+    color: red;
+}
+
+    .validation-summary-errors ul {
+        list-style: none;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+@media (max-width: 980px) {
+    /* Enable use of floated navbar text */
+    .navbar-text.pull-right {
+        float: none;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}

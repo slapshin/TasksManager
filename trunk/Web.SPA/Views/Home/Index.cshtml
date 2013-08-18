@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Главная";
+}
+
+@functions{
+    public string GetAntiForgeryToken()
+    {
+        string cookieToken, formToken;
+        AntiForgery.GetTokens(null, out cookieToken, out formToken);
+        return cookieToken + ":" + formToken;
+    }
+}
+
+
+@if (@User.Identity.IsAuthenticated)
+{
+    <div id="main-content" data-ng-app="tasks">
+        <div data-ng-view></div> <!-- The SPA Views go here -->
+    </div>
+    <input id="antiForgeryToken" type="hidden" value="@GetAntiForgeryToken()" />
+
+    @section scripts {
+        @Scripts.Render("~/bundles/angular")        
+        @Scripts.Render("~/bundles/tasks")
+    }
+}
+else
+{
+    @Html.Partial("_Login")
+}

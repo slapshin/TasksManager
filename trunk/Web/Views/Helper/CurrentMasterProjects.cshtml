@@ -1,0 +1,6 @@
+﻿@model ICollection<Project>
+
+@Html.Partial("ProjectsPriorityGroup", Model, new ViewDataDictionary { { "Priority", ProjectPriority.High } })
+@Html.Partial("ProjectsPriorityGroup", Model, new ViewDataDictionary { { "Priority", ProjectPriority.Middle } })
+@Html.Partial("ProjectsPriorityGroup", Model, new ViewDataDictionary { { "Priority", ProjectPriority.Low } })
+

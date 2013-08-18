@@ -1,0 +1,52 @@
+﻿@model ICollection<User>
+
+@{
+    ViewBag.Title = "Управление участниками проекта";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/master")
+}
+
+@Html.Hidden("AvailableExecutorsUrl", @Url.Action("AvailableExecutors", "Projects"))
+@Html.Hidden("AddExecutorUrl", @Url.Action("AddExecutor", "Projects"))
+@Html.Hidden("RemoveExecutorUrl", @Url.Action("RemoveExecutor", "Projects"))
+@Html.Hidden("ProjectId", (Guid)ViewBag.ProjectId)
+
+<div class="toolbar">
+    <button class="add-exec">
+        <i class="icon-plus-2"></i>
+    </button>
+</div>
+
+@if (Model.Count > 0)
+{         
+    <table class="hovered">
+        <thead>
+            <tr>
+                <th class="button-col"></th>
+                <th>Логин</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+            </tr>
+        </thead>
+        @foreach (User exec in Model)
+        {
+            <tr>
+                <td>
+                    <a class="remove-exec icon-remove" data-id="@exec.Id" href="#" title="Удалить"></a>
+                </td>
+                <td>@exec.Login</td>
+                <td>@exec.Name</td>
+                <td>@exec.Surname</td>
+            </tr>        
+        }
+    </table>
+}
+
+<a href="@Url.Action("Edit", "Projects", new { id = (Guid)ViewBag.ProjectId, area = "Master" })" class="button">
+    <i class="icon-arrow-left-3"></i>
+    Назад
+</a>
+

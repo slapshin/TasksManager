@@ -1,0 +1,22 @@
+﻿@model Call
+
+@{
+    ViewBag.Title = "Kanban доска";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/master")
+}
+
+@Html.Hidden("CallId", Model.Id)
+@Html.Hidden("CallTasksUrl", Url.Action("Tasks", "Calls"))
+@Html.Hidden("SetTaskStatusUrl", Url.Action("SetStatus", "Tasks"))
+
+<div class="toolbar">
+    <a href="@Url.Action("Index", "Tasks", new { call = Model.Id })" class="button" title="Обычный вид">
+        <i class="icon-list"></i>
+    </a>
+</div>
+
+<div id="TasksKanbanBoard"></div>

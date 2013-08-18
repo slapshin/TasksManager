@@ -1,0 +1,58 @@
+﻿@using Translation = Model.Meta.Enums.Translation
+
+@model PageableData<Claim>
+
+@{
+    ViewBag.Title = "Требования заказчика";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/master");
+}
+
+@if (Model.PageCount > 0)
+{     
+    @Html.Hidden("CreateCallUrl", Url.Action("CreateCall", "Claims"))
+
+    <table class="hovered">
+        <thead>
+            <tr>
+                <th class="button-col"></th>
+                <th>Заголовок</th>
+                <th>Дата создания</th>
+                <th>Проект</th>
+                <th>Тип</th>
+                <th>Приоритет</th>
+                <th>Статус</th>
+                <th class="button-col"></th>
+            </tr>
+        </thead>
+        @foreach (Claim claim in Model.List)
+        {
+            <tr>
+                <td>
+                    @if (claim.Call == null)
+                    {
+                        <a class="create-call icon-tag" href="#" data-id="@claim.Id" title="Сформировать заявку"></a>
+                    }
+                </td>
+                <td>@claim.Title</td>
+                <td>@Html.Date(claim.Created)</td>
+                <td>@claim.Project.Title</td>
+                <td>@Translation.TaskType.ResourceManager.GetString(claim.Type.ToString())</td>
+                <td>@Html.Priority(claim.Priority)</td>
+                <td>
+                    @if (claim.Call != null)
+                    {
+                        @Html.ActionLink(claim.Call.Presentation(), "Edit", "Calls", new { id = claim.Call.Id }, null)                     
+                    }
+                </td>
+                <td>@Html.Comment(claim.Comment)</td>
+            </tr>        
+        }
+    </table>
+    <div class="pagination">
+        @Html.PageLinks(Model.PageNo, Model.PageCount, x => Url.Action("Index", new { page = x }))
+    </div>
+}

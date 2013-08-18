@@ -1,0 +1,46 @@
+﻿@using Translation = Model.Meta.Enums.Translation
+
+@{
+    ViewBag.Title = "Песочница";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/router")
+}
+
+
+@model PageableData<Claim>
+
+@if (Model.PageCount > 0)
+{ 
+    @Html.Hidden("ProjectstUrl", Url.Action("Projects", "Claims"))    
+    @Html.Hidden("AssignProjectUrl", Url.Action("AssignProject", "Claims"))    
+                
+    <table class="hovered">
+        <thead>
+            <tr>
+                <th class="button-col"></th>
+                <td>Заголовок</td>
+                <td>Дата создания</td>
+                <td>Тип</td>
+                <td>Приоритет</td>
+                <th class="button-col"></th>
+            </tr>
+        </thead>
+        @foreach (Claim claim in Model.List)
+        {
+            <tr>
+                <td><a href="#" class="assign-project icon-link" data-id="@claim.Id" title="Связать с проектом"></a></td>
+                <td>@claim.Title</td>
+                <td>@Html.Date(claim.Created)</td>
+                <td>@Translation.TaskType.ResourceManager.GetString(claim.Type.ToString())</td>
+                <td>@Html.Priority(claim.Priority)</td>
+                <td>@Html.Comment(claim.Comment)</td>
+            </tr>        
+        }
+    </table>
+    <div class="pagination">
+        @Html.PageLinks(Model.PageNo, Model.PageCount, x => Url.Action("Index", new { page = x }))
+    </div>
+}

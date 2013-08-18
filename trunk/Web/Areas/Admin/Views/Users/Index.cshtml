@@ -1,0 +1,54 @@
+﻿@model PageableData<User>
+
+@{
+    ViewBag.Title = "Пользователи";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/admin")
+}
+
+@Html.Hidden("ChangePasswordUrl", Url.Action("ChangePassword", "Users", new { area = "Admin" }))
+
+<div class="toolbar">
+    <a href="@Url.Action("Create", "Users")" class="button" title="Добавить нового пользователя">
+        <i class="icon-plus-2"></i>
+    </a>
+</div>
+
+@if (Model.PageCount > 0)
+{ 
+    <table class="hovered">
+        <thead>
+            <tr>
+                <th class="button-col"></th>
+                <th class="button-col"></th>
+                <th class="button-col"></th>
+                <th>Логин</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Отчество</th>
+                <th>Email</th>
+                <th>Роли</th>
+            </tr>
+        </thead>
+        @foreach (User user in Model.List)
+        {
+            <tr>                
+                <td>@Html.EditButton("Users", user.Id)</td>
+                <td>@Html.DeleteButton("Users", user.Id)</td>
+                <td><a class="change-pass icon-key" href="#" data-id="@user.Id" title="Сменить пароль"></a></td>
+                <td>@user.Login</td>
+                <td>@user.Name</td>
+                <td>@user.Surname</td>
+                <td>@user.Patronymic</td>
+                <td>@user.Email</td>
+                <td>@user.RolesToString()</td>
+            </tr>        
+        }
+    </table>
+    <div class="pagination">
+        @Html.PageLinks(Model.PageNo, Model.PageCount, x => Url.Action("Index", new { page = x }))
+    </div>
+}

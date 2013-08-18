@@ -1,0 +1,24 @@
+﻿@using Model
+
+@model User
+
+<div class="nav-bar-inner place-right">
+    <ul class="menu">        
+        @if (Model != null)
+        {
+            <li class="hovered">
+                @Html.ActionLink(@Model.Login, "Menu", "Home", new { area = "" }, null)
+            </li>              
+            <li class="divider"></li>               
+            <li class="hovered">
+                @Html.ActionLink("Выйти", "Logout", "Login", null, new { title = "Выйти из системы" })
+            </li>            
+        }
+        else
+        {                       
+            <li class="hovered">
+                @Html.ActionLink("Войти", "Index", "Login")
+            </li>            
+        }
+    </ul>
+</div>
