@@ -21,6 +21,10 @@ namespace Web.SPA
                                         "~/Content/css/bootstrap.min.css",
                                         "~/Content/css/bootstrap-glyphicons.css"));
 
+            bundles.Add(new StyleBundle("~/Content/angular").Include(
+                                        "~/Content/angular-ui.css",
+                                        "~/Content/ng-grid.css"));
+
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                                         "~/Content/themes/base/jquery.ui.core.css",
                                         "~/Content/themes/base/jquery.ui.resizable.css",
@@ -50,13 +54,15 @@ namespace Web.SPA
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                                         "~/Scripts/angular.js",
-                                        "~/Scripts/angular-resource.js"));
+                                        "~/Scripts/angular-resource.js",
+                                        "~/Scripts/ng-grid-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/ajaxlogin").Include(
                                         "~/Scripts/custom/ajaxlogin.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/tasks").Include(
                                         "~/app/app.js", // must be first
+                                        "~/app/consts.js",
                                         "~/app/controllers/home.js",
                                         "~/app/services/logger.js",
                                         "~/app/admin/controllers/users.js",

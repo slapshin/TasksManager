@@ -1,0 +1,2 @@
+﻿var TASKS_GRID_ROW_COUNT = 20;
+var TASKS_PAGE_SIZES = [20, 50, 100];

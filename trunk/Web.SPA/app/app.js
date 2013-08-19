@@ -2,7 +2,7 @@
 
 // 'todo' is the one Angular (Ng) module in this app
 // 'todo' module is in global namespace
-window.tasks = angular.module('tasks', ['admin.users.services']);
+window.tasks = angular.module('tasks', ['admin.users.services', 'ngGrid']);
 
 // Add global "services" (like breeze and Q) to the Ng injector
 // Learn about Angular dependency injection in this video
@@ -16,19 +16,25 @@ tasks.config(['$routeProvider', function ($routeProvider) {
         when('/', { templateUrl: 'app/views/home/index.html', controller: 'HomeCtrl' }).
         //admin
         // - users
-        when('/admin/users/index', {
-            templateUrl: 'app/admin/views/users/index.html',
-            controller: 'admin.UsersCtrl',
+        when('/admin/users/list', {
+            templateUrl: 'app/admin/views/users/list.html',
+            controller: 'admin.users.listCtrl',
             resolve: {
+                total: function (UsersCount) {
+                    return UsersCount();
+                },
                 users: function (MultiUserLoader) {
                     return MultiUserLoader();
                 }
             }
         }).
         when('/admin/users/', {
-            templateUrl: 'app/admin/views/users/index.html',
-            controller: 'admin.UsersCtrl',
+            templateUrl: 'app/admin/views/users/list.html',
+            controller: 'admin.users.listCtrl',
             resolve: {
+                total: function (UsersCount) {
+                    return UsersCount();
+                },
                 users: function (MultiUserLoader) {
                     return MultiUserLoader();
                 }

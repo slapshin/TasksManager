@@ -12,11 +12,34 @@ namespace Web.SPA
 
             config.MapHttpAttributeRoutes();
 
+            //config.Routes.MapHttpRoute(
+            //           name: "AreaControllerOnly",
+            //           routeTemplate: "api/{controller}"
+            //           );
+
+            //config.Routes.MapHttpRoute(
+            //    name: "AreaControllerAndId",
+            //    routeTemplate: "api/{controller}/{id}",
+            //    defaults: null,
+            //    constraints: new { id = @"^(\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\}{0,1})$" }
+            //);
+
+            //config.Routes.MapHttpRoute(
+            //    name: "ControllerAndAction",
+            //    routeTemplate: "api/{controller}/{action}"
+            //);
+
             config.Routes.MapHttpRoute(
                 name: "AreaApi",
                 routeTemplate: "api/{area}/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            //config.Routes.MapHttpRoute(
+            //    name: "AreaActionApi",
+            //    routeTemplate: "api/{area}/{controller}/{action}"
+            //);
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
