@@ -7,6 +7,7 @@ namespace Web.SPA.App_Start
 {
     public class NinjectDependencyScope : IDependencyScope
     {
+        private bool disposed = false;
         private IResolutionRoot resolver;
 
         public NinjectDependencyScope(IResolutionRoot resolver)
@@ -14,10 +15,17 @@ namespace Web.SPA.App_Start
             this.resolver = resolver;
         }
 
+        ~NinjectDependencyScope()
+        {
+            Dispose(false);
+        }
+
         public object GetService(Type serviceType)
         {
             if (resolver == null)
+            {
                 throw new ObjectDisposedException("this", "This scope has been disposed");
+            }
 
             return resolver.TryGet(serviceType);
         }
@@ -25,35 +33,35 @@ namespace Web.SPA.App_Start
         public System.Collections.Generic.IEnumerable<object> GetServices(Type serviceType)
         {
             if (resolver == null)
+            {
                 throw new ObjectDisposedException("this", "This scope has been disposed");
+            }
 
             return resolver.GetAll(serviceType);
         }
 
         public void Dispose()
         {
-            IDisposable disposable = resolver as IDisposable;
-            if (disposable != null)
-                disposable.Dispose();
-
-            resolver = null;
-        }
-    }
-
-    // This class is the resolver, but it is also the global scope so we derive from NinjectScope.
-    public class NinjectDependencyResolver : NinjectDependencyScope, IDependencyResolver
-    {
-        private IKernel kernel;
-
-        public NinjectDependencyResolver(IKernel kernel)
-            : base(kernel)
-        {
-            this.kernel = kernel;
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
-        public IDependencyScope BeginScope()
+        protected virtual void Dispose(bool disposing)
         {
-            return new NinjectDependencyScope(kernel.BeginBlock());
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    IDisposable disposable = resolver as IDisposable;
+                    if (disposable != null)
+                    {
+                        disposable.Dispose();
+                    }
+
+                    resolver = null;
+                }
+                disposed = true;
+            }
         }
     }
 }

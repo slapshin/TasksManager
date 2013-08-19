@@ -1,5 +1,5 @@
 ﻿tasks.controller('admin.ProjectsCtrl',
     ['$scope', 'logger',
     function ($scope, logger) {
-        logger.log('creating AdminProjectsCtrl');
+        logger.log('creating admin.ProjectsCtrl');
     }]);
