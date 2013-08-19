@@ -31,16 +31,16 @@ function (User, $route, $q) {
     };
 }]);
 
-services.factory('UsersCount', ['$http', function ($http) {
+services.factory('UsersCount', ['$http', '$q', function ($http, $q) {
     return function () {
-        var count = 0;
-        $http.get('api/Admin/Users/UsersCount')
+        var delay = $q.defer();
+        $http.get('api/Admin/Users/Count')
         .success(function (data) {
-            count = data;
+            delay.resolve(data);
         })
-        .error(function (data, status, headers, config) {
-            var t = 8;
+        .error(function () {
+            delay.reject('UsersCount error');
         });
-        return count;
+        return delay.promise;
     };
 }]);

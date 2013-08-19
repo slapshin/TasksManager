@@ -1,30 +1,40 @@
 ﻿tasks.controller('admin.users.listCtrl',
-    ['$scope', 'users', 'total', 'logger',
-    function ($scope, users, total, logger) {
-        $scope.server_users = users;
+    ['$scope', '$http', 'total', 'logger',
+    function ($scope, $http, total, logger) {
+        $scope.totalServerItems = total;
         logger.log('total ' + total);
 
         $scope.filterOptions = {
             filterText: "",
             useExternalFilter: true
         };
-        $scope.totalServerItems = 0;
+
         $scope.pagingOptions = {
             pageSizes: TASKS_PAGE_SIZES,
             pageSize: TASKS_GRID_ROW_COUNT,
             currentPage: 1
         };
 
-        $scope.setPagingData = function (data, page, pageSize) {
-            var pagedData = data.slice((page - 1) * pageSize, page * pageSize);
-            $scope.users = pagedData;
-            $scope.totalServerItems = data.length;
+        $scope.setPagingData = function (data) {
+            $scope.users = data;
             if (!$scope.$$phase) {
                 $scope.$apply();
             }
         };
         $scope.getPagedDataAsync = function (pageSize, page, searchText) {
-            $scope.setPagingData(users, page, pageSize);
+            setTimeout(function () {
+                var data;
+                $http.get('api/Admin/Users/Page',
+                    {
+                        params:
+                          {
+                              page: page,
+                              pageSize: pageSize
+                          }
+                    }).success(function (data) {
+                        $scope.setPagingData(data);
+                    });
+            }, 100);
         };
 
         $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);

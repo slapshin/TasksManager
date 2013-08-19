@@ -12,38 +12,22 @@ namespace Web.SPA
 
             config.MapHttpAttributeRoutes();
 
-            //config.Routes.MapHttpRoute(
-            //           name: "AreaControllerOnly",
-            //           routeTemplate: "api/{controller}"
-            //           );
-
-            //config.Routes.MapHttpRoute(
-            //    name: "AreaControllerAndId",
-            //    routeTemplate: "api/{controller}/{id}",
-            //    defaults: null,
-            //    constraints: new { id = @"^(\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\}{0,1})$" }
-            //);
-
-            //config.Routes.MapHttpRoute(
-            //    name: "ControllerAndAction",
-            //    routeTemplate: "api/{controller}/{action}"
-            //);
-
             config.Routes.MapHttpRoute(
-                name: "AreaApi",
-                routeTemplate: "api/{area}/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+                name: "AreaActionApi",
+                routeTemplate: "api/{area}/{controller}/{action}",
+                defaults: new { action = "DefaultAction" }
+           );
 
             //config.Routes.MapHttpRoute(
-            //    name: "AreaActionApi",
-            //    routeTemplate: "api/{area}/{controller}/{action}"
+            //    name: "DefaultAreaApi",
+            //    routeTemplate: "api/{area}/{controller}/{id}",
+            //    defaults: new { action = "DefaultAction", id = System.Web.Http.RouteParameter.Optional }
             //);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "api/{controller}"
+                //defaults: new { id = RouteParameter.Optional }
             );
 
             // Uncomment the following line of code to enable query support for actions with an
