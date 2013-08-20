@@ -22,8 +22,7 @@
             }
         };
         $scope.getPagedDataAsync = function (pageSize, page, searchText) {
-            setTimeout(function () {
-                var data;
+            setTimeout(function () {             
                 $http.get('api/Admin/Users/Page',
                     {
                         params:
@@ -58,7 +57,7 @@
                 { field: 'email', displayName: 'Email' },
                 { field: 'name', displayName: 'Имя' },
                 { field: 'surname', displayName: 'Фамилия' },
-                { field: 'patronymic', displayName: 'Отчетство' }
+                { field: 'patronymic', displayName: 'Отчество' }
             ],
             enablePaging: true,
             showFooter: true,
@@ -67,5 +66,5 @@
             filterOptions: $scope.filterOptions
         };
 
-        logger.log('creating admin.UsersCtrl');
+        logger.log('creating admin.users.listCtrl');
     }]);

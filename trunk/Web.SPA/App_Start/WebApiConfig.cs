@@ -14,15 +14,9 @@ namespace Web.SPA
 
             config.Routes.MapHttpRoute(
                 name: "AreaActionApi",
-                routeTemplate: "api/{area}/{controller}/{action}",
-                defaults: new { action = "DefaultAction" }
+                routeTemplate: "api/{area}/{controller}/{action}/{id}",
+                defaults: new { action = "DefaultAction", id = System.Web.Http.RouteParameter.Optional }
            );
-
-            //config.Routes.MapHttpRoute(
-            //    name: "DefaultAreaApi",
-            //    routeTemplate: "api/{area}/{controller}/{id}",
-            //    defaults: new { action = "DefaultAction", id = System.Web.Http.RouteParameter.Optional }
-            //);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
