@@ -1,24 +1,15 @@
-﻿/* logger: logs messages of events during
- * current user session in an in-memory log
- */
-tasks.factory('logger', function () {
-    var logEntries = [];
-    var counter = 1;
+﻿tasks.factory('logger', function () {    
     var logger = {
         log: log,
-        logEntries: logEntries
+        error: error
     };
-
     return logger;
 
-    function log(message, type) {
-        var logEntry = {
-            id: counter++,
-            message: message,
-            type: type || 'info'
-        };
+    function log(message) {
+        console.log(message);        
+    }
 
-        console.log(logEntry.type + ': ' + message);
-        //logEntries.push(logEntry);
+    function error(message) {
+        console.error(message);
     }
 });

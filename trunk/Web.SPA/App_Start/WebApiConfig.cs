@@ -13,15 +13,22 @@ namespace Web.SPA
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "AreaActionApi",
-                routeTemplate: "api/{area}/{controller}/{action}/{id}",
-                defaults: new { action = "DefaultAction", id = System.Web.Http.RouteParameter.Optional }
+               name: "AreaDefaultApi",
+               routeTemplate: "api/{area}/{controller}/{id}",
+               defaults: new { id = RouteParameter.Optional }
            );
+
+            // config.Routes.MapHttpRoute(
+            // name: "AreaActionApi",
+            // routeTemplate: "api/{area}/{controller}/{action}/{id}",
+            // defaults: new { action = "DefaultAction", id =
+            //           System.Web.Http.RouteParameter.Optional }
+            //);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}"
-                //defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
             );
 
             // Uncomment the following line of code to enable query support for actions with an

@@ -1,7 +1,9 @@
 ﻿tasks.controller('admin.users.listCtrl',
-    ['$scope', '$http', 'total', 'logger',
-    function ($scope, $http, total, logger) {
+    ['$scope', '$http', 'total', 'logger', '$location',
+    function ($scope, $http, total, logger, $location) {
         $scope.totalServerItems = total;
+        $scope.user;        
+
         logger.log('total ' + total);
 
         $scope.filterOptions = {
@@ -15,14 +17,19 @@
             currentPage: 1
         };
 
+        $scope.refreshGrid = function (full) {
+            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+        }
+
         $scope.setPagingData = function (data) {
             $scope.users = data;
+            $scope.user = undefined;
             if (!$scope.$$phase) {
                 $scope.$apply();
             }
         };
         $scope.getPagedDataAsync = function (pageSize, page, searchText) {
-            setTimeout(function () {             
+            setTimeout(function () {
                 $http.get('api/Admin/Users/Page',
                     {
                         params:
@@ -40,12 +47,12 @@
 
         $scope.$watch('pagingOptions', function (newVal, oldVal) {
             if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
-                $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+                $scope.refreshGrid();
             }
         }, true);
         $scope.$watch('filterOptions', function (newVal, oldVal) {
             if (newVal !== oldVal) {
-                $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+                $scope.refreshGrid();
             }
         }, true);
 
@@ -63,8 +70,20 @@
             showFooter: true,
             totalServerItems: 'totalServerItems',
             pagingOptions: $scope.pagingOptions,
-            filterOptions: $scope.filterOptions
+            filterOptions: $scope.filterOptions,
+            afterSelectionChange: function (rowItem, event) {
+                $scope.user = rowItem.entity;
+            }
         };
 
-        logger.log('creating admin.users.listCtrl');
+        $scope.remove = function () {
+            $http.delete('api/Admin/Users/' + $scope.user.id)
+                .success(function (data) {
+                    $scope.totalServerItems--;
+                    $scope.refreshGrid();
+                })
+                .error(function (data) {
+                    logger.error('delete error: ' + data);
+                });
+        }              
     }]);

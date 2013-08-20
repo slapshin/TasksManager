@@ -1,6 +1,7 @@
 ﻿using Model;
 using NHibernate;
 using NHibernate.Criterion;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -12,7 +13,6 @@ namespace Web.SPA.Areas.Admin.Controllers
 {
     public class UsersController : BaseApiController
     {
-        [ActionName("DefaultAction")]
         public IEnumerable<UserDto> Get()
         {
             using (ISession session = Provider.OpenSession())
@@ -26,7 +26,25 @@ namespace Web.SPA.Areas.Admin.Controllers
             }
         }
 
-        [HttpGet]
+        public HttpResponseMessage Delete(Guid id)
+        {
+            using (ISession session = Provider.OpenSession())
+            using (ITransaction trans = session.BeginTransaction())
+            {
+                try
+                {
+                    session.Delete(session.Load<User>(id));
+                    trans.Commit();
+                    return Request.CreateResponse(HttpStatusCode.OK);
+                }
+                catch (Exception e)
+                {
+                    return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                }
+            }
+        }
+
+        [HttpGet("api/Admin/Users/Page")]
         public IEnumerable<UserDto> Page(int page, int pageSize)
         {
             using (ISession session = Provider.OpenSession())
@@ -45,7 +63,7 @@ namespace Web.SPA.Areas.Admin.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("api/Admin/Users/Count")]
         public HttpResponseMessage Count()
         {
             using (ISession session = Provider.OpenSession())
