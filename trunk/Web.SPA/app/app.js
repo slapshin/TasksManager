@@ -31,9 +31,6 @@ tasks.config(['$routeProvider', function ($routeProvider) {
             resolve: {
                 total: function (UsersCount) {
                     return UsersCount();
-                },
-                users: function (MultiUserLoader) {
-                    return MultiUserLoader();
                 }
             }
         }).

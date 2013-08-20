@@ -17,9 +17,8 @@ namespace Web.SPA
                                         "~/Content/TodoList.css"));
 
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
-                                        "~/Content/css/bootstrap.css",
-                                        "~/Content/css/bootstrap.min.css",
-                                        "~/Content/css/bootstrap-glyphicons.css"));
+                                        "~/Content/bootstrap/bootstrap.css",
+                                        "~/Content/bootstrap/bootstrap-theme.css"));
 
             bundles.Add(new StyleBundle("~/Content/angular").Include(
                                         "~/Content/angular-ui.css",

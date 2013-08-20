@@ -12,20 +12,22 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body data-twttr-rendered="true">
-    <header class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
             <a href="../" class="navbar-brand">JTasks</a>
-            <div class="nav-collapse collapse bs-navbar-collapse">
-                @Html.Partial("_TopMenu")
-                @Html.Partial("_UserSettings")
-            </div>
         </div>
-    </header>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            @Html.Partial("_TopMenu")
+            @Html.Partial("_UserSettings")
+        </div>
+    </nav>
     <div id="wrap">
         <div id="body">
             @RenderBody()
