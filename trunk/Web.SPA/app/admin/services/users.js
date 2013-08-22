@@ -44,3 +44,44 @@ services.factory('UsersCount', ['$http', '$q', function ($http, $q) {
         return delay.promise;
     };
 }]);
+
+services.factory('userUtils', function () {
+    var utils = {
+        userRolesStr: userRolesStr,
+    };
+    return utils;
+    function userRolesStr(user) {
+        var str = '';
+        var delim = '';
+        if (user.isAdmin) {
+            str += delim + 'Администратор';
+            delim = ', ';
+        }
+
+        if (user.isMaster) {
+            str += delim + 'Мастер';
+            delim = ', ';
+        }
+
+        if (user.isCustomer) {
+            str += delim + 'Заказчик';
+            delim = ', ';
+        }
+
+        if (user.isExecutor) {
+            str += delim + 'Исполнитель';
+            delim = ', ';
+        }
+
+        if (user.isRouter) {
+            str += delim + 'Роутер';
+            delim = ', ';
+        }
+
+        if (user.isTester) {
+            str += delim + 'Тестировщик';
+            delim = ', ';
+        }
+        return str;
+    };
+});

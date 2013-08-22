@@ -257,7 +257,9 @@
     <Content Include="app\admin\controllers\users.js" />
     <Content Include="app\admin\services\users.js" />
     <Content Include="app\admin\views\projects\index.html" />
+    <Content Include="app\admin\views\users\edit.html" />
     <Content Include="app\admin\views\users\list.html" />
+    <Content Include="app\admin\views\users\view.html" />
     <Content Include="app\app.js" />
     <Content Include="app\consts.js" />
     <Content Include="app\controllers\home.js" />

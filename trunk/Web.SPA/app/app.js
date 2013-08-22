@@ -4,11 +4,10 @@
 // 'todo' module is in global namespace
 window.tasks = angular.module('tasks', ['admin.users.services', 'ngGrid']);
 
-// Add global "services" (like breeze and Q) to the Ng injector
+// Add global "services" (like Q) to the Ng injector
 // Learn about Angular dependency injection in this video
 // http://www.youtube.com/watch?feature=player_embedded&v=1CpiB3Wk25U#t=2253s
-tasks.value('breeze', window.breeze)
-    .value('Q', window.Q);
+tasks.value('Q', window.Q);
 
 // Configure routes
 tasks.config(['$routeProvider', function ($routeProvider) {
@@ -22,7 +21,7 @@ tasks.config(['$routeProvider', function ($routeProvider) {
             resolve: {
                 total: function (UsersCount) {
                     return UsersCount();
-                }                
+                }
             }
         }).
         when('/admin/users/', {
@@ -33,6 +32,28 @@ tasks.config(['$routeProvider', function ($routeProvider) {
                     return UsersCount();
                 }
             }
+        }).
+        when('/admin/users/edit/:userId', {
+            controller: 'admin.users.editCtrl',
+            templateUrl: 'app/admin/views/users/edit.html',
+            resolve: {
+                user: ["UserLoader", function (UserLoader) {
+                    return UserLoader();
+                }]
+            }
+        }).
+        when('/admin/users/view/:userId', {
+            controller: 'admin.users.viewCtrl',
+            resolve: {
+                user: ["UserLoader", function (UserLoader) {
+                    return UserLoader();
+                }]
+            },
+            templateUrl: 'app/admin/views/users/view.html'
+        }).
+        when('/admin/users/new/', {
+            controller: 'admin.users.newCtrl',
+            templateUrl: 'app/admin/views/users/edit.html',
         }).
         // - projects
         when('/admin/projects/index', { templateUrl: 'app/admin/views/projects/index.html', controller: 'admin.ProjectsCtrl' }).

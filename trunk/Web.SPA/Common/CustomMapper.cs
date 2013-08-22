@@ -15,6 +15,10 @@ namespace Web.SPA.Common
                               .ForMember(m => m.IsMaster, opt => opt.MapFrom(s => s.IsMaster))
                               .ForMember(m => m.IsRouter, opt => opt.MapFrom(s => s.IsRouter))
                               .ForMember(m => m.IsTester, opt => opt.MapFrom(s => s.IsTester));
+
+            AutoMapper.Mapper.CreateMap<AdminUserDto, User>()
+                                .ForMember(m => m.Id, opt => opt.Ignore())
+                                .ForMember(m => m.Password, opt => opt.Ignore());
         }
 
         public TDest Map<TSource, TDest>(TSource source)
