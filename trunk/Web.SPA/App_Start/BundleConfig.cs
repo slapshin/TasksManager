@@ -13,8 +13,7 @@ namespace Web.SPA
         private static void RegisterStyleBundles(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                                        "~/Content/Site.css",
-                                        "~/Content/TodoList.css"));
+                                        "~/Content/Site.css"));
 
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
                                         "~/Content/bootstrap/bootstrap.css",
