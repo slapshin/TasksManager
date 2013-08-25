@@ -263,7 +263,6 @@
     <Content Include="app\app.js" />
     <Content Include="app\consts.js" />
     <Content Include="app\controllers\home.js" />
-    <Content Include="app\services\customDialogs.js" />
     <Content Include="app\services\logger.js" />
     <Content Include="app\services\utils.js" />
     <Content Include="app\views\home\index.html" />

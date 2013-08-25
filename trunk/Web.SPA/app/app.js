@@ -3,7 +3,7 @@
                                         'utils',
                                         'ui.bootstrap',
                                         'admin.users.services',
-                                    ]);
+]);
 app.value('Q', window.Q);
 
 app.config(['$routeProvider', function ($routeProvider) {
@@ -58,8 +58,6 @@ app.config(['$routeProvider', function ($routeProvider) {
         otherwise({ redirectTo: '/' });
 }]);
 
-//#region Ng directives
-/*  We extend Angular with custom data bindings written as Ng directives */
 app.directive('onFocus', function () {
     return {
         restrict: 'A',
@@ -103,8 +101,6 @@ app.directive('onFocus', function () {
         };
     });
 if (!Modernizr.input.placeholder) {
-    // this browser does not support HTML5 placeholders
-    // see http://stackoverflow.com/questions/14777841/angularjs-inputplaceholder-directive-breaking-with-ng-model
     app.directive('placeholder', function () {
         return {
             restrict: 'A',
@@ -143,4 +139,3 @@ if (!Modernizr.input.placeholder) {
         };
     });
 }
-//#endregion 
