@@ -53,7 +53,11 @@ namespace Web.SPA
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                                         "~/Scripts/angular.js",
                                         "~/Scripts/angular-resource.js",
-                                        "~/Scripts/ng-grid-{version}.js"));
+                                        "~/Scripts/ng-grid-{version}.js",
+                                        "~/Scripts/angular-ui.js",
+                //"~/Scripts/ui-bootstrap-{version}.js",
+                                        "~/Scripts/ui-bootstrap-tpls-{version}.js"
+                                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/ajaxlogin").Include(
                                         "~/Scripts/custom/ajaxlogin.js"));
@@ -61,8 +65,9 @@ namespace Web.SPA
             bundles.Add(new ScriptBundle("~/bundles/tasks").Include(
                                         "~/app/app.js", // must be first
                                         "~/app/consts.js",
-                                        "~/app/controllers/home.js",
                                         "~/app/services/logger.js",
+                                        "~/app/services/utils.js",
+                                        "~/app/controllers/home.js",
                                         "~/app/admin/controllers/users.js",
                                         "~/app/admin/services/users.js",
                                         "~/app/admin/controllers/projects.js"));

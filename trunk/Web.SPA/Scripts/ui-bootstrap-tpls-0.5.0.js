@@ -1330,17 +1330,19 @@ dialogModule.provider("$dialog", function(){
       var self = this, options = this.options = angular.extend({}, defaults, globalOptions, opts);
       this._open = false;
 
-      this.backdropEl = createElement(options.backdropClass);
-      if(options.backdropFade){
-        this.backdropEl.addClass(options.transitionClass);
-        this.backdropEl.removeClass(options.triggerClass);
-      }
+      //this.backdropEl = createElement(options.backdropClass);
+      //if(options.backdropFade){
+      //  this.backdropEl.addClass(options.transitionClass);
+      //  this.backdropEl.removeClass(options.triggerClass);
+      //}
 
-      this.modalEl = createElement(options.dialogClass);
-      if(options.dialogFade){
-        this.modalEl.addClass(options.transitionClass);
-        this.modalEl.removeClass(options.triggerClass);
-      }
+      //this.modalEl = createElement(options.dialogClass);
+      //if(options.dialogFade){
+      //  this.modalEl.addClass(options.transitionClass);
+      //  this.modalEl.removeClass(options.triggerClass);
+		    //}
+
+      this.modalEl = angular.element('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">');
 
       this.handledEscapeKey = function(e) {
         if (e.which === 27) {
@@ -1394,10 +1396,11 @@ dialogModule.provider("$dialog", function(){
         // trigger tranisitions
         setTimeout(function(){
           if(self.options.dialogFade){ self.modalEl.addClass(self.options.triggerClass); }
-          if(self.options.backdropFade){ self.backdropEl.addClass(self.options.triggerClass); }
+          //if(self.options.backdropFade){ self.backdropEl.addClass(self.options.triggerClass); }
         });
 
         self._bindEvents();
+        self.modalEl.modal('show')
       });
 
       this.deferred = $q.defer();
@@ -1434,24 +1437,25 @@ dialogModule.provider("$dialog", function(){
       if(this.options.dialogFade){
         elements.push(this.modalEl);
       }
-      if(this.options.backdropFade){
-        elements.push(this.backdropEl);
-      }
+      //if(this.options.backdropFade){
+      //  elements.push(this.backdropEl);
+      //}
 
       return elements;
     };
 
     Dialog.prototype._bindEvents = function() {
       if(this.options.keyboard){ body.bind('keydown', this.handledEscapeKey); }
-      if(this.options.backdrop && this.options.backdropClick){ this.backdropEl.bind('click', this.handleBackDropClick); }
+      //if(this.options.backdrop && this.options.backdropClick){ this.backdropEl.bind('click', this.handleBackDropClick); }
     };
 
     Dialog.prototype._unbindEvents = function() {
       if(this.options.keyboard){ body.unbind('keydown', this.handledEscapeKey); }
-      if(this.options.backdrop && this.options.backdropClick){ this.backdropEl.unbind('click', this.handleBackDropClick); }
+      //if(this.options.backdrop && this.options.backdropClick){ this.backdropEl.unbind('click', this.handleBackDropClick); }
     };
 
-    Dialog.prototype._onCloseComplete = function(result) {
+    Dialog.prototype._onCloseComplete = function (result) {
+      this.modalEl.modal('hide')
       this._removeElementsFromDom();
       this._unbindEvents();
 
@@ -1461,12 +1465,12 @@ dialogModule.provider("$dialog", function(){
     Dialog.prototype._addElementsToDom = function(){
       body.append(this.modalEl);
 
-      if(this.options.backdrop) { 
-        if (activeBackdrops.value === 0) {
-          body.append(this.backdropEl); 
-        }
-        activeBackdrops.value++;
-      }
+      //if(this.options.backdrop) { 
+      //  //if (activeBackdrops.value === 0) {
+      //  //  body.append(this.backdropEl); 
+      //  //}
+      //  activeBackdrops.value++;
+      //}
 
       this._open = true;
     };
@@ -1474,12 +1478,12 @@ dialogModule.provider("$dialog", function(){
     Dialog.prototype._removeElementsFromDom = function(){
       this.modalEl.remove();
 
-      if(this.options.backdrop) { 
-        activeBackdrops.value--;
-        if (activeBackdrops.value === 0) {
-          this.backdropEl.remove(); 
-        }
-      }
+      //if(this.options.backdrop) { 
+      //  activeBackdrops.value--;
+      //  if (activeBackdrops.value === 0) {
+      //    this.backdropEl.remove(); 
+      //  }
+      //}
       this._open = false;
     };
 

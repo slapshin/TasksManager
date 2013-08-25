@@ -1,16 +1,12 @@
-﻿/* main: startup script creates the 'todo' module and adds custom Ng directives */
+﻿window.app = angular.module('tasks', [
+                                        'ngGrid',
+                                        'utils',
+                                        'ui.bootstrap',
+                                        'admin.users.services',
+                                    ]);
+app.value('Q', window.Q);
 
-// 'todo' is the one Angular (Ng) module in this app
-// 'todo' module is in global namespace
-window.tasks = angular.module('tasks', ['admin.users.services', 'ngGrid']);
-
-// Add global "services" (like Q) to the Ng injector
-// Learn about Angular dependency injection in this video
-// http://www.youtube.com/watch?feature=player_embedded&v=1CpiB3Wk25U#t=2253s
-tasks.value('Q', window.Q);
-
-// Configure routes
-tasks.config(['$routeProvider', function ($routeProvider) {
+app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
         when('/', { templateUrl: 'app/views/home/index.html', controller: 'HomeCtrl' }).
         //admin
@@ -64,7 +60,7 @@ tasks.config(['$routeProvider', function ($routeProvider) {
 
 //#region Ng directives
 /*  We extend Angular with custom data bindings written as Ng directives */
-tasks.directive('onFocus', function () {
+app.directive('onFocus', function () {
     return {
         restrict: 'A',
         link: function (scope, elm, attrs) {
@@ -109,7 +105,7 @@ tasks.directive('onFocus', function () {
 if (!Modernizr.input.placeholder) {
     // this browser does not support HTML5 placeholders
     // see http://stackoverflow.com/questions/14777841/angularjs-inputplaceholder-directive-breaking-with-ng-model
-    tasks.directive('placeholder', function () {
+    app.directive('placeholder', function () {
         return {
             restrict: 'A',
             require: 'ngModel',

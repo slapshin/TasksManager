@@ -1,6 +1,5 @@
-﻿tasks.controller('admin.users.listCtrl',
-    ['$scope', '$http', 'total', 'logger', '$location',
-    function ($scope, $http, total, logger, $location) {
+﻿app.controller('admin.users.listCtrl', ['$scope', '$http', 'total', 'logger', '$location', 'consts', 'dialogs',
+    function ($scope, $http, total, logger, $location, consts, dialogs) {
         $scope.totalServerItems = total;
         $scope.user;
 
@@ -12,8 +11,8 @@
         };
 
         $scope.pagingOptions = {
-            pageSizes: TASKS_PAGE_SIZES,
-            pageSize: TASKS_GRID_ROW_COUNT,
+            pageSizes: consts.pageSizes,
+            pageSize: consts.pageSize,
             currentPage: 1
         };
 
@@ -60,7 +59,10 @@
             data: 'users',
             multiSelect: false,
             columnDefs: [
-                { cellTemplate: '<span type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-star"></span></span>', width: '40px' },
+                { cellTemplate: '<a href="" class="btn btn-small btn-link" ng-click="remove(row)"><i class="glyphicon glyphicon-trash" /></a>', width: '40px' },
+                { cellTemplate: '<a href="" class="btn btn-small btn-link" ng-click="view(row)"><i class="glyphicon glyphicon-eye-open" /></a>', width: '40px' },
+                { cellTemplate: '<a href="" class="btn btn-small btn-link" ng-click="edit(row)"><i class="glyphicon glyphicon-edit" /></a>', width: '40px' },
+                { cellTemplate: '<a href="" class="btn btn-small btn-link" ng-click="changePassword(row)"><i class="glyphicon glyphicon-lock" /></a>', width: '40px' },
                 { field: 'login', displayName: 'Логин' },
                 { field: 'email', displayName: 'Email' },
                 { field: 'name', displayName: 'Имя' },
@@ -77,23 +79,42 @@
             }
         };
 
-        $scope.remove = function () {
-            $http.delete('api/Admin/Users/' + $scope.user.id)
-                .success(function (data) {
-                    $scope.totalServerItems--;
-                    $scope.refreshGrid();
-                })
-                .error(function (data) {
-                    logger.error('delete error: ' + data);
-                });
+        $scope.remove = function (row) {
+            dialogs.confirmDelete(function () {
+                var user = row ? row.entity : $scope.user;
+                $http.delete('api/Admin/Users/' + user.id)
+                    .success(function (data) {
+                        delete user;
+                        $scope.totalServerItems--;
+                        $scope.refreshGrid();
+                    })
+                    .error(function (data) {
+                        logger.error('delete error: ' + data);
+                    });
+            });
         }
 
-        $scope.view = function () {
-            $location.path('/admin/users/view/' + $scope.user.id);
+        $scope.new = function () {
+            $location.path('/admin/users/new');
+        }
+
+        $scope.view = function (row) {
+            var userId = row ? row.entity.id : $scope.user.id;
+            $location.path('/admin/users/view/' + userId);
+        }
+
+        $scope.edit = function (row) {
+            var userId = row ? row.entity.id : $scope.user.id;
+            $location.path('/admin/users/edit/' + userId);
+        }
+
+        $scope.changePassword = function (row) {
+            var userId = row ? row.entity.id : $scope.user.id;
+            alert("Not implemented");
         }
     }]);
 
-tasks.controller('admin.users.viewCtrl',
+app.controller('admin.users.viewCtrl',
     ['$scope', 'user', 'userUtils', '$location',
     function ($scope, user, userUtils, $location) {
         $scope.user = user;
@@ -104,24 +125,35 @@ tasks.controller('admin.users.viewCtrl',
         }
     }]);
 
-tasks.controller('admin.users.editCtrl', ['$scope', 'user', '$location',
-    function ($scope, user, $location) {
-        $scope.user = user;
+app.controller('admin.users.editCtrl', ['$scope', 'user', '$location', '$http', 'dialogs',
+        function ($scope, user, $location, $http, dialogs) {
+            $scope.user = user;
+            $scope.save = function () {
+                $scope.user.$save(function (user) {
+                    $location.path('/admin/users/view/' + user.id);
+                });
+            }
 
+            $scope.remove = function () {
+                dialogs.confirmDelete(function () {
+                    $http.delete('api/Admin/Users/' + $scope.user.id)
+                        .success(function (data) {
+                            delete $scope.user;
+                            $location.path('/admin/users/');
+                        })
+                        .error(function (data) {
+                            logger.error('delete error: ' + data);
+                        });
+                });
+            };
+        }]);
+
+app.controller('admin.users.newCtrl', ['$scope', 'User', '$location',
+    function ($scope, User, $location) {
+        $scope.user = new User();
         $scope.save = function () {
             $scope.user.$save(function (user) {
                 $location.path('/admin/users/view/' + user.id);
             });
-        }
-
-        $scope.remove = function () {
-            $http.delete('api/Admin/Users/' + $scope.user.id)
-               .success(function (data) {
-                   delete $scope.user;
-                   $location.path('/admin/users/');
-               })
-               .error(function (data) {
-                   logger.error('delete error: ' + data);
-               });
         }
     }]);

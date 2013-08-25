@@ -34,7 +34,7 @@ namespace Web.SPA.Areas.Admin.Controllers
             }
         }
 
-        public HttpResponseMessage PutTodoList(Guid id, UserDto userDto)
+        public HttpResponseMessage Put(Guid id, UserDto userDto)
         {
             if (!ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace Web.SPA.Areas.Admin.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        public HttpResponseMessage PostTodoList(UserDto userDto)
+        public HttpResponseMessage Post(UserDto userDto)
         {
             if (!ModelState.IsValid)
             {
@@ -80,7 +80,7 @@ namespace Web.SPA.Areas.Admin.Controllers
                     ModelMapper.Map<UserDto, User>(userDto, user);
                     session.SaveOrUpdate(user);
                     trans.Commit();
-                    return Request.CreateResponse(HttpStatusCode.OK);
+                    return Request.CreateResponse(HttpStatusCode.OK, ModelMapper.Map<User, UserDto>(user, userDto));
                 }
             }
             catch (Exception e)

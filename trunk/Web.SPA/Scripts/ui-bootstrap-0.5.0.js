@@ -1329,17 +1329,20 @@ dialogModule.provider("$dialog", function(){
       var self = this, options = this.options = angular.extend({}, defaults, globalOptions, opts);
       this._open = false;
 
-      this.backdropEl = createElement(options.backdropClass);
-      if(options.backdropFade){
-        this.backdropEl.addClass(options.transitionClass);
-        this.backdropEl.removeClass(options.triggerClass);
-      }
+      //this.backdropEl = createElement(options.backdropClass);
+      //if(options.backdropFade){
+      //  this.backdropEl.addClass(options.transitionClass);
+      //  this.backdropEl.removeClass(options.triggerClass);
+		    //}
 
-      this.modalEl = createElement(options.dialogClass);
-      if(options.dialogFade){
-        this.modalEl.addClass(options.transitionClass);
-        this.modalEl.removeClass(options.triggerClass);
-      }
+      this.modalEl = angular.element('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">');
+     
+
+      //this.modalEl = createElement(options.dialogClass);
+      //if(options.dialogFade){
+      //  this.modalEl.addClass(options.transitionClass);
+      //  this.modalEl.removeClass(options.triggerClass);
+      //}
 
       this.handledEscapeKey = function(e) {
         if (e.which === 27) {
