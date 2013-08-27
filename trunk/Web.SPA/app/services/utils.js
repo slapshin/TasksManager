@@ -9,6 +9,21 @@ utilsModule.controller('MessageBoxController', ['$scope', 'dialog', 'model', fun
     };
 }]);
 
+utilsModule.controller('CustomDialogController', ['$scope', 'dialog', 'model', function ($scope, dialog, model) {
+    $scope.title = model.title;
+    $scope.content = model.content;
+    $scope.buttons = model.buttons;
+    $scope.dialog = dialog;
+    $scope.click = function (btn) {
+        if (btn.onClick) {
+            btn.onClick($scope);
+        }
+        else{
+            dialog.close();
+        }        
+    };
+}]);
+
 utilsModule.provider("customDialog", function () {
     var defaults = {
         resolve: {}
@@ -24,7 +39,8 @@ utilsModule.provider("customDialog", function () {
             var body = $document.find('body');
 
             function Dialog(opts) {
-                var self = this, options = this.options = angular.extend({}, defaults, globalOptions, opts);
+                var self = this,
+                    options = this.options = angular.extend({}, defaults, globalOptions, opts);
                 this._open = false;
                 this.modalEl = angular.element('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">');
             }
@@ -156,7 +172,8 @@ utilsModule.provider("customDialog", function () {
 utilsModule.factory('dialogs', ['customDialog', 'consts', function (customDialog, consts) {
     var dialogs = {
         confirm: confirm,
-        confirmDelete: confirmDelete
+        confirmDelete: confirmDelete,
+        show: show
     };
     return dialogs;
 
@@ -187,5 +204,25 @@ utilsModule.factory('dialogs', ['customDialog', 'consts', function (customDialog
 
     function confirmDelete(callback) {
         return confirm('Подтверждение удаления', 'Объект будет удален. Продолжить?', callback);
+    }
+
+    function show(settings) {
+        var opts = {
+            resolve:
+              {
+                  model: function () {
+                      return {
+                          title: settings.title,
+                          content: settings.content,
+                          buttons: settings.buttons
+                      };
+                  }
+              },
+            controller: 'CustomDialogController',
+            template: consts.customDialogTemplate
+        };
+
+        customDialog.dialog(opts)
+          .open();
     }
 }]);

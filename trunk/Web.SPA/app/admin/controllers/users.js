@@ -116,7 +116,26 @@ function ($scope, $http, total, logger, $location, consts, dialogs, userUtils) {
 
     $scope.changePassword = function (row) {
         var userId = row ? row.entity.id : $scope.user.id;
-        alert("Not implemented");
+        dialogs.show({
+            title: 'Test',
+            content: '<h1>LALA</h1>',
+            buttons: [
+                {
+                    label: 'Закрываем...',
+                    onClick: function (scope) {                        
+                        alert('Кнопка 1');
+                        scope.dialog.close();
+                    }
+                },
+                {
+                    label: 'Открыт',
+                    cssClass: 'btn-primary',
+                    onClick: function (scope) {                        
+                        scope.error = 'ERROR!!!!!';
+                        scope.success = 'SUCCESS!!!!!';
+                    }
+                }]
+        })
     }
 }]);
 

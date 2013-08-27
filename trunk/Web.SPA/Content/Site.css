@@ -61,6 +61,10 @@ body {
     margin-bottom: 10px;
 }
 
+.modal-dialog-alert{
+    margin: 10px;
+}
+
 @media (max-width: 980px) {
     /* Enable use of floated navbar text */
     .navbar-text.pull-right {
