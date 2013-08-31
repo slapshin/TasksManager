@@ -1,9 +1,17 @@
 ﻿app.controller('admin.users.listCtrl', ['$scope', '$http', 'total', 'logger', '$location', 'consts', 'dialogs', 'userUtils',
 function ($scope, $http, total, logger, $location, consts, dialogs, userUtils) {
+    var CHANGE_PASSWORD_FORM = '<form role="form">' +
+                                    '<div class="form-group">' +
+                                        '<label for="password">Пароль</label>' +
+                                        '<input type="password" class="form-control" id="password" placeholder="Введите пароль" ng-model="password"/>' +
+                                    '</div>' +
+                                    '<div class="form-group">' +
+                                        '<label for="confirmPassword">Подтверждение пароля</label>' +
+                                        '<input type="password" class="form-control" id="confirmPassword" placeholder="Подтвердите пароль" ng-model="confirmPassword"/>' +
+                                    '</div>' +
+                                '</form>';
     $scope.totalServerItems = total;
     $scope.user;
-
-    logger.log('total ' + total);
 
     $scope.filterOptions = {
         filterText: "",
@@ -117,22 +125,37 @@ function ($scope, $http, total, logger, $location, consts, dialogs, userUtils) {
     $scope.changePassword = function (row) {
         var userId = row ? row.entity.id : $scope.user.id;
         dialogs.show({
-            title: 'Test',
-            content: '<h1>LALA</h1>',
+            title: 'Смена пароля',
+            content: CHANGE_PASSWORD_FORM,
+            init: function (scope) {
+                scope.id = userId
+            },
             buttons: [
                 {
-                    label: 'Закрываем...',
-                    onClick: function (scope) {                        
-                        alert('Кнопка 1');
-                        scope.dialog.close();
+                    label: 'Сохранить',
+                    onClick: function (scope) {
+                        scope.error = '';
+                        scope.success = '';
+                        $http.post('api/Admin/Users/ChangePassword',
+                            {
+                                id: userId,
+                                password: scope.password,
+                                confirmPassword: scope.confirmPassword
+                            })
+                        .success(function (data) {
+                            scope.success = 'Пароль сменен';
+                            scope.dialog.close();
+                        })
+                        .error(function (data) {
+                            scope.error = data.message;
+                        });
                     }
                 },
                 {
-                    label: 'Открыт',
+                    label: 'Отмена',
                     cssClass: 'btn-primary',
-                    onClick: function (scope) {                        
-                        scope.error = 'ERROR!!!!!';
-                        scope.success = 'SUCCESS!!!!!';
+                    onClick: function (scope) {
+                        scope.dialog.close();
                     }
                 }]
         })

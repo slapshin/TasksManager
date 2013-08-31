@@ -12,8 +12,6 @@ namespace Web.SPA.Common
 {
     public abstract class BaseApiController : ApiController
     {
-        private ISession dbSession;
-
         public BaseApiController()
             : base()
         {
@@ -28,26 +26,46 @@ namespace Web.SPA.Common
         [Inject]
         public IMapper ModelMapper { get; set; }
 
-        public ISession DbSession
-        {
-            get
-            {
-                if (dbSession == null)
-                {
-                    dbSession = Provider.OpenSession();
-                };
-                return dbSession;
-            }
-        }
-
         public User CurrentUser
         {
             get { return ((IUserProvider)Auth.CurrentUser.Identity).User; }
         }
 
-        protected T GetEntity<T>(object id, string errorMsg = "") where T : Entity<T>
+        protected void ExecuteInTransaction(Action<ISession> action)
         {
-            T obj = DbSession.Get<T>(id);
+            using (ISession session = Provider.OpenSession())
+            using (ITransaction transaction = session.BeginTransaction())
+            {
+                try
+                {
+                    if (action != null)
+                    {
+                        action(session);
+                        transaction.Commit();
+                    }
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+        }
+
+        protected void ExecuteInSession(Action<ISession> action)
+        {
+            using (ISession session = Provider.OpenSession())
+            {
+                if (action != null)
+                {
+                    action(session);
+                }
+            }
+        }
+
+        protected T GetEntity<T>(ISession session, object id, string errorMsg = "") where T : Entity<T>
+        {
+            T obj = session.Get<T>(id);
             if (obj == null)
             {
                 throw new ApplicationException(string.IsNullOrWhiteSpace(errorMsg) ? string.Format("Объект [id: {0}] не найден", id) : errorMsg);
@@ -55,9 +73,9 @@ namespace Web.SPA.Common
             return obj;
         }
 
-        protected T LoadEntity<T>(object id) where T : Entity<T>
+        protected T LoadEntity<T>(ISession session, object id) where T : Entity<T>
         {
-            return DbSession.Get<T>(id);
+            return session.Get<T>(id);
         }
     }
 }

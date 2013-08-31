@@ -4,23 +4,28 @@ utilsModule.controller('MessageBoxController', ['$scope', 'dialog', 'model', fun
     $scope.title = model.title;
     $scope.message = model.message;
     $scope.buttons = model.buttons;
+
     $scope.close = function (res) {
         dialog.close(res);
     };
 }]);
 
-utilsModule.controller('CustomDialogController', ['$scope', 'dialog', 'model', function ($scope, dialog, model) {
+utilsModule.controller('CustomDialogController', ['$scope', 'dialog', 'model', '$compile', function ($scope, dialog, model, $compile) {
     $scope.title = model.title;
-    $scope.content = model.content;
     $scope.buttons = model.buttons;
     $scope.dialog = dialog;
+    if (model.init) {
+        model.init($scope);
+
+    }
+    $scope.content = $compile(model.content)($scope);
     $scope.click = function (btn) {
         if (btn.onClick) {
             btn.onClick($scope);
         }
-        else{
+        else {
             dialog.close();
-        }        
+        }
     };
 }]);
 
@@ -171,6 +176,7 @@ utilsModule.provider("customDialog", function () {
 
 utilsModule.factory('dialogs', ['customDialog', 'consts', function (customDialog, consts) {
     var dialogs = {
+        messageBox: messageBox,
         confirm: confirm,
         confirmDelete: confirmDelete,
         show: show
@@ -185,7 +191,11 @@ utilsModule.factory('dialogs', ['customDialog', 'consts', function (customDialog
                       return {
                           title: title,
                           message: msg,
-                          buttons: [{ result: 'cancel', label: 'Отмена' }, { result: 'ok', label: 'OK', cssClass: 'btn-primary' }]
+                          buttons:
+                          [
+                              { result: 'ok', label: 'OK', cssClass: 'btn-primary' },
+                              { result: 'cancel', label: 'Отмена' }
+                          ]
                       };
                   }
               },
@@ -202,6 +212,10 @@ utilsModule.factory('dialogs', ['customDialog', 'consts', function (customDialog
           });
     }
 
+    function messageBox(title, msg, callback) {
+        return confirm(title, msg, callback);
+    }
+
     function confirmDelete(callback) {
         return confirm('Подтверждение удаления', 'Объект будет удален. Продолжить?', callback);
     }
@@ -214,7 +228,8 @@ utilsModule.factory('dialogs', ['customDialog', 'consts', function (customDialog
                       return {
                           title: settings.title,
                           content: settings.content,
-                          buttons: settings.buttons
+                          buttons: settings.buttons,
+                          init: settings.init
                       };
                   }
               },
