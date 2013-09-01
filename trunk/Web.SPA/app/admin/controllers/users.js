@@ -1,5 +1,5 @@
-﻿app.controller('admin.users.listCtrl', ['$scope', '$http', 'total', 'logger', '$location', 'consts', 'dialogs', 'userUtils',
-function ($scope, $http, total, logger, $location, consts, dialogs, userUtils) {
+﻿app.controller('admin.users.list', ['$scope', '$http', 'total', 'logger', '$location', 'consts', 'dialogs', 'userUtils', 'customGrid',
+function ($scope, $http, total, logger, $location, consts, dialogs, userUtils, customGrid) {
     var CHANGE_PASSWORD_FORM = '<form role="form">' +
                                     '<div class="form-group">' +
                                         '<label for="password">Пароль</label>' +
@@ -10,88 +10,35 @@ function ($scope, $http, total, logger, $location, consts, dialogs, userUtils) {
                                         '<input type="password" class="form-control" id="confirmPassword" placeholder="Подтвердите пароль" ng-model="confirmPassword"/>' +
                                     '</div>' +
                                 '</form>';
-    $scope.totalServerItems = total;
-    $scope.user;
-
-    $scope.filterOptions = {
-        filterText: "",
-        useExternalFilter: true
-    };
-
-    $scope.pagingOptions = {
-        pageSizes: consts.pageSizes,
-        pageSize: consts.pageSize,
-        currentPage: 1
-    };
-
-    $scope.refreshGrid = function (full) {
-        $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
-    }
-
-    $scope.setPagingData = function (data) {
-        for (var i = 0, len = data.length; i < len; i++) {
-            data[i].roles = userUtils.userRolesStr(data[i]);
+    customGrid.build(
+        {
+            $scope: $scope,
+            total: total,
+            pageDataUrl: 'api/Admin/Users/Page',
+            onSetPagingData: function (data) {
+                for (var i = 0, len = data.length; i < len; i++) {
+                    data[i].roles = userUtils.userRolesStr(data[i]);
+                }
+                $scope.user = undefined;
+            },
+            afterSelectionChange: function (rowItem, event) {
+                $scope.user = rowItem.entity;
+            },
+            columnDefs:
+                [
+                    { button: { onClick: 'remove', icon: 'trash' }, width: 40 },
+                    { button: { onClick: 'view', icon: 'eye-open' }, width: 40 },
+                    { button: { onClick: 'edit', icon: 'edit' }, width: 40 },
+                    { button: { onClick: 'changePassword', icon: 'lock' }, width: 40 },                   
+                    { field: 'login', displayName: 'Логин' },
+                    { field: 'email', displayName: 'Email' },
+                    { field: 'name', displayName: 'Имя' },
+                    { field: 'surname', displayName: 'Фамилия' },
+                    { field: 'patronymic', displayName: 'Отчество' },
+                    { field: 'roles', displayName: 'Роли' }
+                ]
         }
-        $scope.users = data;
-        $scope.user = undefined;
-        if (!$scope.$$phase) {
-            $scope.$apply();
-        }
-    };
-    $scope.getPagedDataAsync = function (pageSize, page, searchText) {
-        setTimeout(function () {
-            $http.get('api/Admin/Users/Page',
-                {
-                    params:
-                      {
-                          page: page,
-                          pageSize: pageSize
-                      }
-                }).success(function (data) {
-                    $scope.setPagingData(data);
-                });
-        }, 100);
-    };
-
-    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
-
-    $scope.$watch('pagingOptions', function (newVal, oldVal) {
-        if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
-            $scope.refreshGrid();
-        }
-    }, true);
-    $scope.$watch('filterOptions', function (newVal, oldVal) {
-        if (newVal !== oldVal) {
-            $scope.refreshGrid();
-        }
-    }, true);
-
-    $scope.gridOptions = {
-        data: 'users',
-        multiSelect: false,
-        enableColumnResize: true,
-        showColumnMenu: true,
-        columnDefs: [
-            { cellTemplate: '<a href="" class="btn btn-small btn-link" ng-click="remove(row)"><i class="glyphicon glyphicon-trash" /></a>', width: '40px' },
-            { cellTemplate: '<a href="" class="btn btn-small btn-link" ng-click="view(row)"><i class="glyphicon glyphicon-eye-open" /></a>', width: '40px' },
-            { cellTemplate: '<a href="" class="btn btn-small btn-link" ng-click="edit(row)"><i class="glyphicon glyphicon-edit" /></a>', width: '40px' },
-            { cellTemplate: '<a href="" class="btn btn-small btn-link" ng-click="changePassword(row)"><i class="glyphicon glyphicon-lock" /></a>', width: '40px' },
-            { field: 'login', displayName: 'Логин' },
-            { field: 'email', displayName: 'Email' },
-            { field: 'name', displayName: 'Имя' },
-            { field: 'surname', displayName: 'Фамилия' },
-            { field: 'patronymic', displayName: 'Отчество' },
-            { field: 'roles', displayName: 'Роли' }
-        ],
-        enablePaging: true,
-        showFooter: true,
-        totalServerItems: 'totalServerItems',
-        pagingOptions: $scope.pagingOptions,
-        filterOptions: $scope.filterOptions,
-        afterSelectionChange: function (rowItem, event) {
-            $scope.user = rowItem.entity;
-        }
-    };
+    );    
 
     $scope.remove = function (row) {
         dialogs.confirmDelete(function () {
@@ -103,7 +50,7 @@ function ($scope, $http, total, logger, $location, consts, dialogs, userUtils) {
                     $scope.refreshGrid();
                 })
                 .error(function (data) {
-                    logger.error('delete error: ' + data);
+                    logger.error('delete error: ' + data.message);
                 });
         });
     }
@@ -162,7 +109,7 @@ function ($scope, $http, total, logger, $location, consts, dialogs, userUtils) {
     }
 }]);
 
-app.controller('admin.users.viewCtrl',
+app.controller('admin.users.view',
     ['$scope', 'user', 'userUtils', '$location',
     function ($scope, user, userUtils, $location) {
         $scope.user = user;
@@ -173,12 +120,14 @@ app.controller('admin.users.viewCtrl',
         }
     }]);
 
-app.controller('admin.users.editCtrl', ['$scope', 'user', '$location', '$http', 'dialogs',
-        function ($scope, user, $location, $http, dialogs) {
+app.controller('admin.users.edit', ['$scope', 'user', '$location', '$http', 'dialogs', 'logger',
+        function ($scope, user, $location, $http, dialogs, logger) {
             $scope.user = user;
             $scope.save = function () {
                 $scope.user.$save(function (user) {
                     $location.path('/admin/users/view/' + user.id);
+                }, function (error) {
+                    logger.error(error.data.message);
                 });
             }
 
@@ -196,12 +145,14 @@ app.controller('admin.users.editCtrl', ['$scope', 'user', '$location', '$http', 
             };
         }]);
 
-app.controller('admin.users.newCtrl', ['$scope', 'User', '$location',
-    function ($scope, User, $location) {
+app.controller('admin.users.new', ['$scope', 'User', '$location', 'logger',
+    function ($scope, User, $location, logger) {
         $scope.user = new User();
         $scope.save = function () {
             $scope.user.$save(function (user) {
                 $location.path('/admin/users/view/' + user.id);
+            }, function (error) {
+                logger.error(error.data.message);
             });
         }
     }]);

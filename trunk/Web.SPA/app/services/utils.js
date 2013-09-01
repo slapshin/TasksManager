@@ -16,7 +16,6 @@ utilsModule.controller('CustomDialogController', ['$scope', 'dialog', 'model', '
     $scope.dialog = dialog;
     if (model.init) {
         model.init($scope);
-
     }
     $scope.content = $compile(model.content)($scope);
     $scope.click = function (btn) {
@@ -212,8 +211,26 @@ utilsModule.factory('dialogs', ['customDialog', 'consts', function (customDialog
           });
     }
 
-    function messageBox(title, msg, callback) {
-        return confirm(title, msg, callback);
+    function messageBox(title, msg) {
+        var opts = {
+            resolve:
+              {
+                  model: function () {
+                      return {
+                          title: title,
+                          message: msg,
+                          buttons:
+                          [
+                              { result: 'ok', label: 'OK', cssClass: 'btn-primary' }                            
+                          ]
+                      };
+                  }
+              },
+            controller: 'MessageBoxController',
+            template: consts.messageBoxTemplate
+        };
+
+        customDialog.dialog(opts).open();
     }
 
     function confirmDelete(callback) {
@@ -240,4 +257,108 @@ utilsModule.factory('dialogs', ['customDialog', 'consts', function (customDialog
         customDialog.dialog(opts)
           .open();
     }
+}]);
+
+utilsModule.factory('customGrid', ['$http', 'consts', 'dialogs', function ($http, consts, dialogs) {
+    var builder = {
+        build: build
+    };
+    return builder;
+
+    function build(settings) {
+        var $scope = settings.$scope;
+
+        $scope.totalServerItems = settings.total;
+
+        $scope.pagingOptions = {
+            pageSizes: consts.pageSizes,
+            pageSize: consts.pageSize,
+            currentPage: 1
+        };
+
+        $scope.refreshGrid = function () {
+            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+        }
+
+        $scope.getPagedDataAsync = function (pageSize, page) {
+            setTimeout(function () {
+                $http.get(settings.pageDataUrl,
+                    {
+                        params:
+                          {
+                              page: page,
+                              pageSize: pageSize
+                          }
+                    }).success(function (data) {
+                        $scope.setPagingData(data);
+                    });
+            }, 100);
+        };
+
+        $scope.setPagingData = function (data) {
+            if (settings.onSetPagingData) {
+                settings.onSetPagingData(data);
+            }
+
+            $scope.gridData = data;
+            if (!$scope.$$phase) {
+                $scope.$apply();
+            }
+        };
+
+        $scope.$watch('pagingOptions', function (newVal, oldVal) {
+            if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {
+                $scope.refreshGrid();
+            }
+        }, true);
+
+        var columnDefs = [];
+        for (var i = 0, len = settings.columnDefs.length; i < len; i++) {
+            var col = settings.columnDefs[i];
+            var def = {};
+            if (col.comment)
+            {
+                def.width = '40px';
+                def.cellTemplate = '<a href="" class="btn btn-small btn-link" ng-click="gridShowComment(row)"><i class="glyphicon glyphicon-comment" /></a>';
+                if (!$scope.gridShowComment) {
+                    $scope.gridShowComment = function (row) {
+                        dialogs.messageBox("Комментарий", row.entity.comment);
+                    }
+                }                
+            }
+
+            if (col.field) {
+                def.field = col.field;
+            }
+
+            if (col.displayName) {
+                def.displayName = col.displayName;
+            }
+
+            if (col.width) {
+                def.width = col.width + 'px';
+            }
+
+            if (col.button) {
+                def.cellTemplate = '<a href="" class="btn btn-small btn-link" ng-click="' + col.button.onClick + '(row)"><i class="glyphicon glyphicon-' + col.button.icon + '" /></a>';
+            }
+
+            columnDefs.push(def);
+        }
+
+        $scope.gridOptions = {
+            data: 'gridData',
+            multiSelect: false,
+            enableColumnResize: true,
+            showColumnMenu: true,
+            columnDefs: columnDefs,
+            enablePaging: true,
+            showFooter: true,
+            totalServerItems: 'totalServerItems',
+            pagingOptions: $scope.pagingOptions,
+            afterSelectionChange: settings.afterSelectionChange
+        };
+
+        $scope.refreshGrid();
+    };
 }]);

@@ -29,5 +29,14 @@
                                 '	<button ng-repeat="btn in buttons" ng-click="click(btn)" type="button" class="btn btn-default" ng-class="btn.cssClass">{{ btn.label }}</button>\n' +
                                 '</div>\n' +
                             '</div>' +
-                        '</div>'
+                        '</div>',
+    projectPriorityHigh: 0,
+    projectPriorityMiddle: 1,
+    projectPriorityLow: 2,
+    projectPriority:
+        [
+            { id: 0, translation: 'Высокий' },
+            { id: 1, translation: 'Средний' },
+            { id: 2, translation: 'Низкий' }
+        ]    
 });

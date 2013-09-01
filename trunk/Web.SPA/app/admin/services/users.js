@@ -1,4 +1,4 @@
-﻿var services = angular.module('admin.users.services', ['ngResource']);
+﻿var services = angular.module('services.admin.users', ['ngResource']);
 
 services.factory('User', ['$resource',
 function ($resource) {

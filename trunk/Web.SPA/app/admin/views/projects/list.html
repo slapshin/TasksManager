@@ -1,0 +1,13 @@
+﻿<h3>Проекты</h3>
+
+<div class="btn-toolbar grid-toolbar">
+    <div class="btn-group">
+        <button type="button" class="btn btn-default btn-sm" ng-click="new()"><span class="glyphicon glyphicon-plus"></span></button>
+        <button type="button" class="btn btn-default btn-sm" ng-click="remove()" ng-disabled="!project"><span class="glyphicon glyphicon-trash"></span></button>
+        <button type="button" class="btn btn-default btn-sm" ng-click="view()" ng-disabled="!project"><span class="glyphicon glyphicon-eye-open"></span></button>
+        <button type="button" class="btn btn-default btn-sm" ng-click="edit()" ng-disabled="!project"><span class="glyphicon glyphicon-edit"></span></button>        
+    </div>    
+</div>
+
+<div class="grid-style" ng-grid="gridOptions">
+</div>

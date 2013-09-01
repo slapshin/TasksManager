@@ -1,7 +1,7 @@
 ﻿using System.Security.Principal;
 using Web.Common.Auth;
 
-namespace Web.SPA.Utils
+namespace Web.SPA.Common
 {
     public static class Extensions
     {

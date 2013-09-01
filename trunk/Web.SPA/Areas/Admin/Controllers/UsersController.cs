@@ -34,22 +34,6 @@ namespace Web.SPA.Areas.Admin.Controllers
         }
 
         [CheckModel]
-        public HttpResponseMessage Put(Guid id, UserDto userDto)
-        {
-            if (id != userDto.Id)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-
-            ExecuteInTransaction(session =>
-            {
-                ModelMapper.Map<UserDto, User>(userDto, session.Get<User>(id));
-            });
-
-            return Request.CreateResponse(HttpStatusCode.OK);
-        }
-
-        [CheckModel]
         public HttpResponseMessage Post(UserDto userDto)
         {
             ExecuteInTransaction(session =>

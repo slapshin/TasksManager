@@ -241,9 +241,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProjectsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProjectsUtilsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersUtilsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Admin\Models\ChangePassDto.cs" />
+    <Compile Include="Areas\Admin\Models\ProjectDto.cs" />
     <Compile Include="Areas\Admin\Models\UserDto.cs" />
     <Compile Include="Common\BaseApiController.cs" />
     <Compile Include="Common\BaseController.cs" />
@@ -257,21 +260,27 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Common\Utils.cs" />
+    <Compile Include="Models\ComboBoxDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Utils\Extensions.cs" />
+    <Compile Include="Common\Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\admin\controllers\projects.js" />
     <Content Include="app\admin\controllers\users.js" />
+    <Content Include="app\admin\services\projects.js" />
     <Content Include="app\admin\services\users.js" />
-    <Content Include="app\admin\views\projects\index.html" />
+    <Content Include="app\admin\views\projects\edit.html" />
+    <Content Include="app\admin\views\projects\list.html" />
+    <Content Include="app\admin\views\projects\view.html" />
     <Content Include="app\admin\views\users\edit.html" />
     <Content Include="app\admin\views\users\list.html" />
     <Content Include="app\admin\views\users\view.html" />
     <Content Include="app\app.js" />
     <Content Include="app\consts.js" />
     <Content Include="app\controllers\home.js" />
+    <Content Include="app\route.js" />
     <Content Include="app\services\logger.js" />
     <Content Include="app\services\utils.js" />
     <Content Include="app\views\home\index.html" />
@@ -767,7 +776,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

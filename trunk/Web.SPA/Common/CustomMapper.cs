@@ -1,5 +1,6 @@
 ﻿using Model;
 using Web.Common.Mapper;
+using AdminProjectDto = Web.SPA.Areas.Admin.Models.ProjectDto;
 using AdminUserDto = Web.SPA.Areas.Admin.Models.UserDto;
 
 namespace Web.SPA.Common
@@ -19,6 +20,12 @@ namespace Web.SPA.Common
             AutoMapper.Mapper.CreateMap<AdminUserDto, User>()
                                 .ForMember(m => m.Id, opt => opt.Ignore())
                                 .ForMember(m => m.Password, opt => opt.Ignore());
+
+            AutoMapper.Mapper.CreateMap<Project, AdminProjectDto>()
+                    .ForMember(m => m.Master, opt => opt.MapFrom(s => s.Master.Id))
+                    .ForMember(m => m.MasterName, opt => opt.MapFrom(s => s.Master.Login));
+            AutoMapper.Mapper.CreateMap<AdminProjectDto, Project>()
+                                .ForMember(m => m.Master, opt => opt.Ignore());
         }
 
         public TDest Map<TSource, TDest>(TSource source)

@@ -55,7 +55,6 @@ namespace Web.SPA
                                         "~/Scripts/angular-resource.js",
                                         "~/Scripts/ng-grid-{version}.js",
                                         "~/Scripts/angular-ui.js",
-                //"~/Scripts/ui-bootstrap-{version}.js",
                                         "~/Scripts/ui-bootstrap-tpls-{version}.js"
                                         ));
 
@@ -64,13 +63,15 @@ namespace Web.SPA
 
             bundles.Add(new ScriptBundle("~/bundles/tasks").Include(
                                         "~/app/app.js", // must be first
+                                        "~/app/route.js",
                                         "~/app/consts.js",
                                         "~/app/services/logger.js",
                                         "~/app/services/utils.js",
                                         "~/app/controllers/home.js",
                                         "~/app/admin/controllers/users.js",
+                                        "~/app/admin/controllers/projects.js",
                                         "~/app/admin/services/users.js",
-                                        "~/app/admin/controllers/projects.js"));
+                                        "~/app/admin/services/projects.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
