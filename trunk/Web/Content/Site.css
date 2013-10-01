@@ -109,6 +109,14 @@ th.button-col {
     width: 500px;
 }
 
+tr.in-archive {
+    background-color: #b1adad !important;
+}
+
+    tr.in-archive td {
+        color: #ffffff !important;
+    }
+
 /*KANBAN*/
 
 .kanban-place-holder div {

@@ -2,6 +2,7 @@
 using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Web.Utils;
 
@@ -29,10 +30,10 @@ namespace Web.Areas.Customer.Controllers
         {
             Project project = GetEntity<Project>(id);
             IList<object> data = new List<object>();
-            foreach (Call call in project.Calls)
+            foreach (Call call in project.Calls.Where(c => !c.InArchive))
             {
                 IList<object> tasks = new List<object>();
-                foreach (Task task in call.Tasks)
+                foreach (Task task in call.Tasks.Where(t => !t.InArchive))
                 {
                     tasks.Add(new
                     {
@@ -59,7 +60,6 @@ namespace Web.Areas.Customer.Controllers
         {
             if (Request.IsAjaxRequest())
             {
-
             }
             return View();
         }

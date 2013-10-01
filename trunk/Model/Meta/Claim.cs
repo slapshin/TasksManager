@@ -14,6 +14,7 @@ namespace Model
         public virtual Project Project { get; set; }
         public virtual TaskType Type { get; set; }
         public virtual Call Call { get; set; }
+        public virtual bool InArchive { get; set; }
         #endregion
     }
 }

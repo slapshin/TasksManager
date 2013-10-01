@@ -18,7 +18,7 @@
         @Html.ValidationSummary()
 
         @Html.HiddenFor(model => model.Id)
-        
+
         <div class="span4">
             <h4>Заголовок</h4>
             <div class="input-control text">
@@ -31,12 +31,16 @@
             <h4>Приоритет</h4>
             <div class="input-control text">
                 @Html.DropDownListFor(model => model.Priority, Model.Priority.EnumToSelectList<TaskPriority>(Translation.TaskPriority.ResourceManager))
-            </div>            
+            </div>
             <h4>Комментарий</h4>
             <div class="input-control text">
                 @Html.TextAreaFor(model => model.Comment)
             </div>
-        </div>  
+            <div class="input-control">
+                @Html.CheckBoxFor(model => model.InArchive)
+                <span class="helper">В архиве</span>
+            </div>
+        </div>
         <p>
             <input type="submit" value="Сохранить" />
         </p>

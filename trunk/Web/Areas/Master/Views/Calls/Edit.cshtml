@@ -2,7 +2,7 @@
 
 @model CallView
 
-@{    
+@{
     ViewBag.Title = string.Format("{0} заявки{1}", Model.Id.HasValue ? "Редактирование" : "Создание", Model.Id.HasValue ? " №" + Model.Id : "");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -16,8 +16,8 @@
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary()
-    
-        @Html.HiddenFor(model => model.Id)        
+
+        @Html.HiddenFor(model => model.Id)
 
         <div class="span4">
             <h4>Заголовок</h4>
@@ -44,7 +44,12 @@
             <div class="input-control">
                 @Html.TextAreaFor(model => model.Comment)
             </div>
-        </div>                                                                           
+
+            <div class="input-control">
+                @Html.CheckBoxFor(model => model.InArchive)
+                <span class="helper">В архиве</span>
+            </div>
+        </div>
         <p>
             <input type="submit" value="Сохранить" />
         </p>

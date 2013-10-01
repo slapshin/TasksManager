@@ -37,7 +37,8 @@
         </thead>
         @foreach (Claim claim in Model.List)
         {
-            <tr>
+            string cl = claim.InArchive ? "in-archive" : "";
+            <tr class="@cl">
                 <td>@Html.EditButton("Claims", claim.Id)</td>
                 <td>@Html.DeleteButton("Claims", claim.Id)</td>
                 <td>@claim.Title</td>

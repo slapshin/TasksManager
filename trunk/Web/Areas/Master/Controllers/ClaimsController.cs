@@ -31,6 +31,8 @@ namespace Web.Areas.Master.Controllers
                     Call call = new Call()
                     {
                         Created = DateTime.Now,
+                        Title = claim.Title,
+                        Comment = claim.Comment,
                         Claim = claim,
                         Project = claim.Project
                     };

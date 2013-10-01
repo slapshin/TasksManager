@@ -55,6 +55,11 @@
             <div class="input-control text">
                 @Html.TextAreaFor(model => model.Comment)
             </div>
+
+            <div class="input-control">
+                @Html.CheckBoxFor(model => model.InArchive)
+                <span class="helper">В архиве</span>
+            </div>
         </div>
         <p>
             <input type="submit" value="Сохранить" />

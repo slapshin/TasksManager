@@ -36,7 +36,8 @@
     </thead>
     @foreach (Task task in Model.List)
     {
-        <tr>
+        string cl = task.InArchive ? "in-archive" : "";
+        <tr class="@cl">
             <td>@Html.EditButton("Tasks", task.Id)</td>
             <td>@Html.DeleteButton("Tasks", task.Id)</td>
             <td>@task.Title</td>

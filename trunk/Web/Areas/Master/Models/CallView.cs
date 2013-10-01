@@ -25,5 +25,7 @@ namespace Web.Areas.Master.Models
         public CallStatus Status { get; set; }
 
         public Guid? Claim_Id { get; set; }
+
+        public bool InArchive { get; set; }
     }
 }

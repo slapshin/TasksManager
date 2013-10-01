@@ -34,7 +34,8 @@
         {
             int completed = call.Tasks.Where(t => t.Status == TaskStatus.Checked || t.Status == TaskStatus.Completed).Count();
             int active = call.Tasks.Count - completed;
-            <tr>
+            string cl = call.InArchive ? "in-archive" : "";
+            <tr class="@cl">
                 <td>@Html.EditButton("Calls", call.Id)</td>
                 <td>@Html.DeleteButton("Calls", call.Id)</td>
                 <td>@call.Id</td>

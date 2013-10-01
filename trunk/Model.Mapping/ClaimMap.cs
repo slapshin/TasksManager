@@ -11,6 +11,7 @@ namespace Model.Mapping
             Map(x => x.Created);
             Map(x => x.Title);
             Map(x => x.Comment);
+            Map(x => x.InArchive);
             Map(x => x.Priority).CustomType<TaskPriority>();
             References(x => x.Project);
             Map(x => x.Type).CustomType<TaskType>();
