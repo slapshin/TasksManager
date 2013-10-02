@@ -36,7 +36,8 @@
     </thead>
     @foreach (Task task in Model.List)
     {
-        <tr>
+        string cl = task.InArchive || task.Call.InArchive ? "in-archive" : "";
+        <tr class="@cl">
             <td>@task.Title</td>
             <td>@task.Call.Title</td>
             <td>@task.Call.Project.Title</td>
