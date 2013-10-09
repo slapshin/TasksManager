@@ -8,7 +8,7 @@ namespace Model.Mapping
         {
             Id(x => x.Id).GeneratedBy.Increment();
             Map(x => x.Title);
-            Map(x => x.Comment);
+            Map(x => x.Comment).Length(10000);
             References(x => x.Project).Not.Nullable();
             Map(x => x.Created);
             Map(x => x.Completed);
