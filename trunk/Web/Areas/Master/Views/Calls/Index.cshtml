@@ -49,6 +49,6 @@
         }
     </table>
     <div class="pagination">
-        @Html.PageLinks(Model.PageNo, Model.PageCount, x => Url.Action("Index", new { page = x }))
+        @Html.PageLinks(Model.PageNo, Model.PageCount, x => Url.Action("Details", "Projects", new { id = ViewBag.ProjectId, page = x }))
     </div>
 }

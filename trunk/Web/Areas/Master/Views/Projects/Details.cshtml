@@ -13,5 +13,5 @@
 }
 
 <p>
-    @{Html.RenderAction("Index", "Calls", new { project = Model.Id });}
+    @{Html.RenderAction("Index", "Calls", new { project = Model.Id, page = ViewBag.Page });}
 </p>

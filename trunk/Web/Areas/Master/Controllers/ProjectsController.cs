@@ -11,8 +11,9 @@ namespace Web.Areas.Master.Controllers
 {
     public class ProjectsController : BaseController
     {
-        public ActionResult Details(Guid id)
+        public ActionResult Details(Guid id, int page = 1)
         {
+            ViewBag.Page = page;
             return View(ModelMapper.Map<Project, ProjectView>(GetEntity<Project>(id)));
         }
 
