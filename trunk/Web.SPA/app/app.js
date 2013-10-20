@@ -1,11 +1,33 @@
-﻿window.app = angular.module('tasks', [
+﻿window.app = angular.module('tasks', ['loadingService',
                                         'ngGrid',
-                                        'utils',
+                                        'common',
                                         'ui.bootstrap',
                                         'services.admin.users',
-                                        'services.admin.projects'
-]);
-app.value('Q', window.Q);
+                                        'services.admin.projects']);
+
+angular.module('loadingService', [],
+    ['$provide', function ($provide) {
+        $provide.factory('customHttpInterceptor', ['$q', '$window', 'logger', function ($q, $window, logger) {
+            return function (promise) {
+                return promise.then(function (response) {
+                    $('.ajax-indicator').hide();
+                    return response;
+                }, function (response) {
+                    $('.ajax-indicator').hide();
+                    logger.error(response.data);
+                    return $q.reject(response);
+                });
+            };
+        }]);
+    }]);
+
+app.config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.responseInterceptors.push('customHttpInterceptor');
+    $httpProvider.defaults.transformRequest.push(function (data, headers) {
+        $('.ajax-indicator').show();
+        return data;
+    });
+}]);
 
 app.directive('onFocus', function () {
     return {

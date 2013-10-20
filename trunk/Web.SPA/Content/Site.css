@@ -19,6 +19,26 @@ body {
     border-top: 1px solid #999;
 }
 
+.ajax-indicator {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99999;
+    background: white;
+    opacity: 0.5;
+}
+
+    .ajax-indicator img {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+    }
+
 #loginForm {
     margin-top: 60px;
 }
@@ -61,7 +81,7 @@ body {
     margin-bottom: 10px;
 }
 
-.modal-dialog-alert{
+.modal-dialog-alert {
     margin: 10px;
 }
 

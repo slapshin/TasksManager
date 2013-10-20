@@ -66,7 +66,7 @@ namespace Web.SPA
                                         "~/app/route.js",
                                         "~/app/consts.js",
                                         "~/app/services/logger.js",
-                                        "~/app/services/utils.js",
+                                        "~/app/services/common.js",
                                         "~/app/controllers/home.js",
                                         "~/app/admin/controllers/users.js",
                                         "~/app/admin/controllers/projects.js",

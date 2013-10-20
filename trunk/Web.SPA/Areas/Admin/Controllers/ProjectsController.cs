@@ -12,15 +12,13 @@ namespace Web.SPA.Areas.Admin.Controllers
     {
         public IEnumerable<ProjectDto> Get()
         {
-            List<ProjectDto> projects = new List<ProjectDto>();
+            IEnumerable<ProjectDto> result = new List<ProjectDto>();
+
             ExecuteInSession(session =>
             {
-                foreach (Project project in session.QueryOver<Project>().List())
-                {
-                    projects.Add(ModelMapper.Map<Project, ProjectDto>(project));
-                }
+                result = ModelMapper.Map<IEnumerable<Project>, IEnumerable<ProjectDto>>(session.QueryOver<Project>().List());
             });
-            return projects;
+            return result;
         }
 
         public ProjectDto Get(Guid id)

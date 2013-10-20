@@ -8,7 +8,10 @@ namespace Web.SPA.Common
     {
         public override void OnException(HttpActionExecutedContext context)
         {
-            context.Response = new HttpResponseMessage(HttpStatusCode.InternalServerError);
+            context.Response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
+            {
+                Content = new StringContent(context.Exception.Message),
+            };
         }
     }
 }

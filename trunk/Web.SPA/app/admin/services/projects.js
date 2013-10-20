@@ -31,20 +31,6 @@ function (Project, $route, $q) {
     };
 }]);
 
-services.factory('ProjectsCount', ['$http', '$q', function ($http, $q) {
-    return function () {
-        var delay = $q.defer();
-        $http.get('api/Admin/Projects/Count')
-        .success(function (data) {
-            delay.resolve(data);
-        })
-        .error(function () {
-            delay.reject('ProjectsCount error');
-        });
-        return delay.promise;
-    };
-}]);
-
 services.factory('ProjectMasters', ['$http', '$q', function ($http, $q) {
     return function () {
         var delay = $q.defer();

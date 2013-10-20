@@ -12,15 +12,12 @@ namespace Web.SPA.Areas.Admin.Controllers
     {
         public IEnumerable<UserDto> Get()
         {
-            List<UserDto> users = new List<UserDto>();
+            IEnumerable<UserDto> result = new List<UserDto>();
             ExecuteInSession(session =>
             {
-                foreach (User user in session.QueryOver<User>().List())
-                {
-                    users.Add(ModelMapper.Map<User, UserDto>(user));
-                }
+                result = ModelMapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(session.QueryOver<User>().List());
             });
-            return users;
+            return result;
         }
 
         public UserDto Get(Guid id)

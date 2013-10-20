@@ -15,6 +15,9 @@
 @if (@User.Identity.IsAuthenticated)
 {
     <div id="main-content" data-ng-app="tasks">
+        <div class="ajax-indicator">
+            <img src="~/Content/images/ajax-loader.gif" />
+        </div>   
         <div data-ng-view></div> <!-- The SPA Views go here -->
     </div>
     <input id="antiForgeryToken" type="hidden" value="@GetAntiForgeryToken()" />    

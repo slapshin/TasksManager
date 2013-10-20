@@ -1,4 +1,5 @@
 ﻿using Model;
+using NHibernate;
 using NHibernate.Criterion;
 using System.Collections.Generic;
 using System.Net;
@@ -6,43 +7,41 @@ using System.Net.Http;
 using System.Web.Http;
 using Web.SPA.Areas.Admin.Models;
 using Web.SPA.Common;
+using Web.SPA.Models;
 
 namespace Web.SPA.Areas.Admin.Controllers
 {
     [RoutePrefix("api/Admin/Projects")]
     public class ProjectsUtilsController : BaseApiController
     {
-        [HttpGet("Page")]
-        public IEnumerable<ProjectDto> Page(int page, int pageSize)
+        public class ProjectsPageParams : PageParams
         {
-            List<ProjectDto> projects = new List<ProjectDto>();
-            ExecuteInSession(session =>
-            {
-                IList<Project> list = session.CreateCriteria<Project>()
-                                            .SetFirstResult((page - 1) * pageSize)
-                                            .SetMaxResults(pageSize)
-                                            .List<Project>();
-
-                foreach (Project user in list)
-                {
-                    projects.Add(ModelMapper.Map<Project, ProjectDto>(user));
-                }
-            });
-            return projects;
         }
 
-        [HttpGet("Count")]
-        public HttpResponseMessage Count()
+        [HttpPost("Page")]
+        public HttpResponseMessage Page(ProjectsPageParams parameters)
         {
-            int count = 0;
+            PageResult result = null;
             ExecuteInSession(session =>
             {
-                count = session.CreateCriteria<Project>()
-                            .SetProjection(Projections.Count(Projections.Id()))
-                            .UniqueResult<int>();
+                IList<Project> data = GetPageCriteriaByParams(session, parameters)
+                                    .SetFirstResult((parameters.Page - 1) * parameters.PageSize)
+                                    .SetMaxResults(parameters.PageSize)
+                                    .List<Project>();
+
+                result = new PageResult()
+                {
+                    Total = GetPageCriteriaByParams(session, parameters).SetProjection(Projections.Count(Projections.Id())).UniqueResult<int>(),
+                    Data = ModelMapper.Map<IEnumerable<Project>, IEnumerable<ProjectDto>>(data)
+                };
             });
 
-            return Request.CreateResponse(HttpStatusCode.OK, count);
+            return Request.CreateResponse(HttpStatusCode.OK, result);
+        }
+
+        private ICriteria GetPageCriteriaByParams(ISession session, ProjectsPageParams parameters)
+        {
+            return session.CreateCriteria<Project>();
         }
 
         [HttpGet("Masters")]
