@@ -257,6 +257,7 @@
     <Compile Include="Common\CustomMapper.cs" />
     <Compile Include="Common\ModelStateException.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\ValidateHttpAntiForgeryTokenAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -291,6 +292,7 @@
     <Content Include="app\app.js" />
     <Content Include="app\consts.js" />
     <Content Include="app\controllers\home.js" />
+    <Content Include="app\controllers\login.js" />
     <Content Include="app\customer\controllers\claims.js" />
     <Content Include="app\customer\services\claims.js" />
     <Content Include="app\customer\views\claims\edit.html" />
@@ -299,7 +301,9 @@
     <Content Include="app\route.js" />
     <Content Include="app\services\logger.js" />
     <Content Include="app\services\common.js" />
+    <Content Include="app\services\menu.js" />
     <Content Include="app\views\home\index.html" />
+    <Content Include="app\views\home\login.html" />
     <Content Include="Content\angular-ui.css" />
     <Content Include="Content\angular-ui.min.css" />
     <Content Include="Content\bootstrap-datepicker.css" />
@@ -428,6 +432,12 @@
     </Content>
     <Content Include="app\services\common.min.js.map">
       <DependentUpon>common.js</DependentUpon>
+    </Content>
+    <Content Include="app\controllers\login.min.js.map">
+      <DependentUpon>login.js</DependentUpon>
+    </Content>
+    <Content Include="app\services\menu.min.js.map">
+      <DependentUpon>menu.js</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
@@ -803,6 +813,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Customer\Views\Shared\" />
+    <Folder Include="Views\Helper\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

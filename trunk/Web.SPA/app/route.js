@@ -1,5 +1,6 @@
 ﻿app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/', { templateUrl: 'app/views/home/index.html', controller: 'ctrl.home' });
+    $routeProvider.when('/login', { templateUrl: 'app/views/home/login.html', controller: 'ctrl.login' });
     registerAdminRoutes($routeProvider);
     //registerCustomerRoutes($routeProvider);
     $routeProvider.otherwise({ redirectTo: '/' });

@@ -7,22 +7,45 @@
 
 angular.module('loadingService', [],
     ['$provide', function ($provide) {
-        $provide.factory('customHttpInterceptor', ['$q', '$window', 'logger', function ($q, $window, logger) {
+        $provide.factory('customHttpInterceptor', ['$q', '$window', '$location', 'logger', function ($q, $window, $location, logger) {
             return function (promise) {
                 return promise.then(function (response) {
                     $('.ajax-indicator').hide();
                     return response;
                 }, function (response) {
                     $('.ajax-indicator').hide();
-                    logger.error(response.data.message);
+                    if (response.status === 401) {                        
+                        $location.path('/login');                                                
+                    }
+                    else {
+                        logger.error(response.data.message);
+                    }                    
                     return $q.reject(response);
                 });
             };
         }]);
     }]);
 
+app.controller('main-menu-controller', ['$scope', '$http',
+    function ($scope, $http) {
+        $http.get('api/Helper/MainMenu')
+            .success(function (data) {
+             
+            })
+            .error(function (data) {
+              
+            });
+
+        $scope.test = 'test';
+    }]);
+
 app.config(['$httpProvider', function ($httpProvider) {
-    $httpProvider.responseInterceptors.push('customHttpInterceptor');  
+    $httpProvider.responseInterceptors.push('customHttpInterceptor');
+    var accessToken = sessionStorage["accessToken"] || localStorage["accessToken"];
+    if (accessToken) {
+        $httpProvider.defaults.headers.common = { 'Authorization': 'Bearer ' + accessToken };
+    }
+   
     $httpProvider.defaults.transformRequest.push(function (data, headers) {
         $('.ajax-indicator').show();
         return data;
