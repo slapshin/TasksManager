@@ -17,7 +17,7 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = Auth.Login(loginView.Login, loginView.Password, true);
+                var user = Auth.Login(loginView.Username, loginView.Password, true);
                 if (user != null)
                 {
                     return RedirectToAction("Index", "Home");

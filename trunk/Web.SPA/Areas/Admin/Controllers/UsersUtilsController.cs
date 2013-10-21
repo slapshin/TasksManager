@@ -12,6 +12,7 @@ using Web.SPA.Models;
 
 namespace Web.SPA.Areas.Admin.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/Admin/Users")]
     public class UsersUtilsController : BaseApiController
     {
@@ -19,7 +20,8 @@ namespace Web.SPA.Areas.Admin.Controllers
         {
         }
 
-        [HttpPost("Page")]
+        [Route("Page")]
+        [HttpPost()]
         public HttpResponseMessage Page(UsersPageParams parameters)
         {
             PageResult result = null;
@@ -45,7 +47,7 @@ namespace Web.SPA.Areas.Admin.Controllers
             return session.CreateCriteria<User>();
         }
 
-        [HttpPost("ChangePassword")]
+        [HttpPost()]
         [CheckModel]
         public HttpResponseMessage ChangePassword(ChangePassDto view)
         {

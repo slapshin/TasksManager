@@ -63,6 +63,7 @@ namespace Web.SPA
 
             bundles.Add(new ScriptBundle("~/bundles/tasks").Include(
                                         "~/app/app.js", // must be first
+                                        "~/app/directives.js",
                                         "~/app/route.js",
                                         "~/app/consts.js",
                                         "~/app/services/logger.js",

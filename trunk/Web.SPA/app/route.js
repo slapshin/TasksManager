@@ -1,7 +1,7 @@
 ﻿app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/', { templateUrl: 'app/views/home/index.html', controller: 'ctrl.home' });
     registerAdminRoutes($routeProvider);
-    registerCustomerRoutes($routeProvider);
+    //registerCustomerRoutes($routeProvider);
     $routeProvider.otherwise({ redirectTo: '/' });
 }]);
 
@@ -71,37 +71,37 @@ function registerAdminRoutes($routeProvider) {
     });
 }
 
-function registerAdminRoutes($routeProvider) {
-    $routeProvider.
-        // - claims
-    when('/customer/claims/list', {
-        templateUrl: 'app/customer/views/claims/list.html',
-        controller: 'customer.claims.list'
-    }).
-    when('/customer/claims', {
-        templateUrl: 'app/customer/views/claims/list.html',
-        controller: 'customer.claims.list'
-    }).
-    when('/customer/claims/edit/:claimId', {
-        controller: 'customer.claims.edit',
-        templateUrl: 'app/customer/views/claims/edit.html',
-        resolve: {
-            user: ["ClaimLoader", function (service) {
-                return service();
-            }]
-        }
-    }).
-    when('/customer/users/view/:claimId', {
-        controller: 'customer.claims.view',
-        resolve: {
-            user: ["ClaimLoader", function (service) {
-                return service();
-            }]
-        },
-        templateUrl: 'app/customer/views/claims/view.html'
-    }).
-    when('/customer/users/new', {
-        controller: 'customer.claims.new',
-        templateUrl: 'app/customer/views/claims/edit.html'
-    });
-}
+//function registerAdminRoutes($routeProvider) {
+//    $routeProvider.
+//        // - claims
+//    when('/customer/claims/list', {
+//        templateUrl: 'app/customer/views/claims/list.html',
+//        controller: 'customer.claims.list'
+//    }).
+//    when('/customer/claims', {
+//        templateUrl: 'app/customer/views/claims/list.html',
+//        controller: 'customer.claims.list'
+//    }).
+//    when('/customer/claims/edit/:claimId', {
+//        controller: 'customer.claims.edit',
+//        templateUrl: 'app/customer/views/claims/edit.html',
+//        resolve: {
+//            user: ["ClaimLoader", function (service) {
+//                return service();
+//            }]
+//        }
+//    }).
+//    when('/customer/users/view/:claimId', {
+//        controller: 'customer.claims.view',
+//        resolve: {
+//            user: ["ClaimLoader", function (service) {
+//                return service();
+//            }]
+//        },
+//        templateUrl: 'app/customer/views/claims/view.html'
+//    }).
+//    when('/customer/users/new', {
+//        controller: 'customer.claims.new',
+//        templateUrl: 'app/customer/views/claims/edit.html'
+//    });
+//}

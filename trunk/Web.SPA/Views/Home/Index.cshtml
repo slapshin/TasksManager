@@ -2,15 +2,6 @@
     ViewBag.Title = "Главная";
 }
 
-@functions{
-    public string GetAntiForgeryToken()
-    {
-        string cookieToken, formToken;
-        AntiForgery.GetTokens(null, out cookieToken, out formToken);
-        return cookieToken + ":" + formToken;
-    }
-}
-
 
 @if (@User.Identity.IsAuthenticated)
 {
@@ -18,9 +9,8 @@
         <div class="ajax-indicator">
             <img src="~/Content/images/ajax-loader.gif" />
         </div>   
-        <div data-ng-view></div> <!-- The SPA Views go here -->
-    </div>
-    <input id="antiForgeryToken" type="hidden" value="@GetAntiForgeryToken()" />    
+        <div data-ng-view></div>
+    </div>    
     
     @section styles {
         @Styles.Render("~/Content/angular")                

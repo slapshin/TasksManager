@@ -1,10 +1,8 @@
-﻿using Model;
-using Model.Common;
+﻿using Model.Common;
 using NHibernate;
 using Ninject;
 using System;
 using System.Web.Http;
-using Web.Common.Auth;
 using Web.Common.Mapper;
 using Web.Common.Repository;
 
@@ -21,15 +19,7 @@ namespace Web.SPA.Common
         public ISessionProvider Provider { get; set; }
 
         [Inject]
-        public IAuthentication Auth { get; set; }
-
-        [Inject]
         public IMapper ModelMapper { get; set; }
-
-        public User CurrentUser
-        {
-            get { return ((IUserProvider)Auth.CurrentUser.Identity).User; }
-        }
 
         protected void ExecuteInTransaction(Action<ISession> action)
         {

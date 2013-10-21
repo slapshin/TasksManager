@@ -1,6 +1,6 @@
 ﻿@model Web.Common.Auth.LoginView
 
-@using (Html.BeginForm("JsonLogin", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "loginForm", @class = "form-horizontal" }))
+@using (Html.BeginForm("JsonLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "loginForm", @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-group">
@@ -9,16 +9,16 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Login, "Логин", new { @class = "col-lg-2 control-label" })
+        @Html.LabelFor(m => m.Username, "Логин", new { @class = "col-lg-2 control-label" })
         <div class="col-lg-2">
-            @Html.TextBoxFor(m => m.Login, new { autofocus = "autofocus", id = "loginName", placeholder = "Логин", @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Login)
+            @Html.TextBoxFor(m => m.Username, new { autofocus = "autofocus", id = "username", placeholder = "Логин", @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Username)
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Password, "Пароль", new { @class = "col-lg-2 control-label" })
         <div class="col-lg-2">
-            @Html.PasswordFor(m => m.Password, new { placeholder = "Пароль", @class = "form-control" })
+            @Html.PasswordFor(m => m.Password, new { placeholder = "Пароль",  id = "password", @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Password)
         </div>
     </div>

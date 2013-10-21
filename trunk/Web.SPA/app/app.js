@@ -14,7 +14,7 @@ angular.module('loadingService', [],
                     return response;
                 }, function (response) {
                     $('.ajax-indicator').hide();
-                    logger.error(response.data);
+                    logger.error(response.data.message);
                     return $q.reject(response);
                 });
             };
@@ -22,7 +22,7 @@ angular.module('loadingService', [],
     }]);
 
 app.config(['$httpProvider', function ($httpProvider) {
-    $httpProvider.responseInterceptors.push('customHttpInterceptor');
+    $httpProvider.responseInterceptors.push('customHttpInterceptor');  
     $httpProvider.defaults.transformRequest.push(function (data, headers) {
         $('.ajax-indicator').show();
         return data;

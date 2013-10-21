@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Web.Http;
 using Web.SPA.Areas.Admin.Models;
 using Web.SPA.Common;
 
 namespace Web.SPA.Areas.Admin.Controllers
 {
+    [Authorize]
     public class ProjectsController : BaseApiController
     {
         public IEnumerable<ProjectDto> Get()
