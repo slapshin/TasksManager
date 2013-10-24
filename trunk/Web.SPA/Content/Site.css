@@ -39,7 +39,7 @@ body {
         margin: auto;
     }
 
-#loginForm {
+.loginForm {
     margin-top: 60px;
 }
 

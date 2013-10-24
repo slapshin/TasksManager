@@ -1,5 +1,8 @@
-﻿namespace Model
+﻿using System;
+
+namespace Model
 {
+    [Flags]
     public enum UserRole
     {
         Admin = 1,
