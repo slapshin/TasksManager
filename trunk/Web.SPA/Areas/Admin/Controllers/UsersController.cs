@@ -9,7 +9,7 @@ using Web.SPA.Common;
 
 namespace Web.SPA.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class UsersController : BaseApiController
     {
         public IEnumerable<UserDto> Get()

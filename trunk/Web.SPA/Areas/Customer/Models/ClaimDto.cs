@@ -3,8 +3,10 @@ using System;
 
 namespace Web.SPA.Areas.Customer.Models
 {
-    public class ClaimsDto
+    public class ClaimDto
     {
+        public Guid? Id { get; set; }
+
         public DateTime? Created { get; set; }
 
         public string Title { get; set; }

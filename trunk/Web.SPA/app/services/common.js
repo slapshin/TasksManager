@@ -179,7 +179,6 @@ commonModule.factory('utils', ['$http', 'customDialog', 'consts', function ($htt
         confirm: confirm,
         confirmDelete: confirmDelete,
         show: show,
-        getHttpConfig: getHttpConfig,
         createGrid: createGrid
     };
     return utils;
@@ -260,19 +259,6 @@ commonModule.factory('utils', ['$http', 'customDialog', 'consts', function ($htt
           .open();
     }
 
-    function getHttpConfig() {
-        var accessToken = sessionStorage["accessToken"] || localStorage["accessToken"];
-        if (accessToken) {
-            return {
-                headers: {
-                    "Authorization": "Bearer " + accessToken
-                }
-            };
-        }
-
-        return null;
-    }
-
     function createGrid(settings) {
         var $scope = settings.$scope;
 
@@ -295,7 +281,7 @@ commonModule.factory('utils', ['$http', 'customDialog', 'consts', function ($htt
                 });
             }
 
-            $http.post(settings.pageUrl, data, getHttpConfig())
+            $http.post(settings.pageUrl, data)
                 .success(function (result) {
                     if (!result) {
                         return;

@@ -135,17 +135,22 @@ namespace Web.SPA.Models
             return Task.Run(() =>
             {
                 IList<string> result = new List<string>();
-                if (user.Roles.HasFlag(Model.UserRole.Admin))
-                {
-                    result.Add(Model.UserRole.Admin.ToString());
-                }
-
-                if (user.Roles.HasFlag(Model.UserRole.Customer))
-                {
-                    result.Add(Model.UserRole.Customer.ToString());
-                }
+                AddRoleIfExists(user, Model.UserRole.Admin, result);
+                AddRoleIfExists(user, Model.UserRole.Customer, result);
+                AddRoleIfExists(user, Model.UserRole.Executor, result);
+                AddRoleIfExists(user, Model.UserRole.Master, result);
+                AddRoleIfExists(user, Model.UserRole.Router, result);
+                AddRoleIfExists(user, Model.UserRole.Tester, result);
                 return result;
             });
+        }
+
+        private void AddRoleIfExists(TUser user, Model.UserRole role, IList<string> roles)
+        {
+            if (user.Roles.HasFlag(role))
+            {
+                roles.Add(role.ToString());
+            }
         }
 
         public Task<bool> IsInRoleAsync(TUser user, string role)

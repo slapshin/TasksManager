@@ -71,10 +71,13 @@ namespace Web.SPA
                                         "~/app/services/common.js",
                                         "~/app/controllers/home.js",
                                         "~/app/controllers/login.js",
-                                        "~/app/admin/controllers/users.js",
+                                        "~/app/controllers/menu.js",
                                         "~/app/admin/controllers/projects.js",
+                                        "~/app/admin/services/projects.js",
+                                        "~/app/admin/controllers/users.js",
                                         "~/app/admin/services/users.js",
-                                        "~/app/admin/services/projects.js"));
+                                        "~/app/customer/controllers/claims.js",
+                                        "~/app/customer/services/claims.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));

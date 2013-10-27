@@ -44,14 +44,33 @@ namespace Web.SPA.Controllers
         [Route("UserInfo")]
         public UserInfoViewModel GetUserInfo()
         {
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
-
             return new UserInfoViewModel
+             {
+                 UserName = User.Identity.GetUserName(),
+                 Roles = GetCurrentUserRoles()
+             };
+        }
+
+        [NonAction]
+        private string[] GetCurrentUserRoles()
+        {
+            List<string> roles = new List<string>();
+            AddIfInRole(Model.UserRole.Admin.ToString(), roles);
+            AddIfInRole(Model.UserRole.Customer.ToString(), roles);
+            AddIfInRole(Model.UserRole.Executor.ToString(), roles);
+            AddIfInRole(Model.UserRole.Master.ToString(), roles);
+            AddIfInRole(Model.UserRole.Router.ToString(), roles);
+            AddIfInRole(Model.UserRole.Tester.ToString(), roles);
+            return roles.ToArray();
+        }
+
+        [NonAction]
+        private void AddIfInRole(string role, List<string> roles)
+        {
+            if (User.IsInRole(role))
             {
-                UserName = User.Identity.GetUserName(),
-                HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
-            };
+                roles.Add(role);
+            }
         }
 
         // POST api/Account/Logout

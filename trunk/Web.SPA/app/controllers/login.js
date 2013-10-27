@@ -1,5 +1,5 @@
-﻿app.controller('ctrl.login', ['$scope', '$http', '$location',
-    function ($scope, $http, $location) {
+﻿app.controller('ctrl.login', ['$scope', '$http', '$location','$rootScope',
+    function ($scope, $http, $location, $rootScope) {
         $scope.login = function () {
             $.post('/Token',
                {
@@ -21,7 +21,10 @@
                        sessionStorage["accessToken"] = data.access_token;
                    }
                    $http.defaults.headers.common = { 'Authorization': 'Bearer ' + data.access_token };
-                   $location.path('/');
+                   $rootScope.$broadcast('event:userLogged');
+                   $scope.$apply(function () {
+                       $location.path('/');
+                   });
                })
                .error(function (response) {
                    $scope.$apply(function () {

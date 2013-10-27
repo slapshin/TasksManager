@@ -11,7 +11,7 @@ using Web.SPA.Models;
 
 namespace Web.SPA.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [RoutePrefix("api/Admin/Projects")]
     public class ProjectsUtilsController : BaseApiController
     {
@@ -19,7 +19,8 @@ namespace Web.SPA.Areas.Admin.Controllers
         {
         }
 
-        [HttpPost()]
+        [Route("Page")]
+        [HttpPost]
         public HttpResponseMessage Page(ProjectsPageParams parameters)
         {
             PageResult result = null;
@@ -45,7 +46,8 @@ namespace Web.SPA.Areas.Admin.Controllers
             return session.CreateCriteria<Project>();
         }
 
-        [HttpGet()]
+        [Route("Masters")]
+        [HttpGet]
         public HttpResponseMessage Masters()
         {
             return Request.CreateResponse(HttpStatusCode.OK, Utils.UserComboBoxItems(UserRole.Master));

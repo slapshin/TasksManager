@@ -12,7 +12,7 @@ using Web.SPA.Models;
 
 namespace Web.SPA.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [RoutePrefix("api/Admin/Users")]
     public class UsersUtilsController : BaseApiController
     {
@@ -47,14 +47,12 @@ namespace Web.SPA.Areas.Admin.Controllers
             return session.CreateCriteria<User>();
         }
 
-        [HttpPost()]
+        [Route("ChangePassword")]
+        [HttpPost]
         [CheckModel]
         public HttpResponseMessage ChangePassword(ChangePassDto view)
         {
-            ExecuteInTransaction(session =>
-            {
-                GetEntity<User>(session, view.Id).Password = Helpers.CreateMD5Hash(view.Password);
-            });
+            ExecuteInTransaction(session => GetEntity<User>(session, view.Id).Password = Helpers.CreateMD5Hash(view.Password));
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
