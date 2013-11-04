@@ -52,6 +52,7 @@ namespace Web.SPA
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                                         "~/Scripts/angular.js",
+                                        "~/Scripts/i18n/angular-locale_ru-ru.js",
                                         "~/Scripts/angular-resource.js",
                                         "~/Scripts/ng-grid-{version}.js",
                                         "~/Scripts/angular-ui.js",
@@ -64,6 +65,7 @@ namespace Web.SPA
             bundles.Add(new ScriptBundle("~/bundles/tasks").Include(
                                         "~/app/app.js", // must be first
                                         "~/app/directives.js",
+                                        "~/app/filters.js",
                                         "~/app/route.js",
                                         "~/app/consts.js",
                                         "~/app/services/logger.js",

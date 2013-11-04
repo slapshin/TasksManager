@@ -303,6 +303,7 @@
     <Content Include="app\customer\views\claims\list.html" />
     <Content Include="app\customer\views\claims\view.html" />
     <Content Include="app\directives.js" />
+    <Content Include="app\filters.js" />
     <Content Include="app\route.js" />
     <Content Include="app\services\logger.js" />
     <Content Include="app\services\common.js" />

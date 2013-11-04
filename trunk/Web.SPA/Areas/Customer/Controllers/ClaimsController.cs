@@ -1,9 +1,11 @@
-﻿using Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Web.Http;
 using Web.SPA.Areas.Customer.Models;
 using Web.SPA.Common;
+using ModelClaim = Model.Claim;
 
 namespace Web.SPA.Areas.Customer.Controllers
 {
@@ -15,8 +17,8 @@ namespace Web.SPA.Areas.Customer.Controllers
             IEnumerable<ClaimDto> result = new List<ClaimDto>();
             ExecuteInSession(session =>
                 {
-                    IEnumerable<Claim> data = session.QueryOver<Claim>().List();
-                    result = ModelMapper.Map<IEnumerable<Claim>, IEnumerable<ClaimDto>>(data);
+                    IEnumerable<ModelClaim> data = session.QueryOver<ModelClaim>().List();
+                    result = ModelMapper.Map<IEnumerable<ModelClaim>, IEnumerable<ClaimDto>>(data);
                 });
             return Ok<IEnumerable<ClaimDto>>(result);
         }
@@ -24,7 +26,7 @@ namespace Web.SPA.Areas.Customer.Controllers
         public IHttpActionResult Get(Guid id)
         {
             ClaimDto claim = null;
-            ExecuteInSession(session => claim = ModelMapper.Map<Claim, ClaimDto>(session.Get<Claim>(id)));
+            ExecuteInSession(session => claim = ModelMapper.Map<ModelClaim, ClaimDto>(session.Get<ModelClaim>(id)));
             return Ok<ClaimDto>(claim);
         }
 
@@ -33,10 +35,17 @@ namespace Web.SPA.Areas.Customer.Controllers
         {
             ExecuteInTransaction(session =>
             {
-                Claim claim = dto.Id.HasValue ? session.Get<Claim>(dto.Id.Value) : new Claim();
-                ModelMapper.Map<ClaimDto, Claim>(dto, claim);
+                string user = (User.Identity as ClaimsIdentity).Claims.Where<Claim>(c => c.Type == ClaimTypes.NameIdentifier).Single().Value;
+                ModelClaim claim = dto.Id.HasValue ?
+                    session.Get<ModelClaim>(dto.Id.Value) :
+                    new ModelClaim()
+                        {
+                            Customer = LoadEntity<Model.User>(session, Guid.Parse(user)),
+                            Created = DateTime.Now
+                        };
+                ModelMapper.Map<ClaimDto, ModelClaim>(dto, claim);
                 session.SaveOrUpdate(claim);
-                dto = ModelMapper.Map<Claim, ClaimDto>(claim, dto);
+                dto = ModelMapper.Map<ModelClaim, ClaimDto>(claim, dto);
             });
 
             return Ok<ClaimDto>(dto);
@@ -44,7 +53,7 @@ namespace Web.SPA.Areas.Customer.Controllers
 
         public IHttpActionResult Delete(Guid id)
         {
-            ExecuteInTransaction(session => session.Delete(session.Load<Project>(id)));
+            ExecuteInTransaction(session => session.Delete(session.Load<ModelClaim>(id)));
             return Ok();
         }
     }

@@ -28,7 +28,9 @@ namespace Web.SPA.Common
                                 .ForMember(m => m.Master, opt => opt.Ignore());
 
             AutoMapper.Mapper.CreateMap<Claim, AdminClaimsDto>();
-            AutoMapper.Mapper.CreateMap<AdminClaimsDto, Claim>();
+            AutoMapper.Mapper.CreateMap<AdminClaimsDto, Claim>()
+                                .ForMember(m => m.Id, opt => opt.Ignore())
+                                .ForMember(m => m.Created, opt => opt.Ignore());
         }
 
         public TDest Map<TSource, TDest>(TSource source)

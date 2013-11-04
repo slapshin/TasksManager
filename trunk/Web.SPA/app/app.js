@@ -3,7 +3,8 @@
                                         'common',
                                         'ui.bootstrap',
                                         'services.admin.users',
-                                        'services.admin.projects']);
+                                        'services.admin.projects',
+                                        'services.customer.claims']);
 
 angular.module('loadingService', [],
     ['$provide', function ($provide) {
@@ -18,7 +19,7 @@ angular.module('loadingService', [],
                         $location.path('/login');
                     }
                     else {
-                        logger.error(response.data.message);
+                        logger.error(response.data);
                     }
                     return $q.reject(response);
                 });

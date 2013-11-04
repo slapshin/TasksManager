@@ -87,19 +87,19 @@ function registerCustomerRoutes($routeProvider) {
         controller: 'customer.claims.edit',
         templateUrl: 'app/customer/views/claims/edit.html',
         resolve: {
-            user: ["ClaimLoader", function (service) {
+            claim: ["ClaimLoader", function (service) {
                 return service();
             }]
         }
     }).
     when('/customer/claims/view/:claimId', {
         controller: 'customer.claims.view',
+        templateUrl: 'app/customer/views/claims/view.html',
         resolve: {
-            user: ["ClaimLoader", function (service) {
+            claim: ["ClaimLoader", function (service) {
                 return service();
             }]
-        },
-        templateUrl: 'app/customer/views/claims/view.html'
+        }      
     }).
     when('/customer/claims/new', {
         controller: 'customer.claims.new',

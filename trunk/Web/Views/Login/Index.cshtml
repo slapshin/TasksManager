@@ -7,8 +7,8 @@
 @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "formhorizontal" }))
 {            
     <div class="input-control text span4 as-block">
-        @Html.TextBox("Login", Model.Login, new { @class = "input-xlarge", placeholder = "Введите логин" })
-        @Html.ValidationMessage("Login", new { @class = "validation-error" })        
+        @Html.TextBox("Username", Model.Username, new { @class = "input-xlarge", placeholder = "Введите логин" })
+        @Html.ValidationMessage("Username", new { @class = "validation-error" })        
     </div>
         
     <div class="input-control text span4 as-block">
