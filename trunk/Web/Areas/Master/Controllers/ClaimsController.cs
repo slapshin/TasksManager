@@ -17,7 +17,8 @@ namespace Web.Areas.Master.Controllers
         private void ClaimFilter(ICriteria criteria)
         {
             criteria.CreateAlias("Project", "project")
-            .Add(Expression.Eq("project.Master", CurrentUser));
+            .Add(Expression.Eq("project.Master", CurrentUser))
+            .Add(Expression.Eq("InArchive", false));
         }
 
         [HttpPost]
@@ -45,6 +46,16 @@ namespace Web.Areas.Master.Controllers
             catch (Exception e)
             {
                 return FailedJson(e.Message);
+            }
+        }
+
+        public ActionResult Delete(Guid id)
+        {
+            using (ITransaction trans = DbSession.BeginTransaction())
+            {
+                GetEntity<Claim>(id).InArchive = true;
+                trans.Commit();
+                return RedirectToAction("Index");
             }
         }
     }

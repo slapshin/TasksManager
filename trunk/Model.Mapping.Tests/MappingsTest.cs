@@ -14,7 +14,7 @@ namespace Model.Mapping.Tests
     {
         private const string DATABASE = "scrum";
         private const string PASS = "develop";
-        private const string SERVER = @"ivanovo";
+        private const string SERVER = @"(local)\SQLEXPRESS";
         private const string USER = "develop";
         private Configuration configuration;
 
