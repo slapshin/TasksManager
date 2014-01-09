@@ -101,6 +101,7 @@ namespace Web.Utils
                 return session.CreateCriteria<Claim>()
                             .CreateAlias("Project", "project")
                             .Add(Expression.Eq("project.Master", master))
+                            .Add(Expression.Eq("InArchive", false))
                             .Add(Restrictions.IsNull("Call"))
                             .SetProjection(Projections.Count(Projections.Id()))
                             .UniqueResult<int>();
