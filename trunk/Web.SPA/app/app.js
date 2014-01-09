@@ -1,7 +1,7 @@
-﻿window.app = angular.module('tasks', ['loadingService',
+﻿window.app = angular.module('tasksApp', [  'ngRoute',
+                                        'loadingService',
                                         'ngGrid',
                                         'common',
-                                        'ui.bootstrap',
                                         'services.admin.users',
                                         'services.admin.projects',
                                         'services.customer.claims']);

@@ -15,9 +15,9 @@ namespace Web.SPA
             bundles.Add(new StyleBundle("~/Content/css").Include(
                                         "~/Content/Site.css"));
 
-            bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
-                                        "~/Content/bootstrap/bootstrap.css",
-                                        "~/Content/bootstrap/bootstrap-theme.css"));
+            bundles.Add(new StyleBundle("~/Content/metro-ui").Include(
+                                        "~/Content/metro-ui/css/metro-bootstrap.css",
+                                        "~/Content/metro-ui/css/metro-bootstrap-responsive.css"));
 
             bundles.Add(new StyleBundle("~/Content/angular").Include(
                                         "~/Content/angular-ui.css",
@@ -52,12 +52,12 @@ namespace Web.SPA
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                                         "~/Scripts/angular.js",
+                                        "~/Scripts/angular-route.js",
                                         "~/Scripts/i18n/angular-locale_ru-ru.js",
                                         "~/Scripts/angular-resource.js",
                                         "~/Scripts/ng-grid-{version}.js",
                                         "~/Scripts/angular-ui.js",
-                                        "~/Scripts/ui-bootstrap-tpls-{version}.js"
-                                        ));
+                                        "~/Scripts/ui-bootstrap-tpls-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/ajaxlogin").Include(
                                         "~/Scripts/custom/ajaxlogin.js"));
@@ -84,8 +84,8 @@ namespace Web.SPA
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                       "~/Scripts/bootstrap.js"));
+            bundles.Add(new ScriptBundle("~/bundles/metro-ui").Include(
+                        "~/Scripts/metro-ui/metro-core.js"));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿var commonModule = angular.module('common', ['ui.bootstrap.transition']);
+﻿var commonModule = angular.module('common', []);
 
 commonModule.controller('MessageBoxController', ['$scope', 'dialog', 'model', function ($scope, dialog, model) {
     $scope.title = model.title;
