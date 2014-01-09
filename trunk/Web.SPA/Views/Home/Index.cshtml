@@ -2,33 +2,35 @@
     ViewBag.Title = "Главная";
 }
 
-@functions{
-    public string GetAntiForgeryToken()
-    {
-        string cookieToken, formToken;
-        AntiForgery.GetTokens(null, out cookieToken, out formToken);
-        return cookieToken + ":" + formToken;
-    }
-}
+<div id="main-content" data-ng-app="tasks">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="main-menu-controller">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../" class="navbar-brand">JTasks</a>
+        </div>
 
+        <ul class="nav navbar-nav">
+            <li class="dropdown" ng-repeat="item in menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{item.title}} <b class="caret"></b></a>
+                <ul class="dropdown-menu" ng-show="item.items.length > 0">
+                    <li ng-repeat="subitem in item.items"><a href="{{subitem.href}}">{{subitem.title}}</a></li>
+                </ul>
+            </li>           
+        </ul>
 
-@if (@User.Identity.IsAuthenticated)
-{
-    <div id="main-content" data-ng-app="tasks">
-        <div data-ng-view></div> <!-- The SPA Views go here -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <a href="" class="navbar-text pull-right glyphicon glyphicon-log-out" ng-click="logout()" ng-show="user"></a>
+            <p class="navbar-text pull-right" ng-show="user">{{user}}</p>
+        </div>
+    </nav>
+
+    <div class="ajax-indicator">
+        <img src="~/Content/images/ajax-loader.gif" />
     </div>
-    <input id="antiForgeryToken" type="hidden" value="@GetAntiForgeryToken()" />    
-    
-    @section styles {
-        @Styles.Render("~/Content/angular")                
-    }
-        
-    @section scripts {
-        @Scripts.Render("~/bundles/angular")        
-        @Scripts.Render("~/bundles/tasks")
-    }
-}
-else
-{
-    @Html.Partial("_Login")
-}
+    <div data-ng-view></div>
+</div>

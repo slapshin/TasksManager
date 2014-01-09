@@ -3,33 +3,26 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Web.Http;
 using Web.SPA.Areas.Admin.Models;
 using Web.SPA.Common;
 
 namespace Web.SPA.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProjectsController : BaseApiController
     {
         public IEnumerable<ProjectDto> Get()
         {
-            List<ProjectDto> projects = new List<ProjectDto>();
-            ExecuteInSession(session =>
-            {
-                foreach (Project project in session.QueryOver<Project>().List())
-                {
-                    projects.Add(ModelMapper.Map<Project, ProjectDto>(project));
-                }
-            });
-            return projects;
+            IEnumerable<ProjectDto> result = new List<ProjectDto>();
+            ExecuteInSession(session => result = ModelMapper.Map<IEnumerable<Project>, IEnumerable<ProjectDto>>(session.QueryOver<Project>().List()));
+            return result;
         }
 
         public ProjectDto Get(Guid id)
         {
             ProjectDto project = null;
-            ExecuteInSession(session =>
-            {
-                project = ModelMapper.Map<Project, ProjectDto>(session.Get<Project>(id));
-            });
+            ExecuteInSession(session => project = ModelMapper.Map<Project, ProjectDto>(session.Get<Project>(id)));
             return project;
         }
 
@@ -50,11 +43,7 @@ namespace Web.SPA.Areas.Admin.Controllers
 
         public HttpResponseMessage Delete(Guid id)
         {
-            ExecuteInTransaction(session =>
-            {
-                session.Delete(session.Load<Project>(id));
-            });
-
+            ExecuteInTransaction(session => session.Delete(session.Load<Project>(id)));
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }

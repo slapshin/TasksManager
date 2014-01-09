@@ -1,26 +1,16 @@
 ﻿using NLog;
-using System;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Web.Common;
-using Web.Common.Auth;
 
 namespace Web.SPA
 {
-    // Note: For instructions on enabling IIS7 classic mode,
-    // visit http://go.microsoft.com/fwlink/?LinkId=301868
     public class MvcApplication : HttpApplication
     {
         private static Logger logger = LogManager.GetLogger(Consts.LOGGER_NAME);
-
-        public MvcApplication()
-            : base()
-        {
-            AuthenticateRequest += Authenticate;
-        }
 
         protected void Application_Start()
         {
@@ -30,8 +20,7 @@ namespace Web.SPA
             ViewEngines.Engines.Add(new RazorViewEngine());
 
             AreaRegistration.RegisterAllAreas();
-
-            WebApiConfig.Register(GlobalConfiguration.Configuration);
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
@@ -42,14 +31,6 @@ namespace Web.SPA
         protected void Application_End()
         {
             logger.Info("Приложение завершено");
-        }
-
-        private void Authenticate(object sender, EventArgs e)
-        {
-            HttpApplication app = (sender as HttpApplication);
-            IAuthentication auth = DependencyResolver.Current.GetService<IAuthentication>();
-            auth.HttpContext = app.Context;
-            app.Context.User = auth.CurrentUser;
         }
     }
 }

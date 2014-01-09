@@ -31,20 +31,6 @@ function (User, $route, $q) {
     };
 }]);
 
-services.factory('UsersCount', ['$http', '$q', function ($http, $q) {
-    return function () {
-        var delay = $q.defer();
-        $http.get('api/Admin/Users/Count')
-        .success(function (data) {
-            delay.resolve(data);
-        })
-        .error(function () {
-            delay.reject('UsersCount error');
-        });
-        return delay.promise;
-    };
-}]);
-
 services.factory('userUtils', function () {
     var utils = {
         userRolesStr: userRolesStr,

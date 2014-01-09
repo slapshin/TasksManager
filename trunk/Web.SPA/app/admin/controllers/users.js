@@ -1,5 +1,5 @@
-﻿app.controller('admin.users.list', ['$scope', '$http', 'total', 'logger', '$location', 'consts', 'dialogs', 'userUtils', 'customGrid',
-function ($scope, $http, total, logger, $location, consts, dialogs, userUtils, customGrid) {
+﻿app.controller('admin.users.list', ['$scope', '$http', 'logger', '$location', 'consts', 'utils', 'userUtils',
+function ($scope, $http, logger, $location, consts, utils, userUtils) {
     var CHANGE_PASSWORD_FORM = '<form role="form">' +
                                     '<div class="form-group">' +
                                         '<label for="password">Пароль</label>' +
@@ -10,47 +10,42 @@ function ($scope, $http, total, logger, $location, consts, dialogs, userUtils, c
                                         '<input type="password" class="form-control" id="confirmPassword" placeholder="Подтвердите пароль" ng-model="confirmPassword"/>' +
                                     '</div>' +
                                 '</form>';
-    customGrid.build(
-        {
-            $scope: $scope,
-            total: total,
-            pageDataUrl: 'api/Admin/Users/Page',
-            onSetPagingData: function (data) {
-                for (var i = 0, len = data.length; i < len; i++) {
-                    data[i].roles = userUtils.userRolesStr(data[i]);
-                }
-                $scope.user = undefined;
-            },
-            afterSelectionChange: function (rowItem, event) {
-                $scope.user = rowItem.entity;
-            },
-            columnDefs:
-                [
-                    { button: { onClick: 'remove', icon: 'trash' }, width: 40 },
-                    { button: { onClick: 'view', icon: 'eye-open' }, width: 40 },
-                    { button: { onClick: 'edit', icon: 'edit' }, width: 40 },
-                    { button: { onClick: 'changePassword', icon: 'lock' }, width: 40 },                   
-                    { field: 'login', displayName: 'Логин' },
-                    { field: 'email', displayName: 'Email' },
-                    { field: 'name', displayName: 'Имя' },
-                    { field: 'surname', displayName: 'Фамилия' },
-                    { field: 'patronymic', displayName: 'Отчество' },
-                    { field: 'roles', displayName: 'Роли' }
-                ]
-        }
-    );    
+    utils.createGrid(
+            {
+                $scope: $scope,
+                pageUrl: 'api/Admin/Users/Page',
+                onSetPagingData: function (data) {
+                    for (var i = 0, len = data.length; i < len; i++) {
+                        data[i].roles = userUtils.userRolesStr(data[i]);
+                    }
+                    $scope.user = undefined;
+                },
+                afterSelectionChange: function (rowItem, event) {
+                    $scope.user = rowItem.entity;
+                },
+                columnDefs:
+                    [
+                        { button: { onClick: 'remove', icon: 'trash' }, width: 40 },
+                        { button: { onClick: 'view', icon: 'eye-open' }, width: 40 },
+                        { button: { onClick: 'edit', icon: 'edit' }, width: 40 },
+                        { button: { onClick: 'changePassword', icon: 'lock' }, width: 40 },
+                        { field: 'login', displayName: 'Логин' },
+                        { field: 'email', displayName: 'Email' },
+                        { field: 'name', displayName: 'Имя' },
+                        { field: 'surname', displayName: 'Фамилия' },
+                        { field: 'patronymic', displayName: 'Отчество' },
+                        { field: 'roles', displayName: 'Роли' }
+                    ]
+            }
+    );
 
     $scope.remove = function (row) {
-        dialogs.confirmDelete(function () {
+        utils.confirmDelete(function () {
             var user = row ? row.entity : $scope.user;
             $http.delete('api/Admin/Users/' + user.id)
                 .success(function (data) {
                     delete user;
-                    $scope.totalServerItems--;
-                    $scope.refreshGrid();
-                })
-                .error(function (data) {
-                    logger.error('delete error: ' + data.message);
+                    $scope.getPagedDataAsync();
                 });
         });
     }
@@ -71,7 +66,7 @@ function ($scope, $http, total, logger, $location, consts, dialogs, userUtils, c
 
     $scope.changePassword = function (row) {
         var userId = row ? row.entity.id : $scope.user.id;
-        dialogs.show({
+        utils.show({
             title: 'Смена пароля',
             content: CHANGE_PASSWORD_FORM,
             init: function (scope) {
@@ -120,26 +115,21 @@ app.controller('admin.users.view',
         }
     }]);
 
-app.controller('admin.users.edit', ['$scope', 'user', '$location', '$http', 'dialogs', 'logger',
-        function ($scope, user, $location, $http, dialogs, logger) {
+app.controller('admin.users.edit', ['$scope', 'user', '$location', '$http', 'utils', 'logger',
+        function ($scope, user, $location, $http, utils, logger) {
             $scope.user = user;
             $scope.save = function () {
                 $scope.user.$save(function (user) {
                     $location.path('/admin/users/view/' + user.id);
-                }, function (error) {
-                    logger.error(error.data.message);
                 });
             }
 
             $scope.remove = function () {
-                dialogs.confirmDelete(function () {
+                utils.confirmDelete(function () {
                     $http.delete('api/Admin/Users/' + $scope.user.id)
                         .success(function (data) {
                             delete $scope.user;
                             $location.path('/admin/users/');
-                        })
-                        .error(function (data) {
-                            logger.error('delete error: ' + data);
                         });
                 });
             };
@@ -151,8 +141,6 @@ app.controller('admin.users.new', ['$scope', 'User', '$location', 'logger',
         $scope.save = function () {
             $scope.user.$save(function (user) {
                 $location.path('/admin/users/view/' + user.id);
-            }, function (error) {
-                logger.error(error.data.message);
             });
         }
     }]);

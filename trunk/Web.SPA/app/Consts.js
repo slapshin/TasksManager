@@ -20,7 +20,7 @@
                                 '<div class="modal-header">\n' +
                                 '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
                                 '	<h3>{{ title }}</h3>\n' +
-                                '</div>\n' +                                
+                                '</div>\n' +
                                 '<div class="modal-body" ng-bind-html-unsafe="content">\n' +
                                 '</div>\n' +
                                 '<div class="alert alert-danger modal-dialog-alert" ng-show=error>{{error}}</div>\n' +
@@ -33,10 +33,20 @@
     projectPriorityHigh: 0,
     projectPriorityMiddle: 1,
     projectPriorityLow: 2,
-    projectPriority:
-        [
-            { id: 0, translation: 'Высокий' },
-            { id: 1, translation: 'Средний' },
-            { id: 2, translation: 'Низкий' }
-        ]    
+    projectPriority: {
+        0: { translation: 'Высокий' },
+        1: { translation: 'Средний' },
+        2: { translation: 'Низкий' }
+    },
+    taskPriority: {
+        0: { translation: 'Высокий' },
+        1: { translation: 'Средний' },
+        2: { translation: 'Низкий' }
+    },
+    taskType: {
+        0: { translation: 'Новый' },
+        1: { translation: 'Улучшение' },
+        2: { translation: 'Ошибка' },
+        3: { translation: 'Рефактор' }
+    }
 });

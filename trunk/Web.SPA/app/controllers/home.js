@@ -1,4 +1,3 @@
-﻿app.controller('ctrl.home',
-    ['$scope', '$dialog',
-    function ($scope, $dialog) {
+﻿app.controller('ctrl.home', ['$scope',
+    function ($scope) {
     }]);

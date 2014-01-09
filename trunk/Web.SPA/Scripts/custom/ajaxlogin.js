@@ -20,19 +20,30 @@
 
         // We check if jQuery.validator exists on the form
         if (!$form.valid || $form.valid()) {
-            $.post($form.attr('action'), $form.serializeArray())
-                .done(function (json) {
-                    json = json || {};
-
-                    // In case of success, we redirect to the provided URL or the same page.
-                    if (json.success) {
-                        window.location = json.redirect || location.href;
-                    } else if (json.errors) {
-                        displayErrors($form, json.errors);
-                    }
+            $.post('/Token',
+                {
+                    grant_type: "password",
+                    username: $form.find('#username')[0].value,
+                    password: $form.find('#password')[0].value
                 })
-                .error(function () {
-                    displayErrors($form, ['An unknown error happened.']);
+                .done(function (data) {
+                    if (data.userName && data.access_token) {
+                        localStorage["accessToken"] = data.access_token;
+                        window.location = location.href;                        
+                    } else {
+                        displayErrors($form, ["An unknown error occurred."]);                        
+                    }                   
+                    //json = json || {};
+
+                    //// In case of success, we redirect to the provided URL or the same page.
+                    //if (json.success) {
+                    //    window.location = json.redirect || location.href;
+                    //} else if (json.errors) {
+                    //    displayErrors($form, json.errors);
+                    //}
+                })
+                .error(function (data) {
+                    displayErrors($form, [data.error_description]);
                 });
         }
 

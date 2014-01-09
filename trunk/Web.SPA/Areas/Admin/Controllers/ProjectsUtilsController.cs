@@ -1,4 +1,5 @@
 ﻿using Model;
+using NHibernate;
 using NHibernate.Criterion;
 using System.Collections.Generic;
 using System.Net;
@@ -6,46 +7,47 @@ using System.Net.Http;
 using System.Web.Http;
 using Web.SPA.Areas.Admin.Models;
 using Web.SPA.Common;
+using Web.SPA.Models;
 
 namespace Web.SPA.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [RoutePrefix("api/Admin/Projects")]
     public class ProjectsUtilsController : BaseApiController
     {
-        [HttpGet("Page")]
-        public IEnumerable<ProjectDto> Page(int page, int pageSize)
+        public class ProjectsPageParams : PageParams
         {
-            List<ProjectDto> projects = new List<ProjectDto>();
+        }
+
+        [Route("Page")]
+        [HttpPost]
+        public HttpResponseMessage Page(ProjectsPageParams parameters)
+        {
+            PageResult result = null;
             ExecuteInSession(session =>
             {
-                IList<Project> list = session.CreateCriteria<Project>()
-                                            .SetFirstResult((page - 1) * pageSize)
-                                            .SetMaxResults(pageSize)
-                                            .List<Project>();
+                IList<Project> data = GetPageCriteriaByParams(session, parameters)
+                                    .SetFirstResult((parameters.Page - 1) * parameters.PageSize)
+                                    .SetMaxResults(parameters.PageSize)
+                                    .List<Project>();
 
-                foreach (Project user in list)
+                result = new PageResult()
                 {
-                    projects.Add(ModelMapper.Map<Project, ProjectDto>(user));
-                }
+                    Total = GetPageCriteriaByParams(session, parameters).SetProjection(Projections.Count(Projections.Id())).UniqueResult<int>(),
+                    Data = ModelMapper.Map<IEnumerable<Project>, IEnumerable<ProjectDto>>(data)
+                };
             });
-            return projects;
+
+            return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 
-        [HttpGet("Count")]
-        public HttpResponseMessage Count()
+        private ICriteria GetPageCriteriaByParams(ISession session, ProjectsPageParams parameters)
         {
-            int count = 0;
-            ExecuteInSession(session =>
-            {
-                count = session.CreateCriteria<Project>()
-                            .SetProjection(Projections.Count(Projections.Id()))
-                            .UniqueResult<int>();
-            });
-
-            return Request.CreateResponse(HttpStatusCode.OK, count);
+            return session.CreateCriteria<Project>();
         }
 
-        [HttpGet("Masters")]
+        [Route("Masters")]
+        [HttpGet]
         public HttpResponseMessage Masters()
         {
             return Request.CreateResponse(HttpStatusCode.OK, Utils.UserComboBoxItems(UserRole.Master));

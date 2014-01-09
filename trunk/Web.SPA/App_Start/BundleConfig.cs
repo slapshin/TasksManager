@@ -52,6 +52,7 @@ namespace Web.SPA
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                                         "~/Scripts/angular.js",
+                                        "~/Scripts/i18n/angular-locale_ru-ru.js",
                                         "~/Scripts/angular-resource.js",
                                         "~/Scripts/ng-grid-{version}.js",
                                         "~/Scripts/angular-ui.js",
@@ -63,15 +64,22 @@ namespace Web.SPA
 
             bundles.Add(new ScriptBundle("~/bundles/tasks").Include(
                                         "~/app/app.js", // must be first
+                                        "~/app/directives.js",
+                                        "~/app/filters.js",
                                         "~/app/route.js",
                                         "~/app/consts.js",
                                         "~/app/services/logger.js",
-                                        "~/app/services/utils.js",
+                                        "~/app/services/menu.js",
+                                        "~/app/services/common.js",
                                         "~/app/controllers/home.js",
-                                        "~/app/admin/controllers/users.js",
+                                        "~/app/controllers/login.js",
+                                        "~/app/controllers/menu.js",
                                         "~/app/admin/controllers/projects.js",
+                                        "~/app/admin/services/projects.js",
+                                        "~/app/admin/controllers/users.js",
                                         "~/app/admin/services/users.js",
-                                        "~/app/admin/services/projects.js"));
+                                        "~/app/customer/controllers/claims.js",
+                                        "~/app/customer/services/claims.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));

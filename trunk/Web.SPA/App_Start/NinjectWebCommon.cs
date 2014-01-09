@@ -9,7 +9,6 @@ namespace Web.SPA.App_Start
     using System;
     using System.Web;
     using System.Web.Http;
-    using Web.Common.Auth;
     using Web.Common.Mapper;
     using Web.Common.Repository;
     using Web.SPA.Common;
@@ -62,7 +61,6 @@ namespace Web.SPA.App_Start
                .InSingletonScope()
                .OnActivation<SessionProvider>((c, p) => p.Init());
 
-            kernel.Bind<IAuthentication>().To<CustomAuthentication>().InRequestScope();
             kernel.Bind<IMapper>().To<CommonMapper>().InSingletonScope();
         }
     }

@@ -1,6 +1,8 @@
 ﻿app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/', { templateUrl: 'app/views/home/index.html', controller: 'ctrl.home' });
+    $routeProvider.when('/login', { templateUrl: 'app/views/home/login.html', controller: 'ctrl.login' });
     registerAdminRoutes($routeProvider);
+    registerCustomerRoutes($routeProvider);
     $routeProvider.otherwise({ redirectTo: '/' });
 }]);
 
@@ -9,23 +11,11 @@ function registerAdminRoutes($routeProvider) {
         // - users
     when('/admin/users/list', {
         templateUrl: 'app/admin/views/users/list.html',
-        controller: 'admin.users.list',
-        resolve: {
-            total: function (UsersCount) {
-                return UsersCount();
-            }
-        }
-    }).
-    when('/admin/users', {
+        controller: 'admin.users.list'
+    }).when('/admin/users', {
         templateUrl: 'app/admin/views/users/list.html',
-        controller: 'admin.users.list',
-        resolve: {
-            total: function (UsersCount) {
-                return UsersCount();
-            }
-        }
-    }).
-    when('/admin/users/edit/:userId', {
+        controller: 'admin.users.list'
+    }).when('/admin/users/edit/:userId', {
         controller: 'admin.users.edit',
         templateUrl: 'app/admin/views/users/edit.html',
         resolve: {
@@ -33,8 +23,7 @@ function registerAdminRoutes($routeProvider) {
                 return UserLoader();
             }]
         }
-    }).
-    when('/admin/users/view/:userId', {
+    }).when('/admin/users/view/:userId', {
         controller: 'admin.users.view',
         resolve: {
             user: ["UserLoader", function (UserLoader) {
@@ -42,31 +31,18 @@ function registerAdminRoutes($routeProvider) {
             }]
         },
         templateUrl: 'app/admin/views/users/view.html'
-    }).
-    when('/admin/users/new', {
+    }).when('/admin/users/new', {
         controller: 'admin.users.new',
         templateUrl: 'app/admin/views/users/edit.html',
     }).
     // - projects
     when('/admin/projects/list', {
         templateUrl: 'app/admin/views/projects/list.html',
-        controller: 'admin.projects.list',
-        resolve: {
-            total: function (ProjectsCount) {
-                return ProjectsCount();
-            }
-        }
-    }).
-    when('/admin/projects', {
+        controller: 'admin.projects.list'
+    }).when('/admin/projects', {
         templateUrl: 'app/admin/views/projects/list.html',
-        controller: 'admin.projects.list',
-        resolve: {
-            total: function (ProjectsCount) {
-                return ProjectsCount();
-            }
-        }
-    }).
-    when('/admin/projects/edit/:projectId', {
+        controller: 'admin.projects.list'
+    }).when('/admin/projects/edit/:projectId', {
         controller: 'admin.projects.edit',
         templateUrl: 'app/admin/views/projects/edit.html',
         resolve: {
@@ -77,8 +53,7 @@ function registerAdminRoutes($routeProvider) {
                 return ProjectMasters();
             }]
         }
-    }).
-    when('/admin/projects/view/:projectId', {
+    }).when('/admin/projects/view/:projectId', {
         controller: 'admin.projects.view',
         templateUrl: 'app/admin/views/projects/view.html',
         resolve: {
@@ -86,14 +61,48 @@ function registerAdminRoutes($routeProvider) {
                 return ProjectLoader();
             }]
         },
-    }).
-    when('/admin/projects/new/', {
+    }).when('/admin/projects/new/', {
         controller: 'admin.projects.new',
         templateUrl: 'app/admin/views/projects/edit.html',
-        resolve: {            
+        resolve: {
             masters: ["ProjectMasters", function (ProjectMasters) {
                 return ProjectMasters();
             }]
         }
+    });
+}
+
+function registerCustomerRoutes($routeProvider) {
+    $routeProvider.
+        // - claims
+    when('/customer/claims/list', {
+        templateUrl: 'app/customer/views/claims/list.html',
+        controller: 'customer.claims.list'
+    }).
+    when('/customer/claims', {
+        templateUrl: 'app/customer/views/claims/list.html',
+        controller: 'customer.claims.list'
+    }).
+    when('/customer/claims/edit/:claimId', {
+        controller: 'customer.claims.edit',
+        templateUrl: 'app/customer/views/claims/edit.html',
+        resolve: {
+            claim: ["ClaimLoader", function (service) {
+                return service();
+            }]
+        }
+    }).
+    when('/customer/claims/view/:claimId', {
+        controller: 'customer.claims.view',
+        templateUrl: 'app/customer/views/claims/view.html',
+        resolve: {
+            claim: ["ClaimLoader", function (service) {
+                return service();
+            }]
+        }      
+    }).
+    when('/customer/claims/new', {
+        controller: 'customer.claims.new',
+        templateUrl: 'app/customer/views/claims/edit.html'
     });
 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Serialization;
+﻿using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json.Serialization;
 using System.Web.Http;
 using Web.SPA.Common;
 
@@ -9,6 +10,8 @@ namespace Web.SPA
         public static void Register(HttpConfiguration config)
         {
             config.Filters.Add(new CustomErrorsHandler());
+
+            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
             config.SuppressDefaultHostAuthentication();
 
             config.MapHttpAttributeRoutes();

@@ -1,0 +1,33 @@
+﻿<form class="form-horizontal loginForm" role="form" name="loginForm">
+    <div class="form-group">
+        <label for="login" class="col-lg-2 control-label">Логин</label>
+        <div class="col-lg-4">
+            <input type="text" class="form-control" id="login" ng-model="username" placeholder="Логин" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="pass" class="col-lg-2 control-label">Пароль</label>
+        <div class="col-lg-4">
+            <input type="password" class="form-control" id="pass" ng-model="pass" placeholder="Пароль" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="remember"> Запомнить
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+            <p class="text-danger">{{error}}</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+            <button class="btn btn-default" ng-click="login()" ng-disabled='!loginForm.$valid'>Войти</button>
+        </div>
+    </div>
+</form>
