@@ -10,6 +10,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model.Mapping", "Model.Mapping\Model.Mapping.csproj", "{5D7F0D21-89E8-485E-B24E-8AE5EC941A3E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{54A7158B-C5DE-4FFF-8B7F-2496BE75C826}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A425FCE0-30DD-4598-889E-006CC806EAF7} = {A425FCE0-30DD-4598-889E-006CC806EAF7}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{D513C288-5C8E-4DAD-BC52-F30F1C36E291}"
 EndProject
