@@ -1,7 +1,9 @@
-﻿using Model.Common;
+﻿using Microsoft.Practices.Unity;
+using Model.Common;
 using NHibernate;
 using System;
 using System.Web.Http;
+using Web.Common;
 using Web.Common.Mapper;
 using Web.Common.Repository;
 
@@ -9,19 +11,21 @@ namespace Web.SPA.Common
 {
     public abstract class BaseApiController : ApiController
     {
-        protected ISessionProvider sessionProvider;
+        [Dependency]
+        public ISessionProvider SessionProvider { get; set; }
 
-        protected IMapper modelMapper;
+        [Dependency]
+        public IMapper ModelMapper { get; set; }
 
-        public BaseApiController()
-        {
-            sessionProvider = (ISessionProvider)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ISessionProvider));
-            modelMapper = (IMapper)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(IMapper));
-        }
+        //public BaseApiController()
+        //{
+        //    SessionProvider = (ISessionProvider)DependencyResolver.Current.GetService(typeof(ISessionProvider));
+        //    ModelMapper = (IMapper)DependencyResolver.Current.GetService(typeof(IMapper));
+        //}
 
         protected void ExecuteInTransaction(Action<ISession> action)
         {
-            using (ISession session = sessionProvider.OpenSession())
+            using (ISession session = SessionProvider.OpenSession())
             using (ITransaction transaction = session.BeginTransaction())
             {
                 try
@@ -42,7 +46,9 @@ namespace Web.SPA.Common
 
         protected void ExecuteInSession(Action<ISession> action)
         {
-            using (ISession session = sessionProvider.OpenSession())
+            Test t = new Test();
+            t.Action();
+            using (ISession session = SessionProvider.OpenSession())
             {
                 if (action != null)
                 {

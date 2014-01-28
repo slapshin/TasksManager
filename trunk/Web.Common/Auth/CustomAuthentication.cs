@@ -1,7 +1,7 @@
 ﻿using Common;
+using Microsoft.Practices.Unity;
 using Model;
 using NHibernate;
-using Ninject;
 using System;
 using System.Security.Principal;
 using System.Web;
@@ -21,7 +21,7 @@ namespace Web.Common.Auth
                                                     new CookieAuthProvider()
                                                 };
 
-        [Inject]
+        [Dependency]
         public ISessionProvider SessionProvider { get; set; }
 
         public HttpContext HttpContext { get; set; }

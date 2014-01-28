@@ -32,7 +32,7 @@ namespace Web.SPA.Areas.Customer.Controllers
                 result = new PageResult()
                 {
                     Total = GetPageCriteriaByParams(session, parameters).SetProjection(Projections.Count(Projections.Id())).UniqueResult<int>(),
-                    Data = modelMapper.Map<IEnumerable<Claim>, IEnumerable<ClaimDto>>(data)
+                    Data = ModelMapper.Map<IEnumerable<Claim>, IEnumerable<ClaimDto>>(data)
                 };
             });
 

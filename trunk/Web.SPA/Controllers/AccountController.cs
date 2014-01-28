@@ -24,15 +24,9 @@ namespace Web.SPA.Controllers
         private const string LocalLoginProvider = "Local";
 
         public AccountController()
-            : this(Startup.UserManagerFactory(), Startup.OAuthOptions.AccessTokenFormat)
         {
-        }
-
-        public AccountController(UserManager<AuthUser> userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
-        {
-            UserManager = userManager;
-            AccessTokenFormat = accessTokenFormat;
+            UserManager = Startup.UserManagerFactory();
+            AccessTokenFormat = Startup.OAuthOptions.AccessTokenFormat;
         }
 
         public UserManager<AuthUser> UserManager { get; private set; }
