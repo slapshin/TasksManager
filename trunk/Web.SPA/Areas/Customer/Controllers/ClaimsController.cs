@@ -18,7 +18,7 @@ namespace Web.SPA.Areas.Customer.Controllers
             ExecuteInSession(session =>
                 {
                     IEnumerable<ModelClaim> data = session.QueryOver<ModelClaim>().List();
-                    result = ModelMapper.Map<IEnumerable<ModelClaim>, IEnumerable<ClaimDto>>(data);
+                    result = modelMapper.Map<IEnumerable<ModelClaim>, IEnumerable<ClaimDto>>(data);
                 });
             return Ok<IEnumerable<ClaimDto>>(result);
         }
@@ -26,7 +26,7 @@ namespace Web.SPA.Areas.Customer.Controllers
         public IHttpActionResult Get(Guid id)
         {
             ClaimDto claim = null;
-            ExecuteInSession(session => claim = ModelMapper.Map<ModelClaim, ClaimDto>(session.Get<ModelClaim>(id)));
+            ExecuteInSession(session => claim = modelMapper.Map<ModelClaim, ClaimDto>(session.Get<ModelClaim>(id)));
             return Ok<ClaimDto>(claim);
         }
 
@@ -43,9 +43,9 @@ namespace Web.SPA.Areas.Customer.Controllers
                             Customer = LoadEntity<Model.User>(session, Guid.Parse(user)),
                             Created = DateTime.Now
                         };
-                ModelMapper.Map<ClaimDto, ModelClaim>(dto, claim);
+                modelMapper.Map<ClaimDto, ModelClaim>(dto, claim);
                 session.SaveOrUpdate(claim);
-                dto = ModelMapper.Map<ModelClaim, ClaimDto>(claim, dto);
+                dto = modelMapper.Map<ModelClaim, ClaimDto>(claim, dto);
             });
 
             return Ok<ClaimDto>(dto);

@@ -15,14 +15,14 @@ namespace Web.SPA.Areas.Admin.Controllers
         public IEnumerable<ProjectDto> Get()
         {
             IEnumerable<ProjectDto> result = new List<ProjectDto>();
-            ExecuteInSession(session => result = ModelMapper.Map<IEnumerable<Project>, IEnumerable<ProjectDto>>(session.QueryOver<Project>().List()));
+            ExecuteInSession(session => result = modelMapper.Map<IEnumerable<Project>, IEnumerable<ProjectDto>>(session.QueryOver<Project>().List()));
             return result;
         }
 
         public ProjectDto Get(Guid id)
         {
             ProjectDto project = null;
-            ExecuteInSession(session => project = ModelMapper.Map<Project, ProjectDto>(session.Get<Project>(id)));
+            ExecuteInSession(session => project = modelMapper.Map<Project, ProjectDto>(session.Get<Project>(id)));
             return project;
         }
 
@@ -32,10 +32,10 @@ namespace Web.SPA.Areas.Admin.Controllers
             ExecuteInTransaction(session =>
             {
                 Project project = dto.Id.HasValue ? session.Get<Project>(dto.Id.Value) : new Project();
-                ModelMapper.Map<ProjectDto, Project>(dto, project);
+                modelMapper.Map<ProjectDto, Project>(dto, project);
                 project.Master = dto.Master.HasValue ? session.Load<User>(dto.Master) : null;
                 session.SaveOrUpdate(project);
-                dto = ModelMapper.Map<Project, ProjectDto>(project, dto);
+                dto = modelMapper.Map<Project, ProjectDto>(project, dto);
             });
 
             return Request.CreateResponse(HttpStatusCode.OK, dto);

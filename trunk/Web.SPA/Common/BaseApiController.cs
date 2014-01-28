@@ -1,6 +1,5 @@
 ﻿using Model.Common;
 using NHibernate;
-using Ninject;
 using System;
 using System.Web.Http;
 using Web.Common.Mapper;
@@ -10,20 +9,19 @@ namespace Web.SPA.Common
 {
     public abstract class BaseApiController : ApiController
     {
+        protected ISessionProvider sessionProvider;
+
+        protected IMapper modelMapper;
+
         public BaseApiController()
-            : base()
         {
+            sessionProvider = (ISessionProvider)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ISessionProvider));
+            modelMapper = (IMapper)GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(IMapper));
         }
-
-        [Inject]
-        public ISessionProvider Provider { get; set; }
-
-        [Inject]
-        public IMapper ModelMapper { get; set; }
 
         protected void ExecuteInTransaction(Action<ISession> action)
         {
-            using (ISession session = Provider.OpenSession())
+            using (ISession session = sessionProvider.OpenSession())
             using (ITransaction transaction = session.BeginTransaction())
             {
                 try
@@ -44,7 +42,7 @@ namespace Web.SPA.Common
 
         protected void ExecuteInSession(Action<ISession> action)
         {
-            using (ISession session = Provider.OpenSession())
+            using (ISession session = sessionProvider.OpenSession())
             {
                 if (action != null)
                 {

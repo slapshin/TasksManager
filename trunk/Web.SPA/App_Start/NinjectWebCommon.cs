@@ -58,10 +58,16 @@ namespace Web.SPA.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ISessionProvider>().To<SessionProvider>()
-               .InSingletonScope()
-               .OnActivation<SessionProvider>((c, p) => p.Init());
+               .InRequestScope()
+               .OnActivation<SessionProvider>((c, p) => p.Init())
+               .OnDeactivation<SessionProvider>(onDeactivation);
 
             kernel.Bind<IMapper>().To<CommonMapper>().InSingletonScope();
+        }
+
+        private static void onDeactivation(SessionProvider provider)
+        {
+            provider.Dispose();
         }
     }
 }

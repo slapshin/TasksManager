@@ -1,4 +1,4 @@
-﻿window.app = angular.module('tasksApp', [  'ngRoute',
+﻿window.app = angular.module('tasks', ['ngRoute',
                                         'loadingService',
                                         'ngGrid',
                                         'common',

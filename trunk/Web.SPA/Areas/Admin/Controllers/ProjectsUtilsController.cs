@@ -34,7 +34,7 @@ namespace Web.SPA.Areas.Admin.Controllers
                 result = new PageResult()
                 {
                     Total = GetPageCriteriaByParams(session, parameters).SetProjection(Projections.Count(Projections.Id())).UniqueResult<int>(),
-                    Data = ModelMapper.Map<IEnumerable<Project>, IEnumerable<ProjectDto>>(data)
+                    Data = modelMapper.Map<IEnumerable<Project>, IEnumerable<ProjectDto>>(data)
                 };
             });
 

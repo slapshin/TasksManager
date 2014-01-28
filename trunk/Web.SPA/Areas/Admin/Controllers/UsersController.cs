@@ -17,7 +17,7 @@ namespace Web.SPA.Areas.Admin.Controllers
             IEnumerable<UserDto> result = new List<UserDto>();
             ExecuteInSession(session =>
             {
-                result = ModelMapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(session.QueryOver<User>().List());
+                result = modelMapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(session.QueryOver<User>().List());
             });
             return result;
         }
@@ -27,7 +27,7 @@ namespace Web.SPA.Areas.Admin.Controllers
             UserDto user = null;
             ExecuteInSession(session =>
             {
-                user = ModelMapper.Map<User, UserDto>(session.Get<User>(id));
+                user = modelMapper.Map<User, UserDto>(session.Get<User>(id));
             });
             return user;
         }
@@ -38,9 +38,9 @@ namespace Web.SPA.Areas.Admin.Controllers
             ExecuteInTransaction(session =>
             {
                 User user = userDto.Id.HasValue ? session.Get<User>(userDto.Id.Value) : new User();
-                ModelMapper.Map<UserDto, User>(userDto, user);
+                modelMapper.Map<UserDto, User>(userDto, user);
                 session.SaveOrUpdate(user);
-                userDto = ModelMapper.Map<User, UserDto>(user, userDto);
+                userDto = modelMapper.Map<User, UserDto>(user, userDto);
             });
 
             return Request.CreateResponse(HttpStatusCode.OK, userDto);
