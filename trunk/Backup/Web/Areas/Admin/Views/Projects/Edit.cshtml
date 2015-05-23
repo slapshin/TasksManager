@@ -1,0 +1,46 @@
+﻿@model ProjectView
+
+@{
+    ViewBag.Title = string.Format("{0} проекта", Model.Id.HasValue ? "Редактирование" : "Создание");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<div class="row">
+    @using (Html.BeginForm("Edit", "Projects"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+    
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="span4">
+
+            <h4>Название</h4>
+            <div class="input-control text">
+                @Html.EditorFor(model => model.Title)
+            </div>
+
+            <h4>Мастер</h4>
+            <div class="input-control text">
+                @Html.DropDownListFor(model => model.Master, ViewUtils.UserSelectList(UserRole.Master, Model.Master))
+            </div>
+
+            <h4>Комментарии</h4>
+            <div class="input-control text">
+                @Html.TextAreaFor(model => model.Comment)
+            </div>
+        </div>                                                                           
+        <p>
+            <input type="submit" value="Сохранить" />
+        </p>
+    }
+</div>
+
+<a href="@Url.Action("Index", "Projects")" class="button">
+    <i class="icon-arrow-left-3"></i>
+    Вернуться к списку
+</a>

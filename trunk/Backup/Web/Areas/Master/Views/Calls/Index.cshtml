@@ -1,0 +1,54 @@
+﻿@using Translation = Model.Meta.Enums.Translation
+
+@model PageableData<Call>
+
+<h2>Заявки</h2>
+
+<div class="toolbar">
+    <a href="@Url.Action("Create", "Calls", new { project = ViewBag.ProjectId })" class="button" title="Добавить новую заявку">
+        <i class="icon-plus-2"></i>
+    </a>
+
+    <a href="@Url.Action("Kanban", "Calls", new { project = ViewBag.ProjectId })" class="button" title="Kanban доска">
+        <i class="icon-grid"></i>
+    </a>
+</div>
+
+@if (Model.PageCount > 0)
+{
+    <table class="hovered">
+        <thead>
+            <tr>
+                <th class="button-col"></th>
+                <th class="button-col"></th>
+                <th>Номер</th>
+                <th>Заголовок</th>
+                <th>Дата создания</th>
+                <th>Приоритет</th>
+                <th>Состояние</th>
+                <th>Задания (активные/завершенные)</th>
+                <th class="button-col"></th>
+            </tr>
+        </thead>
+        @foreach (Call call in Model.List)
+        {
+            int completed = call.Tasks.Where(t => t.Status == TaskStatus.Checked || t.Status == TaskStatus.Completed).Count();
+            int active = call.Tasks.Count - completed;
+            string cl = call.InArchive ? "in-archive" : "";
+            <tr class="@cl">
+                <td>@Html.EditButton("Calls", call.Id)</td>
+                <td>@Html.DeleteButton("Calls", call.Id)</td>
+                <td>@call.Id</td>
+                <td>@call.Title</td>
+                <td>@Html.Date(call.Created)</td>
+                <td>@Html.Priority(call.Priority)</td>
+                <td>@Html.Status(call.Status)</td>
+                <td>@Html.ActionLink(active.ToString(), "Index", "Tasks", new { call = call.Id, showedTasks = ShowedTasksType.Active }, null) / @Html.ActionLink(completed.ToString(), "Index", "Tasks", new { call = call.Id, showedTasks = ShowedTasksType.Completed }, null)</td>
+                <td>@Html.Comment(call.Comment)</td>
+            </tr>
+        }
+    </table>
+    <div class="pagination">
+        @Html.PageLinks(Model.PageNo, Model.PageCount, x => Url.Action("Details", "Projects", new { id = ViewBag.ProjectId, page = x }))
+    </div>
+}

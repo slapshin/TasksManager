@@ -1,0 +1,19 @@
+﻿@model Project
+
+@{
+    ViewBag.Title = "Kanban доска";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/master")
+}
+
+@Html.Hidden("ProjectId", Model.Id)
+@Html.Hidden("ProjectCallsUrl", Url.Action("Calls", "Projects"))
+@Html.Hidden("SetCallStatusUrl", Url.Action("SetStatus", "Calls"))
+
+
+<h2>@Html.ActionLink(@Model.Title, "Details", "Projects", new { id = Model.Id, area = "Master" }, new { style = "font-size: 20pt;" })</h2>
+
+<div id="CallsKanbanBoard"></div>

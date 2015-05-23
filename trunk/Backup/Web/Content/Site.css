@@ -1,0 +1,189 @@
+﻿.main-menu div.clearfix {
+    margin: 10px;
+    padding: 10px;
+    border: solid 1px gray !important;
+}
+
+.metrouicss .page {
+    margin: auto;
+    background-color: #fff;
+}
+
+.ajax-indicator {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99999;
+    background: white;
+    opacity: 0.5;
+}
+
+    .ajax-indicator img {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+    }
+
+.validation-error {
+    color: red;
+}
+
+a.top-menu-icon {
+    color: white;
+    font-size: 20px !important;
+}
+
+.top-menu .hovered {
+    padding: 6px !important;
+}
+
+    .top-menu .hovered:hover {
+        background: #0e639c !important;
+    }
+
+.page-header {
+    padding-bottom: 10px;
+    background: #f9f9f9;
+}
+
+.validation-summary-errors {
+    color: red;
+}
+
+th.button-col {
+    width: 1px;
+}
+
+#dialogOverlay {
+    z-index: 20000 !important;
+}
+
+.ellipsis {
+    overflow: hidden;
+    padding: 1px;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.height70 {
+    height: 70px;
+}
+
+.height55 {
+    height: 55px;
+}
+
+.height20 {
+    height: 20px;
+}
+
+.high-priority {
+    background: rgb(250, 234, 229);
+}
+
+.middle-priority {
+    background: rgb(246, 245, 210);
+}
+
+.low-priority {
+    background: rgb(184, 251, 171);
+}
+
+.project-priority-group {
+    padding: 5px;
+    margin: 5px;
+}
+
+    .project-priority-group a {
+        margin: 5px !important;
+    }
+
+.input-control #Comment {
+    height: 250px;
+    width: 500px;
+}
+
+tr.in-archive {
+    background-color: #b1adad !important;
+}
+
+    tr.in-archive td {
+        color: #ffffff !important;
+    }
+
+/*KANBAN*/
+
+.kanban-place-holder div {
+    border: dashed 1px gray !important;
+    background-color: white !important;
+}
+
+.kanban-state-column {
+    display: inline;
+    float: left;
+    margin: 5px;
+    padding: 10px 15px 10px 10px;
+    border: 1px #ccc solid !important;
+    border-collapse: separate !important;
+}
+
+.kanban-stories-list {
+    margin: 0px;
+    width: 300px;
+    list-style-type: none;
+}
+
+    .kanban-stories-list li {
+        float: left;
+        margin: 5px;
+        width: 300px;
+        height: 100px;
+    }
+
+    .kanban-stories-list > li > div {
+        padding: 10px;
+        height: 100px;
+        border-left: 6px solid #F2CB1D;
+        background: rgb(246, 245, 210);
+        text-align: left;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+    }
+
+    .kanban-stories-list > li div {
+        font-size: 9pt !important;
+    }
+
+#TasksKanbanBoard .kanban-stories-list {
+    width: 200px;
+}
+
+    #TasksKanbanBoard .kanban-stories-list li {
+        width: 200px;
+    }
+
+#ReportBoard .task {
+    position: relative;
+    float: left;
+    margin: 0px 6px 6px 0px;
+    padding: 5px;
+    width: 135px;
+    height: 85px;
+    border-left: 6px solid #F2CB1D;
+    background: rgb(246, 245, 210);
+}
+
+    #ReportBoard .task div {
+        font-size: 9pt !important;
+    }
+
+#ReportBoard td {
+    vertical-align: top;
+}

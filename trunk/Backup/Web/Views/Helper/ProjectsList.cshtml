@@ -1,0 +1,14 @@
+﻿@model ICollection<Project>
+
+@foreach (Project project in Model)
+{
+    <a class="tile icon double bg-color-green" href="@Url.Action("Details", "Projects", new { id = project.Id, area = "Master" })">
+        <div class="tile-content">
+            <i class="icon-rocket"></i>
+        </div>
+        <div class="brand bg-color-red">
+            <p class="text">@project.Title</p>
+        </div>
+    </a>
+}
+

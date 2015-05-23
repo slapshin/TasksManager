@@ -1,6 +1,6 @@
-﻿using Iesi.Collections.Generic;
-using Model.Common;
+﻿using Model.Common;
 using System;
+using System.Collections.Generic;
 
 namespace Model
 {
@@ -8,7 +8,7 @@ namespace Model
     {
         #region fields
 
-        private ISet<File> files = new HashedSet<File>();
+        private ISet<File> files = new HashSet<File>();
 
         #endregion fields
 

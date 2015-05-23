@@ -1,0 +1,44 @@
+﻿@model PageableData<Project>
+
+@{
+    ViewBag.Title = "Управление проектами";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/admin")
+}
+
+<div class="toolbar">
+    <a href="@Url.Action("Create", "Projects")" class="button" title="Добавить новый проект">
+        <i class="icon-plus-2"></i>
+    </a>
+</div>
+
+@if (Model.PageCount > 0)
+{ 
+    <table class="hovered">
+        <thead>
+            <tr>
+                <th class="button-col"></th>
+                <th class="button-col"></th>                
+                <th>Наименование</th>
+                <th>Мастер</th>                
+                <th class="button-col"></th>
+            </tr>
+        </thead>
+        @foreach (Project project in Model.List)
+        {
+            <tr>
+                <td>@Html.EditButton("Projects", project.Id)</td>
+                <td>@Html.DeleteButton("Projects", project.Id)</td>
+                <td>@project.Title</td>
+                <td>@project.Master.Login</td>
+                <td>@Html.Comment(project.Comment)</td>                
+            </tr>        
+        }
+    </table>
+    <div class="pagination">
+        @Html.PageLinks(Model.PageNo, Model.PageCount, x => Url.Action("Index", new { page = x }))
+    </div>
+}

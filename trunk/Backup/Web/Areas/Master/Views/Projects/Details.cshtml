@@ -1,0 +1,17 @@
+﻿@using Translation = Model.Meta.Enums.Translation;
+
+@model ProjectView
+
+@{
+    ViewBag.Title = Model.Title;
+    ViewBag.Header = ViewBag.Title + " " + Html.EditButton("Projects", Model.Id);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/master")
+}
+
+<p>
+    @{Html.RenderAction("Index", "Calls", new { project = Model.Id, page = ViewBag.Page });}
+</p>

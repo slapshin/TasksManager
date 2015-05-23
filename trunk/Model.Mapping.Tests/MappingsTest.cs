@@ -12,7 +12,7 @@ namespace Model.Mapping.Tests
     [TestClass]
     public class MappingsTest
     {
-        private const string DATABASE = "scrum";
+        private const string DATABASE = "tasks";
         private const string PASS = "develop";
         private const string SERVER = @"(local)\SQLEXPRESS";
         private const string USER = "develop";

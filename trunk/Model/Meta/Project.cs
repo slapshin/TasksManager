@@ -1,5 +1,5 @@
-﻿using Iesi.Collections.Generic;
-using Model.Common;
+﻿using Model.Common;
+using System.Collections.Generic;
 
 namespace Model
 {
@@ -7,10 +7,10 @@ namespace Model
     {
         #region fields
 
-        private ISet<Call> calls = new HashedSet<Call>();
-        private ISet<Claim> claims = new HashedSet<Claim>();
-        private ISet<User> executors = new HashedSet<User>();
-        private ISet<User> observers = new HashedSet<User>();
+        private ISet<Call> calls = new HashSet<Call>();
+        private ISet<Claim> claims = new HashSet<Claim>();
+        private ISet<User> executors = new HashSet<User>();
+        private ISet<User> observers = new HashSet<User>();
 
         #endregion fields
 

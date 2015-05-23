@@ -1,0 +1,20 @@
+﻿@using Translation = Model.Meta.Enums.Translation
+
+@model ICollection<string>
+
+<h2>Наблюдатели
+    @Html.ActionLink(" ", "ObserversManagement", new { id = ViewBag.ProjectId }, new { @class = "icon-pencil", title = "Редактировать" })
+</h2>
+
+@if (Model.Count > 0)
+{         
+    <ul class="unstyled">
+        @foreach (string exec in Model)
+        { 
+            <li>
+                <i class="icon-user" style="margin-right: 5px"></i>@exec
+            </li>            
+        }
+    </ul>                
+}
+

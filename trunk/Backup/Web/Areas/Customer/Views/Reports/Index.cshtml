@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Отчеты";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="clearfix">
+    <a class="tile icon double bg-color-blue" href="@Url.Action("ProjectsReport", "Reports", new { area = "Customer" }, null)">
+        <div class="tile-content">
+            <i class="icon-briefcase-2"></i>
+            <div class="brand bg-color-blue">
+                <span class="name">Задания в разрезе проектов</span>
+            </div>
+        </div>
+    </a>
+    <a class="tile icon double bg-color-blue" href="@Url.Action("ExecutorsReport", "Reports", new { area = "Customer" }, null)">
+        <div class="tile-content">
+            <i class="icon-user"></i>
+            <div class="brand bg-color-blue">
+                <span class="name">Задания в разрезе исполнителей</span>
+            </div>
+        </div>
+    </a>
+</div>

@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Kanban";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Kanban доска";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/executor")
+}
+
+@Html.Hidden("TasksUrl", Url.Action("Tasks", "Tasks"))
+@Html.Hidden("SetStatusUrl", Url.Action("SetStatus", "Tasks"))
+
+<div class="toolbar">
+    <a href="@Url.Action("Index", "Tasks")" class="button" title="Обычный вид">
+        <i class="icon-list"></i>
+    </a>
+</div>
+
+<div id="TasksKanbanBoard"></div>

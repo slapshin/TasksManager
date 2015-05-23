@@ -1,0 +1,56 @@
+﻿@using Translation = Model.Meta.Enums.Translation
+
+@model PageableData<Claim>
+
+@{
+    ViewBag.Title = "Мои требованиями";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/customer")
+}
+
+<div class="toolbar">
+    <a href="@Url.Action("Create", "Claims")" class="button" title="Добавить новое требование">
+        <i class="icon-plus-2"></i>
+    </a>
+</div>
+
+@if (Model.PageCount > 0)
+{ 
+    @Html.Hidden("ReturnCallUrl", Url.Action("ReturnCall", "Claims"))
+    @Html.Hidden("SetCallCheckedUrl", Url.Action("SetCallChecked", "Claims"))    
+    
+    <table class="hovered">
+        <thead>
+            <tr>
+                <th class="button-col"></th>
+                <th class="button-col"></th>
+                <td>Заголовок</td>
+                <td>Дата создания</td>
+                <td>Тип</td>
+                <td>Приоритет</td>
+                <td>Состояние</td>
+                <th class="button-col"></th>
+            </tr>
+        </thead>
+        @foreach (Claim claim in Model.List)
+        {
+            string cl = claim.InArchive ? "in-archive" : "";
+            <tr class="@cl">
+                <td>@Html.EditButton("Claims", claim.Id)</td>
+                <td>@Html.DeleteButton("Claims", claim.Id)</td>
+                <td>@claim.Title</td>
+                <td>@Html.Date(claim.Created)</td>
+                <td>@Translation.TaskType.ResourceManager.GetString(claim.Type.ToString())</td>
+                <td>@Html.Priority(claim.Priority)</td>
+                <td>@Html.Partial("StatusPartial", claim)</td>
+                <td>@Html.Comment(claim.Comment)</td>
+            </tr>        
+        }
+    </table>
+    <div class="pagination">
+        @Html.PageLinks(Model.PageNo, Model.PageCount, x => Url.Action("Index", new { page = x }))
+    </div>
+}

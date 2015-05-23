@@ -1,0 +1,138 @@
+﻿@using Translation = Model.Meta.Enums.Translation;
+
+@model User
+
+@{
+    ViewBag.Title = "Главное меню";
+}
+
+@section scripts{
+    <script>
+        $().ready(function () {
+            $('.main-menu > li:first a').click();
+        });
+    </script>
+}
+
+@helper rolePageControlTab(bool condition, UserRole role)
+{
+    if (condition)
+    {
+        string roleStr = role.ToString();
+    <li>
+        <a href="#@roleStr">@Translation.UserRole.ResourceManager.GetString(roleStr)</a>
+    </li>
+    }
+}
+
+<div class="page-control" data-role="page-control">
+    <span class="menu-pull"></span>
+    <div class="menu-pull-bar"></div>
+    <ul class="main-menu">
+        @rolePageControlTab(Model.IsAdmin, UserRole.Admin)
+        @rolePageControlTab(Model.IsCustomer, UserRole.Customer)
+        @rolePageControlTab(Model.IsRouter, UserRole.Router)
+        @rolePageControlTab(Model.IsMaster, UserRole.Master)
+        @rolePageControlTab(Model.IsExecutor, UserRole.Executor)
+    </ul>
+    <div class="frames">
+        @if (Model.IsAdmin)
+        {
+            <div id="Admin" class="clearfix frame">
+                <a class="tile icon double bg-color-blue" href="@Url.Action("Index", "Users", new { area = "Admin" }, null)">
+                    <div class="tile-content">
+                        <i class="icon-user"></i>
+                        <div class="brand bg-color-blue">
+                            <span class="name">Управление пользователями</span>
+                        </div>
+                    </div>
+                </a>
+                <a class="tile icon double bg-color-blue" href="@Url.Action("Index", "Projects", new { area = "Admin" }, null)">
+                    <div class="tile-content">
+                        <i class="icon-briefcase-2"></i>
+                        <div class="brand bg-color-blue">
+                            <span class="name">Проекты системы</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (Model.IsCustomer)
+        {
+            <div id="Customer" class="clearfix frame">
+                <a class="tile icon double bg-color-red" href="@Url.Action("Index", "Claims", new { area = "Customer" }, null)">
+                    <div class="tile-content">
+                        <i class="icon-broadcast"></i>
+                        <div class="brand bg-color-blue">
+                            <span class="name">Мои требования</span>
+                        </div>
+                    </div>
+                </a>
+                <a class="tile icon double bg-color-red" href="@Url.Action("Index", "Reports", new { area = "Customer" }, null)">
+                    <div class="tile-content">
+                        <i class="icon-chart-alt"></i>
+                        <div class="brand bg-color-blue">
+                            <span class="name">Отчеты</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+        @if (Model.IsRouter)
+        {
+            int noAssigned = ViewUtils.ClaimsWithoutProjectsCount();
+            <div id="Router" class="clearfix frame">
+                <a class="tile icon double bg-color-yellow" href="@Url.Action("Index", "Claims", new { area = "Router" }, null)">
+                    <div class="tile-content">
+                        <i class="icon-basket"></i>
+                        <div class="brand bg-color-blue">
+                            <span class="name">Песочница</span>
+                            @if (noAssigned > 0)
+                            {
+                                <div class="badge bg-color-red">@noAssigned</div>
+                            }
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+
+        @if (Model.IsMaster)
+        {
+            int noAssigned = ViewUtils.ClaimsOfMasterWithoutCalls(Model);
+            <div id="Master" class="clearfix frame">
+                <div class="clearfix">
+                    <a class="tile icon double bg-color-green" href="@Url.Action("Index", "Claims", new { area = "Master" }, null)">
+                        <div class="tile-content">
+                            <i class="icon-lightning"></i>
+                            <div class="brand bg-color-blue">
+                                <span class="name">Требования заказчика</span>
+                                @if (noAssigned > 0)
+                                {
+                                    <div class="badge bg-color-red">@noAssigned</div>
+                                }
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                @{
+                                Html.RenderAction("CurrentMasterProjects", "Helper");
+                }
+            </div>
+        }
+
+        @if (Model.IsExecutor)
+        {
+            <div id="Executor" class="clearfix frame">
+                <a class="tile icon double bg-color-teal" href="@Url.Action("Index", "Tasks", new { area = "Executor" }, null)">
+                    <div class="tile-content">
+                        <i class="icon-target-2"></i>
+                        <div class="brand bg-color-blue">
+                            <span class="name">Мои задания</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>
