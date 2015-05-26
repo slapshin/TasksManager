@@ -15,7 +15,7 @@ namespace Web
 
     public class MvcApplication : HttpApplication
     {
-        private static Logger logger = LogManager.GetLogger(Consts.LOGGER_NAME);
+        private static Logger logger = LogManager.GetLogger(Consts.LoggerName);
 
         public MvcApplication()
             : base()

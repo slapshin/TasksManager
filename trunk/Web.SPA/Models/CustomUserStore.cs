@@ -9,7 +9,14 @@ using Web.Common.Repository;
 
 namespace Web.SPA.Models
 {
-    public class CustomUserStore<TUser> : IUserLoginStore<TUser>, IUserClaimStore<TUser>, IUserRoleStore<TUser>, IUserPasswordStore<TUser>, IUserSecurityStampStore<TUser>, IUserStore<TUser>, IDisposable where TUser : AuthUser
+    public class CustomUserStore<TUser> : IUserLoginStore<TUser>,
+                                            IUserClaimStore<TUser>,
+                                            IUserRoleStore<TUser>,
+                                            IUserPasswordStore<TUser>,
+                                            IUserSecurityStampStore<TUser>,
+                                            IUserStore<TUser>,
+                                            IDisposable
+                                                where TUser : AuthUser
     {
         private ISessionProvider Provider
         {
@@ -179,8 +186,7 @@ namespace Web.SPA.Models
             {
                 using (ISession session = Provider.OpenSession())
                 {
-                    string pass = session.Get<Model.User>(Guid.Parse(user.Id)).Password;
-                    return pass;
+                    return session.Get<Model.User>(Guid.Parse(user.Id)).Password;
                 }
             });
         }

@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
-using CustomTranslation = Model.Meta.Enums.Translation;
+using CustomTranslation = Model.Enums.Translation;
 
 namespace Web.Utils
 {

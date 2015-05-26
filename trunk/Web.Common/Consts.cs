@@ -2,7 +2,7 @@
 {
     public static class Consts
     {
-        public const string LOGGER_NAME = "TasksManagerLogger";        
-        public const string AUTH_COOKIE_NAME = "__AUTH_COOKIE";
+        public const string LoggerName = "TasksManagerLogger";
+        public const string AuthCookieName = "__AUTH_COOKIE";
     }
 }

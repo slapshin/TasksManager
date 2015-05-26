@@ -9,34 +9,27 @@ namespace Web.Common.Repository
 {
     public class SessionProvider : ISessionProvider, IDisposable
     {
-        private static Logger logger = LogManager.GetLogger(Consts.LOGGER_NAME);
+        private static Logger logger = LogManager.GetLogger(Consts.LoggerName);
 
         private ISessionFactory factory;
 
-        public void Init()
+        public SessionProvider()
         {
-            try
-            {
-                DatabaseConfiguration config = DatabaseConfiguration.GetConfiguration();
+            var config = DatabaseConfiguration.GetConfiguration();
 
-                logger.Info("Создание фабрики сессий баз данных [server: {0}; database: {1}, user: {2}]", config.Server, config.Database, config.User);
-                factory = Fluently.Configure().Database(
-                    MsSqlConfiguration.MsSql2008.ConnectionString(builder =>
-                    {
-                        builder.Username(config.User)
-                                .Password(config.Password)
-                                .Server(config.Server)
-                                .Database(config.Database);
-                    }).ShowSql())
-                    .Mappings(m => m.FluentMappings.AddFromAssemblyOf<UserMap>())
-                    .BuildSessionFactory();
+            logger.Info("Создание фабрики сессий баз данных [server: {0}; database: {1}, user: {2}]", config.Server, config.Database, config.User);
+            factory = Fluently.Configure().Database(
+                MsSqlConfiguration.MsSql2008.ConnectionString(builder =>
+                {
+                    builder.Username(config.User)
+                            .Password(config.Password)
+                            .Server(config.Server)
+                            .Database(config.Database);
+                }).ShowSql())
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<UserMap>())
+                .BuildSessionFactory();
 
-                logger.Info("Фабрика сессий баз данных создана");
-            }
-            catch (Exception e)
-            {
-                logger.Error("Ошибка при созданни фабрики сессий: {0}", e.InnerException.ToString());
-            }
+            logger.Info("Фабрика сессий баз данных создана");
         }
 
         public ISession OpenSession()

@@ -1,4 +1,4 @@
-﻿@using Translation = Model.Meta.Enums.Translation
+﻿@using Translation = Model.Enums.Translation
 
 @model PageableData<Claim>
 
@@ -18,10 +18,10 @@
 </div>
 
 @if (Model.PageCount > 0)
-{ 
+{
     @Html.Hidden("ReturnCallUrl", Url.Action("ReturnCall", "Claims"))
-    @Html.Hidden("SetCallCheckedUrl", Url.Action("SetCallChecked", "Claims"))    
-    
+    @Html.Hidden("SetCallCheckedUrl", Url.Action("SetCallChecked", "Claims"))
+
     <table class="hovered">
         <thead>
             <tr>
@@ -47,7 +47,7 @@
                 <td>@Html.Priority(claim.Priority)</td>
                 <td>@Html.Partial("StatusPartial", claim)</td>
                 <td>@Html.Comment(claim.Comment)</td>
-            </tr>        
+            </tr>
         }
     </table>
     <div class="pagination">

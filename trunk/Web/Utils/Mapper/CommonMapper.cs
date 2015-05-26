@@ -24,6 +24,7 @@ namespace Web.Utils.Mapper
             AutoMapper.Mapper.CreateMap<Claim, ClaimView>()
                                 .ForMember(m => m.Project_Id, opt => opt.MapFrom(s => s.Project.Id))
                                 .ForMember(m => m.Project_Title, opt => opt.MapFrom(s => s.Project.Title))
+                                .ForMember(m => m.Customer_Id, opt => opt.MapFrom(s => s.Customer.Id))
                                 .ForMember(m => m.Customer_Login, opt => opt.MapFrom(s => s.Customer.Login))
                                 .ForMember(m => m.Customer_Name, opt => opt.MapFrom(s => s.Customer.Name))
                                 .ForMember(m => m.Customer_Surname, opt => opt.MapFrom(s => s.Customer.Surname));

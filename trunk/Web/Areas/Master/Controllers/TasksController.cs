@@ -15,7 +15,7 @@ namespace Web.Areas.Master.Controllers
 
         public ActionResult Index(int call, ShowedTasksType showedTasks = ShowedTasksType.All, int page = 1)
         {
-            Call obj = GetEntity<Call>(call);
+            var obj = GetEntity<Call>(call);
             ViewBag.ShowedTasksType = showedTasks;
             ViewBag.CallId = obj.Id;
             ViewBag.ProjectId = obj.Project.Id;
@@ -37,7 +37,7 @@ namespace Web.Areas.Master.Controllers
 
         public ActionResult Create(int call)
         {
-            Call obj = GetEntity<Call>(call);
+            var obj = GetEntity<Call>(call);
             ViewBag.Executors = obj.Project.Executors;
             return View("Edit", new TaskView()
                 {
@@ -47,7 +47,7 @@ namespace Web.Areas.Master.Controllers
 
         public ActionResult Edit(Guid id)
         {
-            Task task = GetEntity<Task>(id);
+            var task = GetEntity<Task>(id);
             ViewBag.Executors = task.Call.Project.Executors;
             return View(ModelMapper.Map<Task, TaskView>(task));
         }
@@ -57,7 +57,7 @@ namespace Web.Areas.Master.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (ITransaction trans = DbSession.BeginTransaction())
+                using (var trans = DbSession.BeginTransaction())
                 {
                     Task task = null;
                     if (view.Id.HasValue)
@@ -94,7 +94,7 @@ namespace Web.Areas.Master.Controllers
         {
             try
             {
-                using (ITransaction transaction = DbSession.BeginTransaction())
+                using (var transaction = DbSession.BeginTransaction())
                 {
                     GetEntity<Task>(id).SetStatus(status);
                     transaction.Commit();

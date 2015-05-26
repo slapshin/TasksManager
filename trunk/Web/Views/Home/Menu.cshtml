@@ -1,4 +1,4 @@
-﻿@using Translation = Model.Meta.Enums.Translation;
+﻿@using Translation = Model.Enums.Translation;
 
 @model User
 
@@ -19,9 +19,9 @@
     if (condition)
     {
         string roleStr = role.ToString();
-    <li>
-        <a href="#@roleStr">@Translation.UserRole.ResourceManager.GetString(roleStr)</a>
-    </li>
+        <li>
+            <a href="#@roleStr">@Translation.UserRole.ResourceManager.GetString(roleStr)</a>
+        </li>
     }
 }
 
@@ -116,7 +116,7 @@
                     </a>
                 </div>
                 @{
-                                Html.RenderAction("CurrentMasterProjects", "Helper");
+            Html.RenderAction("CurrentMasterProjects", "Helper");
                 }
             </div>
         }

@@ -1,9 +1,9 @@
-﻿@using Translation = Model.Meta.Enums.Translation
+﻿@using Translation = Model.Enums.Translation
 
 @model ClaimView
 
 @{
-    ViewBag.Title = string.Format("{0} требования", Model.Id.HasValue ? "Редактирование" : "Создание");
+    ViewBag.Title = String.Format("{0} требования", Model.Id == Guid.Empty ? "Редактирование" : "Создание");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -23,6 +23,10 @@
             <h4>Заголовок</h4>
             <div class="input-control text">
                 @Html.EditorFor(model => model.Title)
+            </div>
+            <h4>Заказчик</h4>
+            <div class="input-control text">
+                @Html.DropDownListFor(model => model.Customer_Id, ViewUtils.UserSelectList(UserRole.Master, Model.Customer_Id))
             </div>
             <h4>Тип</h4>
             <div class="input-control text">

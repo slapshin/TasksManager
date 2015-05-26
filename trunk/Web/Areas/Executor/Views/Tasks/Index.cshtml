@@ -1,4 +1,4 @@
-﻿@using Translation = Model.Meta.Enums.Translation
+﻿@using Translation = Model.Enums.Translation
 
 @model PageableData<Task>
 
@@ -48,7 +48,7 @@
             <td>@Html.Priority(task.Priority)</td>
             <td>@Html.DropDownList("taskStatus", task.Status.EnumToSelectList<TaskStatus>(Translation.TaskStatus.ResourceManager), new { @class = "set-status", data_id = @task.Id })</td>
             <td>@Html.Comment(task.Comment)</td>
-        </tr>        
+        </tr>
     }
 </table>
 <div class="pagination">

@@ -29,8 +29,8 @@ namespace Web.Areas.Master.Controllers
             {
                 using (ITransaction trans = DbSession.BeginTransaction())
                 {
-                    Project project = GetEntity<Project>(projectView.Id.Value);
-                    project = ModelMapper.Map<ProjectView, Project>(projectView, project);
+                    var project = GetEntity<Project>(projectView.Id.Value);
+                    project = ModelMapper.Map(projectView, project);
                     DbSession.SaveOrUpdate(project);
                     trans.Commit();
                     return RedirectToAction("Edit", new { id = projectView.Id });
@@ -78,7 +78,7 @@ namespace Web.Areas.Master.Controllers
         public ActionResult AvailableExecutors(Guid id)
         {
             // TO DO плохой запрос
-            Project project = LoadEntity<Project>(id);
+            var project = LoadEntity<Project>(id);
             var users = DbSession.CreateCriteria<User>()
                             .List<User>()
                             .Where(u => u.IsExecutor && !project.Executors.Contains(u))
@@ -91,7 +91,7 @@ namespace Web.Areas.Master.Controllers
         {
             try
             {
-                using (ITransaction transaction = DbSession.BeginTransaction())
+                using (var transaction = DbSession.BeginTransaction())
                 {
                     GetEntity<Project>(id, string.Format("Проект {0} не найден", id)).RemoverExecutor(LoadEntity<User>(exec));
                     transaction.Commit();
@@ -109,7 +109,7 @@ namespace Web.Areas.Master.Controllers
         {
             try
             {
-                using (ITransaction transaction = DbSession.BeginTransaction())
+                using (var transaction = DbSession.BeginTransaction())
                 {
                     GetEntity<Project>(id, "Проект не найден").AddExecutor(GetEntity<User>(exec, "Пользователь не найден"));
                     transaction.Commit();
@@ -150,7 +150,7 @@ namespace Web.Areas.Master.Controllers
         {
             try
             {
-                using (ITransaction transaction = DbSession.BeginTransaction())
+                using (var transaction = DbSession.BeginTransaction())
                 {
                     GetEntity<Project>(id, string.Format("Проект {0} не найден", id)).RemoverObserver(LoadEntity<User>(observer));
                     transaction.Commit();
@@ -168,7 +168,7 @@ namespace Web.Areas.Master.Controllers
         {
             try
             {
-                using (ITransaction transaction = DbSession.BeginTransaction())
+                using (var transaction = DbSession.BeginTransaction())
                 {
                     GetEntity<Project>(id, "Проект не найден").AddObserver(GetEntity<User>(observer, "Пользователь не найден"));
                     transaction.Commit();

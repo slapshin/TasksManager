@@ -10,7 +10,7 @@ namespace Web.Common.Auth.Providers
         {
             try
             {
-                return FormsAuthentication.Decrypt(httpContext.Request.Cookies.Get(Consts.AUTH_COOKIE_NAME).Value).Name;
+                return FormsAuthentication.Decrypt(httpContext.Request.Cookies.Get(Consts.AuthCookieName).Value).Name;
             }
             catch
             {

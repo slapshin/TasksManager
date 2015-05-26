@@ -17,8 +17,8 @@ namespace Web.Areas.Master.Controllers
         private void ClaimFilter(ICriteria criteria)
         {
             criteria.CreateAlias("Project", "project")
-            .Add(Expression.Eq("project.Master", CurrentUser))
-            .Add(Expression.Eq("InArchive", false));
+                    .Add(Expression.Eq("project.Master", CurrentUser))
+                    .Add(Expression.Eq("InArchive", false));
         }
 
         [HttpPost]

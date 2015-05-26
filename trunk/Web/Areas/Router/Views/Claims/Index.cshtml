@@ -1,4 +1,4 @@
-﻿@using Translation = Model.Meta.Enums.Translation
+﻿@using Translation = Model.Enums.Translation
 
 @{
     ViewBag.Title = "Песочница";
@@ -9,14 +9,13 @@
     @Scripts.Render("~/bundles/router")
 }
 
-
 @model PageableData<Claim>
 
 @if (Model.PageCount > 0)
-{ 
-    @Html.Hidden("ProjectstUrl", Url.Action("Projects", "Claims"))    
-    @Html.Hidden("AssignProjectUrl", Url.Action("AssignProject", "Claims"))    
-                
+{
+    @Html.Hidden("ProjectstUrl", Url.Action("Projects", "Claims"))
+    @Html.Hidden("AssignProjectUrl", Url.Action("AssignProject", "Claims"))
+
     <table class="hovered">
         <thead>
             <tr>
@@ -25,6 +24,7 @@
                 <td>Дата создания</td>
                 <td>Тип</td>
                 <td>Приоритет</td>
+                <td>Заказчик</td>
                 <th class="button-col"></th>
             </tr>
         </thead>
@@ -36,8 +36,9 @@
                 <td>@Html.Date(claim.Created)</td>
                 <td>@Translation.TaskType.ResourceManager.GetString(claim.Type.ToString())</td>
                 <td>@Html.Priority(claim.Priority)</td>
+                <td>@claim.Customer.ToString()</td>
                 <td>@Html.Comment(claim.Comment)</td>
-            </tr>        
+            </tr>
         }
     </table>
     <div class="pagination">

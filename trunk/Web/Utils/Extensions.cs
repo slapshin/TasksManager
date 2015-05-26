@@ -4,7 +4,7 @@ using System.Linq;
 using System.Resources;
 using System.Text;
 using System.Web.Mvc;
-using UserRoleTranslation = Model.Meta.Enums.Translation.UserRole;
+using UserRoleTranslation = Model.Enums.Translation.UserRole;
 
 namespace Web.Utils
 {

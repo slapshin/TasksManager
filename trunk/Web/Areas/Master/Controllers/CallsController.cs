@@ -14,7 +14,10 @@ namespace Web.Areas.Master.Controllers
         public ActionResult Index(Guid project, int page = 1)
         {
             ViewBag.ProjectId = project;
-            return PartialView(new PageableData<Call>(DbSession, page, null, ((criteria) => criteria.Add(Expression.Eq("Project", DbSession.Load<Project>(project))))));
+            return PartialView(new PageableData<Call>(DbSession,
+                                                page,
+                                                criteria => criteria.AddOrder(Order.Desc("Created")),
+                                                criteria => criteria.Add(Expression.Eq("Project", DbSession.Load<Project>(project)))));
         }
 
         public ActionResult Kanban(Guid project)

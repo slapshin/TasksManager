@@ -1,13 +1,12 @@
-﻿using Model;
+﻿using Microsoft.Practices.Unity;
+using Model;
 using Model.Common;
 using NHibernate;
-using Ninject;
 using System;
 using System.Web.Mvc;
 using Web.Common.Auth;
 using Web.Common.Mapper;
 using Web.Common.Repository;
-using Web.Utils.Mapper;
 
 namespace Web.Utils
 {
@@ -20,13 +19,13 @@ namespace Web.Utils
         {
         }
 
-        [Inject]
+        [Dependency]
         public ISessionProvider Provider { get; set; }
 
-        [Inject]
+        [Dependency]
         public IAuthentication Auth { get; set; }
 
-        [Inject]
+        [Dependency]
         public IMapper ModelMapper { get; set; }
 
         public ISession DbSession

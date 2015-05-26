@@ -22,7 +22,10 @@ namespace Web.Areas.Customer.Controllers
 
         public ActionResult Create()
         {
-            return View("Edit", new ClaimView());
+            return View("Edit", new ClaimView()
+            {
+                Customer_Id = CurrentUser.Id
+            });
         }
 
         public ActionResult Edit(Guid id)
@@ -46,12 +49,13 @@ namespace Web.Areas.Customer.Controllers
                     {
                         claim = new Claim()
                         {
-                            Customer = CurrentUser,
                             Created = DateTime.Now
                         };
                     }
 
                     claim = ModelMapper.Map<ClaimView, Claim>(claimView, claim);
+                    claim.Customer = LoadEntity<User>(claimView.Customer_Id);
+
                     DbSession.SaveOrUpdate(claim);
                     trans.Commit();
                     return RedirectToAction("Index");

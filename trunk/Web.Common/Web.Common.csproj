@@ -106,14 +106,11 @@
     <Compile Include="Auth\UserIndentity.cs" />
     <Compile Include="Auth\UserProvider.cs" />
     <Compile Include="Consts.cs" />
-    <Compile Include="IIoCTest.cs" />
-    <Compile Include="IoCTest.cs" />
     <Compile Include="Mapper\IMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\DatabaseConfiguration.cs" />
     <Compile Include="Repository\ISessionProvider.cs" />
     <Compile Include="Repository\SessionProvider.cs" />
-    <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

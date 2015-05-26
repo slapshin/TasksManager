@@ -2,6 +2,7 @@
 using Microsoft.Practices.Unity;
 using Model;
 using NHibernate;
+using NLog;
 using System;
 using System.Security.Principal;
 using System.Web;
@@ -13,7 +14,7 @@ namespace Web.Common.Auth
 {
     public class CustomAuthentication : IAuthentication
     {
-        private static NLog.Logger logger = NLog.LogManager.GetLogger(Consts.LOGGER_NAME);
+        private static Logger logger = LogManager.GetLogger(Consts.LoggerName);
 
         private IPrincipal currentUser = null;
 
@@ -68,7 +69,7 @@ namespace Web.Common.Auth
 
         public void LogOut()
         {
-            var httpCookie = HttpContext.Response.Cookies[Consts.AUTH_COOKIE_NAME];
+            var httpCookie = HttpContext.Response.Cookies[Consts.AuthCookieName];
             if (httpCookie != null)
             {
                 httpCookie.Value = string.Empty;
@@ -103,7 +104,7 @@ namespace Web.Common.Auth
         private void CreateCookie(string login, bool isPersistent = false)
         {
             logger.Info("CreateCookie. Name: " + login);
-            HttpContext.Response.Cookies.Set(new HttpCookie(Consts.AUTH_COOKIE_NAME)
+            HttpContext.Response.Cookies.Set(new HttpCookie(Consts.AuthCookieName)
             {
                 Value = FormsAuthentication.Encrypt(new FormsAuthenticationTicket(login, isPersistent, int.MaxValue)),
                 Expires = DateTime.Now.AddYears(1)

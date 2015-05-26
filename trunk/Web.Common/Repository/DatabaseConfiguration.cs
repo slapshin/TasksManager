@@ -4,45 +4,45 @@ namespace Web.Common.Repository
 {
     public class DatabaseConfiguration : ConfigurationSection
     {
-        private const string SECTION_NAME = "databaseConfig";
-        private const string SERVER = "server";
-        private const string DATABASE = "database";
-        private const string USER = "user";
-        private const string PASSWORD = "password";
-        private const string INTEGRATED = "integrated";
-        private const string TYPE = "type";
+        private const string SectionName = "databaseConfig";
+        private const string ServerSettingName = "server";
+        private const string DatabaseSettingName = "database";
+        private const string UserSettingName = "user";
+        private const string PasswordSettingName = "password";
+        private const string IntegratedSettingName = "integrated";
+        private const string TypeSettingName = "type";
 
-        [ConfigurationProperty(SERVER, IsRequired = true)]
+        [ConfigurationProperty(ServerSettingName, IsRequired = true)]
         public string Server
         {
-            get { return this[SERVER] as string; }
-            set { this[SERVER] = value; }
+            get { return this[ServerSettingName] as string; }
+            set { this[ServerSettingName] = value; }
         }
 
-        [ConfigurationProperty(DATABASE, IsRequired = false)]
+        [ConfigurationProperty(DatabaseSettingName, IsRequired = false)]
         public string Database
         {
-            get { return this[DATABASE] as string; }
-            set { this[DATABASE] = value; }
+            get { return this[DatabaseSettingName] as string; }
+            set { this[DatabaseSettingName] = value; }
         }
 
-        [ConfigurationProperty(USER, IsRequired = false)]
+        [ConfigurationProperty(UserSettingName, IsRequired = false)]
         public string User
         {
-            get { return this[USER] as string; }
-            set { this[USER] = value; }
+            get { return this[UserSettingName] as string; }
+            set { this[UserSettingName] = value; }
         }
 
-        [ConfigurationProperty(PASSWORD, IsRequired = false)]
+        [ConfigurationProperty(PasswordSettingName, IsRequired = false)]
         public string Password
         {
-            get { return this[PASSWORD] as string; }
-            set { this[PASSWORD] = value; }
+            get { return this[PasswordSettingName] as string; }
+            set { this[PasswordSettingName] = value; }
         }
 
         public static DatabaseConfiguration GetConfiguration()
         {
-            return (DatabaseConfiguration)ConfigurationManager.GetSection(SECTION_NAME);
+            return (DatabaseConfiguration)ConfigurationManager.GetSection(SectionName);
         }
     }
 }

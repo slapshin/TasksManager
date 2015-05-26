@@ -15,6 +15,9 @@ namespace Web.Models
 
         public string Comment { get; set; }
 
+        [Required(ErrorMessage = "Укажите заказчика")]
+        public Guid Customer_Id { get; set; }
+
         public string Customer_Login { get; set; }
 
         public string Customer_Name { get; set; }

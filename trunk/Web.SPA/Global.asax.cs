@@ -10,7 +10,7 @@ namespace Web.SPA
 {
     public class MvcApplication : HttpApplication
     {
-        private static Logger logger = LogManager.GetLogger(Consts.LOGGER_NAME);
+        private static Logger logger = LogManager.GetLogger(Consts.LoggerName);
 
         protected void Application_Start()
         {
