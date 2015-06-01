@@ -23,6 +23,7 @@
                 <th>Заголовок</th>
                 <th>Дата создания</th>
                 <th>Проект</th>
+                <th>Заказчик</th>
                 <th>Тип</th>
                 <th>Приоритет</th>
                 <th>Статус</th>
@@ -44,6 +45,7 @@
                 <td>@claim.Title</td>
                 <td>@Html.Date(claim.Created)</td>
                 <td>@claim.Project.Title</td>
+                <td>@claim.Customer.ToString()</td>
                 <td>@Translation.TaskType.ResourceManager.GetString(claim.Type.ToString())</td>
                 <td>@Html.Priority(claim.Priority)</td>
                 <td>

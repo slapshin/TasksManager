@@ -55,26 +55,23 @@ namespace Web.Common.Repository
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
+            if (!disposing || factory == null)
             {
-                if (factory == null)
-                {
-                    return;
-                }
-
-                logger.Info("Закрытие фабрики сессий баз данных");
-
-                try
-                {
-                    factory.Dispose();
-                    factory = null;
-                }
-                catch
-                {
-                }
-
-                logger.Info("Фабрика сессий баз данных закрыта");
+                return;
             }
+
+            logger.Info("Закрытие фабрики сессий баз данных");
+
+            try
+            {
+                factory.Dispose();
+                factory = null;
+            }
+            catch
+            {
+            }
+
+            logger.Info("Фабрика сессий баз данных закрыта");
         }
     }
 }

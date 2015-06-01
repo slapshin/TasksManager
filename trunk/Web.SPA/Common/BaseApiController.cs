@@ -3,7 +3,6 @@ using Model.Common;
 using NHibernate;
 using System;
 using System.Web.Http;
-using Web.Common;
 using Web.Common.Mapper;
 using Web.Common.Repository;
 
@@ -46,9 +45,7 @@ namespace Web.SPA.Common
 
         protected void ExecuteInSession(Action<ISession> action)
         {
-            Test t = new Test();
-            t.Action();
-            using (ISession session = SessionProvider.OpenSession())
+            using (var session = SessionProvider.OpenSession())
             {
                 if (action != null)
                 {

@@ -8,9 +8,9 @@ namespace Common
     {
         public static string CreateMD5Hash(string source)
         {
-            using (MD5 md5Hash = MD5.Create())
+            using (var md5Hash = MD5.Create())
             {
-                byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(source));
+                var data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(source));
 
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < data.Length; i++)
@@ -23,7 +23,7 @@ namespace Common
 
         public static bool VerifyMD5Hash(string input, string hash)
         {
-            return StringComparer.OrdinalIgnoreCase.Compare(Helpers.CreateMD5Hash(input), hash) == 0;
+            return StringComparer.OrdinalIgnoreCase.Compare(CreateMD5Hash(input), hash) == 0;
         }
     }
 }
