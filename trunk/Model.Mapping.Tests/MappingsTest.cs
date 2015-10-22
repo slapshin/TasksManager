@@ -21,16 +21,16 @@ namespace Model.Mapping.Tests
         [TestMethod]
         public void Create100Calls()
         {
-            ISessionFactory factory = configuration.BuildSessionFactory();
+            var factory = configuration.BuildSessionFactory();
 
-            using (ISession session = factory.OpenSession())
-            using (ITransaction transaction = session.BeginTransaction())
+            using (var session = factory.OpenSession())
+            using (var transaction = session.BeginTransaction())
             {
-                User root = session.QueryOver<User>()
+                var root = session.QueryOver<User>()
                   .Where(u => u.Login == "root")
                   .SingleOrDefault();
 
-                Project project = new Project()
+                var project = new Project()
                 {
                     Title = "New project",
                     Master = root
@@ -39,7 +39,7 @@ namespace Model.Mapping.Tests
 
                 for (int i = 0; i < 100; i++)
                 {
-                    Call call = new Call()
+                    var call = new Call()
                     {
                         Title = "call_" + i,
                         Project = project,

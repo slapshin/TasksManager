@@ -28,6 +28,7 @@
                 <th class="button-col"></th>
                 <th class="button-col"></th>
                 <td>Заголовок</td>
+                <td>Проект</td>
                 <td>Дата создания</td>
                 <td>Тип</td>
                 <td>Приоритет</td>
@@ -35,13 +36,15 @@
                 <th class="button-col"></th>
             </tr>
         </thead>
-        @foreach (Claim claim in Model.List)
+        @foreach (var claim in Model.List)
         {
-            string cl = claim.InArchive ? "in-archive" : "";
+            var cl = claim.InArchive ? "in-archive" : "";
+            var project = claim.Project == null ? String.Empty : claim.Project.Title;
             <tr class="@cl">
                 <td>@Html.EditButton("Claims", claim.Id)</td>
                 <td>@Html.DeleteButton("Claims", claim.Id)</td>
                 <td>@claim.Title</td>
+                <td>@project</td>
                 <td>@Html.Date(claim.Created)</td>
                 <td>@Translation.TaskType.ResourceManager.GetString(claim.Type.ToString())</td>
                 <td>@Html.Priority(claim.Priority)</td>

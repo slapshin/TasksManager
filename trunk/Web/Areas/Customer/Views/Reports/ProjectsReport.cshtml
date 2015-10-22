@@ -13,14 +13,14 @@
 
 <div class="page-control projects-report" data-role="page-control">
     <ul>
-        @foreach (Project project in Model)
+        @foreach (var project in Model)
         { 
             <li><a href="#@project.Id" data-id="@project.Id">@project.Title</a></li>        
         }
     </ul>
 
     <div id="ReportBoard" class="frames">
-        @foreach (Project project in Model)
+        @foreach (var project in Model)
         { 
             <div class="frame" id="@project.Id"></div>                    
         }

@@ -23,8 +23,7 @@
     <thead>
         <tr>
             <th>Заголовок</th>
-            <th>Заявка</th>
-            <th>Проект</th>
+            <th>Заявка</th>            
             <th>Мастер проекта</th>
             <th>Дата создания</th>
             <th>Deadline</th>
@@ -39,8 +38,7 @@
         string cl = task.InArchive || task.Call.InArchive ? "in-archive" : "";
         <tr class="@cl">
             <td>@task.Title</td>
-            <td>@task.Call.Title</td>
-            <td>@task.Call.Project.Title</td>
+            <td>@String.Format("{0} ({1})", task.Call.Title, task.Call.Project.Title) </td>            
             <td>@task.Call.Project.Master.Login</td>
             <td>@Html.Date(task.Created)</td>
             <td>@Html.Deadline(task.Deadline)</td>

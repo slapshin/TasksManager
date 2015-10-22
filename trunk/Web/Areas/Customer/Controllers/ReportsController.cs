@@ -1,5 +1,4 @@
 ﻿using Model;
-using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,23 +16,21 @@ namespace Web.Areas.Customer.Controllers
 
         public ActionResult ProjectsReport()
         {
-            IList<Project> projects = DbSession.CreateCriteria<Project>()
-                .CreateCriteria("Observers")
-                .Add(Expression.Eq("Id", CurrentUser.Id))
-                .List<Project>();
-
-            return View(projects);
+            return View(DbSession.QueryOver<Project>()
+                        .JoinQueryOver<User>(p => p.Observers)
+                        .Where(o => o.Id == CurrentUser.Id)
+                        .List());
         }
 
         [HttpPost]
         public ActionResult ProjectsReport(Guid id)
         {
-            Project project = GetEntity<Project>(id);
-            IList<object> data = new List<object>();
-            foreach (Call call in project.Calls.Where(c => !c.InArchive))
+            var project = GetEntity<Project>(id);
+            var data = new List<object>();
+            foreach (var call in project.Calls.Where(c => !c.InArchive))
             {
-                IList<object> tasks = new List<object>();
-                foreach (Task task in call.Tasks.Where(t => !t.InArchive))
+                var tasks = new List<object>();
+                foreach (var task in call.Tasks.Where(t => !t.InArchive))
                 {
                     tasks.Add(new
                     {
